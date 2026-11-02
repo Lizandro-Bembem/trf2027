@@ -16,624 +16,154 @@
     <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- FontAwesome para Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root {
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8F9FA;
-            --bg-accent: #F4ECE1;
-            --text-main: #1C100C;
-            --text-muted: #665C58;
-            --brand-wine: #4A121A;
-            --brand-gold: #C5A880;
-            --brand-brown: #2D1115;
-            --border-color: #E2DDD9;
-        }
+        :root{--bg-primary:#FFFFFF;--bg-secondary:#F8F9FA;--bg-accent:#F4ECE1;--text-main:#1C100C;--text-muted:#665C58;--brand-wine:#4A121A;--brand-gold:#C5A880;--brand-brown:#2D1115;--border-color:#E2DDD9}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{font-family:'Montserrat',sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,.serif-title{font-family:'Cinzel',serif}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        .animate-fade{animation:fadeIn .6s ease-out forwards}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-color);z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 4%;padding-top:calc(1rem + env(safe-area-inset-top,0px));gap:.8rem}
+        .logo{font-size:1.1rem;font-weight:700;color:var(--brand-wine);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+        nav ul{display:flex;list-style:none;gap:1.5rem;align-items:center}
+        nav ul li a{text-decoration:none;color:var(--text-main);font-weight:500;font-size:.9rem;transition:color .3s}
+        nav ul li a:hover,nav ul li a.active{color:var(--brand-wine);font-weight:600}
+        .mobile-only{display:none}
+        .menu-toggle{display:none;background:var(--bg-accent);border:1px solid var(--brand-gold);color:var(--brand-wine);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1rem}
+        .header-actions{display:flex;gap:.5rem;align-items:center;position:relative}
+        .btn-social{background:var(--bg-secondary);color:var(--brand-wine);border:1px solid var(--border-color);padding:.5rem .8rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.85rem;display:inline-flex;align-items:center;gap:.4rem;transition:all .3s}
+        .btn-social:hover{border-color:var(--brand-wine)}
+        .btn-auth{background:var(--brand-wine);color:#fff;padding:.5rem .9rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.85rem;border:none;cursor:pointer;transition:background .3s;font-family:inherit;white-space:nowrap}
+        .btn-auth:hover{background:var(--brand-brown)}
+        .btn-auth.gold{background:var(--brand-gold);color:var(--brand-brown)}
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        .user-menu-container{position:relative;display:inline-block}
+        .user-greeting-btn{font-weight:700;color:var(--brand-wine);font-size:.9rem;font-family:inherit;background:var(--bg-accent);border:1px solid var(--brand-gold);padding:.4rem 1rem;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:.5rem;max-width:160px}
+        .user-greeting-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .user-dropdown-menu{display:none;position:absolute;right:0;top:110%;background:#fff;min-width:140px;box-shadow:0 10px 25px rgba(0,0,0,.1);border:1px solid var(--border-color);border-radius:12px;z-index:1100;overflow:hidden}
+        .user-dropdown-menu button{width:100%;padding:.8rem 1rem;text-align:left;background:none;border:none;font-size:.9rem;font-weight:600;font-family:inherit;color:#c62828;cursor:pointer;transition:background .2s}
+        .user-dropdown-menu button:hover{background:#ffebee}
 
-        h1, h2, h3, .serif-title { font-family: 'Cinzel', serif; }
+        .cart-icon-btn{position:relative;background:var(--bg-accent);border:1px solid var(--brand-gold);color:var(--brand-wine);padding:.5rem .8rem;border-radius:20px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:inherit;display:inline-flex;align-items:center;gap:.4rem}
+        .cart-badge{background:var(--brand-wine);color:#fff;font-size:.7rem;padding:.1rem .4rem;border-radius:50px;min-width:1.2rem;text-align:center}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
-        .animate-fade { animation: fadeIn 0.6s ease-out forwards; }
+        .page-section{display:none;min-height:85vh;padding-top:6rem;padding-bottom:4rem}
+        .page-section.active-page{display:block;animation:fadeIn .5s ease-out forwards}
 
-        /* Header / Navbar */
-        header {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 4%;
-            padding-top: calc(1rem + env(safe-area-inset-top, 0px));
-            gap: 0.8rem;
-        }
+        .hero{padding:3rem 5%;background:linear-gradient(135deg,var(--bg-primary) 0%,var(--bg-accent) 100%);display:flex;align-items:center;justify-content:space-between;gap:3rem}
+        .hero-content{max-width:600px}
+        .hero-badge{display:inline-block;background:var(--brand-gold);color:var(--brand-brown);padding:.4rem 1rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase}
+        .hero h1{font-size:3.2rem;color:var(--brand-wine);line-height:1.1;margin-bottom:1.5rem}
+        .hero p{font-size:1.05rem;color:var(--text-muted);margin-bottom:2rem}
+        .btn-primary{background:var(--brand-wine);color:#fff;padding:.9rem 1.8rem;border-radius:50px;text-decoration:none;font-weight:600;font-family:inherit;font-size:.95rem;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 10px 20px rgba(74,18,26,.15);transition:transform .3s,background .3s;border:none;cursor:pointer}
+        .btn-primary:hover{background:var(--brand-brown);transform:translateY(-2px)}
+        .btn-primary:disabled{opacity:.6;cursor:wait;transform:none}
+        .hero-card-preview{background:#fff;padding:3.5rem 3rem;border-radius:32px;box-shadow:0 30px 60px rgba(74,18,26,.15);border:3px solid var(--brand-gold);text-align:center;max-width:450px;width:100%;animation:float 4s ease-in-out infinite}
+        .hero-card-preview h3{color:var(--brand-wine);margin-bottom:.8rem;font-size:2.3rem}
+        .hero-card-preview p{color:var(--text-main);font-size:1.25rem;font-weight:700;margin-bottom:1.5rem}
+        .badge-esgotado{font-size:1rem;color:var(--brand-wine);background:var(--bg-accent);padding:.6rem 1.2rem;border-radius:20px;font-weight:700;text-transform:uppercase;display:inline-block}
 
-        .logo {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--brand-wine);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
+        .nubank-banner{margin:3rem 5%;background:linear-gradient(135deg,var(--brand-wine) 0%,var(--brand-brown) 100%);border-radius:24px;padding:3.5rem 3rem;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:2rem;box-shadow:0 20px 40px rgba(0,0,0,.1)}
+        .nubank-banner h2{font-size:2.3rem;margin-bottom:1rem;color:var(--bg-accent)}
+        .nubank-banner p{color:rgba(255,255,255,.85);font-size:1.05rem;margin-bottom:1.5rem}
+        .banner-img-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:2.5rem;border-radius:20px;text-align:center;min-width:300px;font-weight:600;color:var(--bg-accent)}
 
-        nav ul { display: flex; list-style: none; gap: 1.5rem; align-items: center; }
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-        nav ul li a:hover, nav ul li a.active { color: var(--brand-wine); font-weight: 600; }
-        .mobile-only { display: none; }
+        .section-about{padding:3rem 5%;max-width:1200px;margin:0 auto}
+        .section-about .nubank-banner{margin-left:0;margin-right:0}
+        .eyebrow{color:var(--brand-gold);font-weight:700;text-transform:uppercase;font-size:.85rem}
+        .quem-somos-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:4rem}
+        .fotos-espalhadas{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .foto-card-mock{background:var(--bg-accent);border:1px solid var(--border-color);height:180px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--brand-wine);font-size:.9rem;text-align:center;padding:1rem}
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-top:2rem}
+        .feature-item{background:#fff;padding:2.5rem 2rem;border-radius:20px;border:1px solid var(--border-color);transition:transform .3s}
+        .feature-item:hover{transform:translateY(-5px)}
+        .feature-item i{font-size:2rem;color:var(--brand-gold);margin-bottom:1.2rem}
+        .feature-item h3{font-size:1.2rem;color:var(--brand-wine);margin-bottom:.8rem}
 
-        .menu-toggle {
-            display: none;
-            background: var(--bg-accent);
-            border: 1px solid var(--brand-gold);
-            color: var(--brand-wine);
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1rem;
-        }
+        .experiencia-content{max-width:1000px;margin:0 auto;padding:3rem 5%;text-align:center}
+        .experiencia-destaque-box{background:var(--bg-secondary);border:2px solid var(--brand-gold);border-radius:24px;padding:3rem;margin-top:2rem}
+        .experiencia-texto-visivel{font-size:1.2rem;color:var(--text-main);font-weight:600;line-height:1.8;margin-top:1rem;margin-bottom:2rem}
+        .foto-experiencia-grande{background:var(--brand-wine);color:var(--bg-accent);height:350px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.5rem;font-family:'Cinzel',serif;box-shadow:0 15px 35px rgba(74,18,26,.2)}
 
-        .header-actions { display: flex; gap: 0.5rem; align-items: center; position: relative; }
+        .section-store{padding:2rem 5%;max-width:1300px;margin:0 auto}
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-top:2rem}
+        .product-card{background:#fff;border:1px solid var(--border-color);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+        .product-img{background:var(--bg-secondary);height:220px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-weight:600;text-align:center;padding:1rem}
+        .product-info{padding:1.5rem;display:flex;flex-direction:column;flex:1}
+        .product-info h3{font-size:1.1rem;color:var(--text-main);margin-bottom:.5rem}
+        .product-price{font-size:1.2rem;font-weight:700;color:var(--brand-wine);margin-bottom:1.2rem}
+        .qty-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:1rem}
+        .qty-row label{font-size:.8rem;font-weight:600;color:var(--text-muted)}
+        .qty-input{width:84px;text-align:center;padding:.5rem;border:1px solid var(--brand-wine);border-radius:10px;font-size:16px;font-weight:700;font-family:inherit;color:var(--brand-wine);background:#fff;outline:none}
+        .qty-input:focus{box-shadow:0 0 0 2px var(--brand-gold)}
+        .product-buttons{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:auto}
+        .btn-add-cart{background:var(--bg-secondary);color:var(--brand-wine);border:1px solid var(--brand-wine);padding:.7rem .5rem;border-radius:10px;font-size:.8rem;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s;text-align:center}
+        .btn-add-cart:hover{background:var(--bg-accent)}
+        .btn-buy-now{background:var(--brand-wine);color:#fff;border:none;padding:.7rem .5rem;border-radius:10px;font-size:.8rem;font-weight:600;font-family:inherit;cursor:pointer;transition:background .3s;text-align:center}
+        .btn-buy-now:hover{background:var(--brand-brown)}
 
-        .btn-social {
-            background-color: var(--bg-secondary);
-            color: var(--brand-wine);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 0.8rem;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: all 0.3s;
-        }
-        .btn-social:hover { border-color: var(--brand-wine); }
+        .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);backdrop-filter:blur(5px);display:none;justify-content:center;align-items:center;z-index:2000;padding:1rem;overflow-y:auto}
+        .modal-box{background:#fff;padding:2.5rem;border-radius:24px;max-width:450px;width:100%;max-height:100%;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.2);position:relative;animation:fadeIn .3s ease-out;text-align:center}
+        .modal-box h2{color:var(--brand-wine);margin-bottom:1.5rem;font-size:1.8rem}
+        .modal-text{color:var(--text-muted);font-size:.95rem;margin:-.5rem 0 1.2rem}
+        .form-group{margin-bottom:1.2rem;text-align:left}
+        .form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--text-muted);margin-bottom:.4rem}
+        .form-group input{width:100%;padding:.8rem 1rem;border:1px solid var(--border-color);border-radius:12px;font-size:16px;font-family:inherit;outline:none;transition:border-color .3s}
+        .form-group input:focus{border-color:var(--brand-wine)}
+        .modal-close{position:absolute;top:1.2rem;right:1.5rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-muted)}
+        .link-btn{background:none;border:none;color:var(--brand-wine);font-weight:700;cursor:pointer;text-decoration:underline;font-family:'Montserrat',sans-serif}
 
-        .btn-auth {
-            background-color: var(--brand-wine);
-            color: white;
-            padding: 0.5rem 0.9rem;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s;
-            font-family: inherit;
-            white-space: nowrap;
-        }
-        .btn-auth:hover { background-color: var(--brand-brown); }
-        .btn-auth.gold { background-color: var(--brand-gold); color: var(--brand-brown); }
+        .cart-items-list{max-height:250px;overflow-y:auto;margin-bottom:1.5rem;border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color);padding:1rem 0;text-align:left}
+        .cart-item-row{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.8rem;font-size:.9rem}
+        .cart-item-info{flex:1;min-width:0}
+        .qty-controls{display:inline-flex;align-items:center;gap:.4rem;margin-top:.2rem}
+        .btn-qty{width:26px;height:26px;border-radius:50%;border:1px solid var(--brand-wine);background:#fff;color:var(--brand-wine);font-weight:700;cursor:pointer;line-height:1}
+        .btn-remove-item{background:#ffebee;color:#c62828;border:none;padding:.3rem .6rem;border-radius:8px;font-size:.75rem;font-family:inherit;cursor:pointer;font-weight:600}
+        .cart-footer{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;font-weight:700;font-size:1.1rem}
 
-        /* Menu Dropdown do Usuário */
-        .user-menu-container { position: relative; display: inline-block; }
-        .user-greeting-btn {
-            font-weight: 700;
-            color: var(--brand-wine);
-            font-size: 0.9rem;
-            font-family: inherit;
-            background: var(--bg-accent);
-            border: 1px solid var(--brand-gold);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            max-width: 160px;
-        }
-        .user-greeting-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .user-dropdown-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 110%;
-            background: white;
-            min-width: 140px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            z-index: 1100;
-            overflow: hidden;
-        }
-        .user-dropdown-menu button {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            text-align: left;
-            background: none;
-            border: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            font-family: inherit;
-            color: #c62828;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .user-dropdown-menu button:hover { background: #ffebee; }
+        .toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--brand-brown);color:#fff;padding:.8rem 1.4rem;border-radius:50px;font-size:.9rem;font-weight:600;z-index:3000;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;max-width:90%;text-align:center}
+        .toast.show{opacity:1;transform:translate(-50%,0)}
 
-        .cart-icon-btn {
-            position: relative;
-            background: var(--bg-accent);
-            border: 1px solid var(--brand-gold);
-            color: var(--brand-wine);
-            padding: 0.5rem 0.8rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            font-family: inherit;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-        .cart-badge {
-            background-color: var(--brand-wine);
-            color: white;
-            font-size: 0.7rem;
-            padding: 0.1rem 0.4rem;
-            border-radius: 50px;
-            min-width: 1.2rem;
-            text-align: center;
-        }
+        footer{background:var(--brand-brown);color:#fff;padding:3rem 5%;padding-bottom:calc(3rem + env(safe-area-inset-bottom,0px));text-align:center;margin-top:4rem}
 
-        .page-section {
-            display: none;
-            min-height: 85vh;
-            padding-top: 6rem;
-            padding-bottom: 4rem;
+        @media (max-width:768px){
+            header{padding-left:4%;padding-right:4%}
+            .logo{font-size:.85rem;letter-spacing:0;margin-right:auto}
+            .menu-toggle{display:inline-flex;align-items:center;justify-content:center;order:-1}
+            nav{position:absolute;top:100%;left:0;width:100%;background:#fff;border-bottom:1px solid var(--border-color);display:none}
+            nav.open{display:block}
+            nav ul{flex-direction:column;align-items:stretch;gap:0;padding:.5rem 4% 1rem}
+            nav ul li a{display:block;padding:.9rem 0;font-size:1rem;border-bottom:1px solid var(--bg-accent)}
+            .mobile-only{display:list-item}
+            .header-actions .btn-social{display:none}
+            .hide-mobile{display:none}
+            .btn-auth{padding:.45rem .7rem;font-size:.78rem}
+            .hero{flex-direction:column;text-align:center;gap:2rem;padding:2rem 5%}
+            .hero h1{font-size:2.1rem}
+            .hero-card-preview{padding:2.2rem 1.5rem}
+            .hero-card-preview h3{font-size:1.8rem}
+            .quem-somos-grid{grid-template-columns:1fr}
+            .nubank-banner{flex-direction:column;padding:2rem 1.5rem;text-align:center;margin:2rem 5%}
+            .nubank-banner h2{font-size:1.7rem}
+            .banner-img-box{min-width:0!important;width:100%;padding:2rem 1rem!important}
+            .experiencia-destaque-box{padding:1.5rem}
+            .foto-experiencia-grande{height:260px}
+            .modal-box{padding:2rem 1.4rem}
         }
-        .page-section.active-page { display: block; animation: fadeIn 0.5s ease-out forwards; }
-
-        /* Hero */
-        .hero {
-            padding: 3rem 5%;
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-accent) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 3rem;
-        }
-        .hero-content { max-width: 600px; }
-        .hero-badge {
-            display: inline-block;
-            background-color: var(--brand-gold);
-            color: var(--brand-brown);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .hero h1 { font-size: 3.2rem; color: var(--brand-wine); line-height: 1.1; margin-bottom: 1.5rem; }
-        .hero p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 2rem; }
-
-        .btn-primary {
-            background-color: var(--brand-wine);
-            color: white;
-            padding: 0.9rem 1.8rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-family: inherit;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 10px 20px rgba(74, 18, 26, 0.15);
-            transition: transform 0.3s, background 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary:hover { background-color: var(--brand-brown); transform: translateY(-2px); }
-        .btn-primary:disabled { opacity: 0.6; cursor: wait; transform: none; }
-
-        .hero-card-preview {
-            background: white;
-            padding: 3.5rem 3rem;
-            border-radius: 32px;
-            box-shadow: 0 30px 60px rgba(74, 18, 26, 0.15);
-            border: 3px solid var(--brand-gold);
-            text-align: center;
-            max-width: 450px;
-            width: 100%;
-            animation: float 4s ease-in-out infinite;
-        }
-        .hero-card-preview h3 { color: var(--brand-wine); margin-bottom: 0.8rem; font-size: 2.3rem; }
-        .hero-card-preview p { color: var(--text-main); font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; }
-        .badge-esgotado {
-            font-size: 1rem;
-            color: var(--brand-wine);
-            background-color: var(--bg-accent);
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            font-weight: 700;
-            text-transform: uppercase;
-            display: inline-block;
-        }
-
-        .nubank-banner {
-            margin: 3rem 5%;
-            background: linear-gradient(135deg, var(--brand-wine) 0%, var(--brand-brown) 100%);
-            border-radius: 24px;
-            padding: 3.5rem 3rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        .nubank-banner h2 { font-size: 2.3rem; margin-bottom: 1rem; color: var(--bg-accent); }
-        .nubank-banner p { color: rgba(255,255,255,0.85); font-size: 1.05rem; margin-bottom: 1.5rem; }
-        .banner-img-box {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 2.5rem;
-            border-radius: 20px;
-            text-align: center;
-            min-width: 300px;
-            font-weight: 600;
-            color: var(--bg-accent);
-        }
-
-        .section-about { padding: 3rem 5%; max-width: 1200px; margin: 0 auto; }
-        .section-about .nubank-banner { margin-left: 0; margin-right: 0; }
-        .eyebrow { color: var(--brand-gold); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
-
-        .quem-somos-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 4rem;
-        }
-        .fotos-espalhadas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        .foto-card-mock {
-            background: var(--bg-accent);
-            border: 1px solid var(--border-color);
-            height: 180px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: var(--brand-wine);
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .feature-item {
-            background: white;
-            padding: 2.5rem 2rem;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s;
-        }
-        .feature-item:hover { transform: translateY(-5px); }
-        .feature-item i { font-size: 2rem; color: var(--brand-gold); margin-bottom: 1.2rem; }
-        .feature-item h3 { font-size: 1.2rem; color: var(--brand-wine); margin-bottom: 0.8rem; }
-
-        .experiencia-content { max-width: 1000px; margin: 0 auto; padding: 3rem 5%; text-align: center; }
-        .experiencia-destaque-box {
-            background: var(--bg-secondary);
-            border: 2px solid var(--brand-gold);
-            border-radius: 24px;
-            padding: 3rem;
-            margin-top: 2rem;
-        }
-        .experiencia-texto-visivel {
-            font-size: 1.2rem;
-            color: var(--text-main);
-            font-weight: 600;
-            line-height: 1.8;
-            margin-top: 1rem;
-            margin-bottom: 2rem;
-        }
-        .foto-experiencia-grande {
-            background: var(--brand-wine);
-            color: var(--bg-accent);
-            height: 350px;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-family: 'Cinzel', serif;
-            box-shadow: 0 15px 35px rgba(74, 18, 26, 0.2);
-        }
-
-        .section-store { padding: 2rem 5%; max-width: 1300px; margin: 0 auto; }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .product-card {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .product-img {
-            background-color: var(--bg-secondary);
-            height: 220px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-align: center;
-            padding: 1rem;
-        }
-        .product-info { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
-        .product-info h3 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.5rem; }
-        .product-price { font-size: 1.2rem; font-weight: 700; color: var(--brand-wine); margin-bottom: 1.2rem; }
-        .product-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: auto; }
-
-        .btn-add-cart {
-            background-color: var(--bg-secondary);
-            color: var(--brand-wine);
-            border: 1px solid var(--brand-wine);
-            padding: 0.7rem 0.5rem;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-        .btn-add-cart:hover { background-color: var(--bg-accent); }
-        .btn-buy-now {
-            background-color: var(--brand-wine);
-            color: white;
-            border: none;
-            padding: 0.7rem 0.5rem;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            transition: background 0.3s;
-            text-align: center;
-        }
-        .btn-buy-now:hover { background-color: var(--brand-brown); }
-
-        /* Modais */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 1rem;
-            overflow-y: auto;
-        }
-        .modal-box {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 24px;
-            max-width: 450px;
-            width: 100%;
-            max-height: 100%;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-            position: relative;
-            animation: fadeIn 0.3s ease-out;
-            text-align: center;
-        }
-        .modal-box h2 { color: var(--brand-wine); margin-bottom: 1.5rem; font-size: 1.8rem; }
-
-        .form-group { margin-bottom: 1.2rem; text-align: left; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem; }
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 16px; /* evita zoom automático no iPhone */
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .form-group input:focus { border-color: var(--brand-wine); }
-
-        .modal-close {
-            position: absolute;
-            top: 1.2rem; right: 1.5rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-        .link-btn {
-            background: none;
-            border: none;
-            color: var(--brand-wine);
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: underline;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Carrinho */
-        .cart-items-list {
-            max-height: 250px;
-            overflow-y: auto;
-            margin-bottom: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 0;
-            text-align: left;
-        }
-        .cart-item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 0.8rem;
-            font-size: 0.9rem;
-        }
-        .cart-item-info { flex: 1; min-width: 0; }
-        .qty-controls { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.2rem; }
-        .btn-qty {
-            width: 26px; height: 26px;
-            border-radius: 50%;
-            border: 1px solid var(--brand-wine);
-            background: white;
-            color: var(--brand-wine);
-            font-weight: 700;
-            cursor: pointer;
-            line-height: 1;
-        }
-        .btn-remove-item {
-            background: #ffebee;
-            color: #c62828;
-            border: none;
-            padding: 0.3rem 0.6rem;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-family: inherit;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .cart-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        /* Toast */
-        .toast {
-            position: fixed;
-            left: 50%;
-            bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
-            transform: translate(-50%, 20px);
-            background: var(--brand-brown);
-            color: white;
-            padding: 0.8rem 1.4rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            z-index: 3000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s, transform 0.3s;
-            max-width: 90%;
-            text-align: center;
-        }
-        .toast.show { opacity: 1; transform: translate(-50%, 0); }
-
-        footer {
-            background-color: var(--brand-brown);
-            color: white;
-            padding: 3rem 5%;
-            padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        @media (max-width: 768px) {
-            header { padding-left: 4%; padding-right: 4%; }
-            .logo { font-size: 0.85rem; letter-spacing: 0; }
-            .menu-toggle { display: inline-flex; align-items: center; justify-content: center; order: -1; }
-            .logo { margin-right: auto; }
-            nav {
-                position: absolute;
-                top: 100%; left: 0;
-                width: 100%;
-                background: white;
-                border-bottom: 1px solid var(--border-color);
-                display: none;
-            }
-            nav.open { display: block; }
-            nav ul { flex-direction: column; align-items: stretch; gap: 0; padding: 0.5rem 4% 1rem; }
-            nav ul li a { display: block; padding: 0.9rem 0; font-size: 1rem; border-bottom: 1px solid var(--bg-accent); }
-            .mobile-only { display: list-item; }
-            .header-actions .btn-social { display: none; }
-            .hide-mobile { display: none; }
-            .btn-auth { padding: 0.45rem 0.7rem; font-size: 0.78rem; }
-
-            .hero { flex-direction: column; text-align: center; gap: 2rem; padding: 2rem 5%; }
-            .hero h1 { font-size: 2.1rem; }
-            .hero-card-preview { padding: 2.2rem 1.5rem; }
-            .hero-card-preview h3 { font-size: 1.8rem; }
-            .quem-somos-grid { grid-template-columns: 1fr; }
-            .nubank-banner { flex-direction: column; padding: 2rem 1.5rem; text-align: center; margin: 2rem 5%; }
-            .nubank-banner h2 { font-size: 1.7rem; }
-            .banner-img-box { min-width: 0 !important; width: 100%; padding: 2rem 1rem !important; }
-            .experiencia-destaque-box { padding: 1.5rem; }
-            .foto-experiencia-grande { height: 260px; }
-            .modal-box { padding: 2rem 1.4rem; }
-        }
-        @media (max-width: 400px) {
-            #authButtonsContainer .gold { display: none; }
-        }
+        @media (max-width:400px){#authButtonsContainer .gold{display:none}}
+        @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
     </style>
 </head>
 <body>
 
-<!-- Header / Navbar -->
 <header>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     <div class="logo">Retiro Transformados</div>
@@ -644,7 +174,8 @@
             <li><a href="#experiencia" onclick="showPage('experiencia'); return false;" id="nav-experiencia">Experiência</a></li>
             <li><a href="#loja" onclick="showPage('loja'); return false;" id="nav-loja">Lojinha TRF</a></li>
             <li class="mobile-only"><a href="https://www.instagram.com/retirotransformados" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
-            <li class="mobile-only"><a href="#" onclick="openWhatsApp('Olá! Gostaria de mais informações sobre o TRF 2027.'); return false;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+            <li class="mobile-only"><a href="#" onclick="openWhatsAppInfo(); return false;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+            <li class="mobile-only" id="installItem" style="display:none"><a href="#" onclick="installApp(); return false;"><i class="fa-solid fa-download"></i> Instalar app</a></li>
         </ul>
     </nav>
     <div class="header-actions">
@@ -652,17 +183,17 @@
             <i class="fa-solid fa-cart-shopping"></i> <span class="hide-mobile">Carrinho</span> <span class="cart-badge" id="cartCount">0</span>
         </button>
         <a href="https://www.instagram.com/retirotransformados" target="_blank" rel="noopener" class="btn-social" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#" onclick="openWhatsApp('Olá! Gostaria de mais informações sobre o TRF 2027.'); return false;" class="btn-social" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" onclick="openWhatsAppInfo(); return false;" class="btn-social" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <button class="btn-social hide-mobile" id="installBtn" style="display:none;cursor:pointer;font-family:inherit" onclick="installApp()" title="Instalar app"><i class="fa-solid fa-download"></i> Instalar</button>
 
-        <div id="authButtonsContainer" style="display: flex; gap: 0.4rem;">
+        <div id="authButtonsContainer" style="display:flex;gap:.4rem;">
             <button class="btn-auth" onclick="openModal('loginModal')">Fazer login</button>
             <button class="btn-auth gold" onclick="openModal('registerModal')">Cadastre-se</button>
         </div>
 
-        <!-- Botão de Nome com Menu Dropdown para Sair -->
-        <div id="userGreetingContainer" style="display: none;" class="user-menu-container">
+        <div id="userGreetingContainer" style="display:none;" class="user-menu-container">
             <button class="user-greeting-btn" onclick="toggleUserMenu()">
-                <span id="userNameDisplay"></span> <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i>
+                <span id="userNameDisplay"></span> <i class="fa-solid fa-chevron-down" style="font-size:.75rem;"></i>
             </button>
             <div class="user-dropdown-menu" id="userDropdownMenu">
                 <button onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
@@ -688,15 +219,14 @@
             </div>
         </div>
     </div>
-
     <div class="nubank-banner">
         <div>
             <h2 class="serif-title">Uma Nova Experiência</h2>
             <p>Prepare-se para viver dias inesquecíveis em um novo local estruturado para proporcionar comunhão profunda e renovação espiritual.</p>
-            <button class="btn-primary" style="background-color: var(--bg-accent); color: var(--brand-wine);" onclick="showPage('sobre')">Saiba Mais</button>
+            <button class="btn-primary" style="background:var(--bg-accent);color:var(--brand-wine);" onclick="showPage('sobre')">Saiba Mais</button>
         </div>
         <div class="banner-img-box">
-            <i class="fa-solid fa-mountain-sun" style="font-size: 3.5rem; margin-bottom: 1rem; color: var(--brand-gold);"></i>
+            <i class="fa-solid fa-mountain-sun" style="font-size:3.5rem;margin-bottom:1rem;color:var(--brand-gold);"></i>
             <div>Novo Local TRF 2027</div>
         </div>
     </div>
@@ -708,50 +238,37 @@
         <div class="quem-somos-grid">
             <div>
                 <span class="eyebrow">Nossa História</span>
-                <h2 class="serif-title" style="margin-top: 0.3rem; margin-bottom: 1rem; font-size: 2.2rem;">Quem Somos</h2>
-                <p style="color: var(--text-muted); margin-bottom: 1rem;">O Retiro Transformados começou com o firme propósito de resgatar princípios eternos na juventude. Somos um movimento focado em viver a palavra sem compromissos com o padrão deste mundo.</p>
-                <p style="color: var(--text-muted);">Ao longo dos anos, reunimos centenas de jovens em um ambiente de avivamento, cura interior, quebramentos e adoração verdadeira.</p>
+                <h2 class="serif-title" style="margin-top:.3rem;margin-bottom:1rem;font-size:2.2rem;">Quem Somos</h2>
+                <p style="color:var(--text-muted);margin-bottom:1rem;">O Retiro Transformados começou com o firme propósito de resgatar princípios eternos na juventude. Somos um movimento focado em viver a palavra sem compromissos com o padrão deste mundo.</p>
+                <p style="color:var(--text-muted);">Ao longo dos anos, reunimos centenas de jovens em um ambiente de avivamento, cura interior, quebramentos e adoração verdadeira.</p>
             </div>
             <div class="fotos-espalhadas">
                 <div class="foto-card-mock">Momento TRF</div>
-                <div class="foto-card-mock" style="background: var(--brand-gold); color: white;">Adoração 2025</div>
-                <div class="foto-card-mock" style="background: var(--brand-wine); color: white;">Comunhão</div>
+                <div class="foto-card-mock" style="background:var(--brand-gold);color:#fff;">Adoração 2025</div>
+                <div class="foto-card-mock" style="background:var(--brand-wine);color:#fff;">Comunhão</div>
                 <div class="foto-card-mock">Palavra Viva</div>
             </div>
         </div>
 
-        <div style="margin-top: 5rem; text-align: center;">
-            <h2 class="serif-title" style="font-size: 2.3rem; color: var(--brand-wine); margin-bottom: 1rem;">O Propósito</h2>
-            <p style="max-width: 700px; margin: 0 auto 3rem auto; color: var(--text-muted);">Pilares inegociáveis que sustentam cada edição do Retiro Transformados.</p>
-
+        <div style="margin-top:5rem;text-align:center;">
+            <h2 class="serif-title" style="font-size:2.3rem;color:var(--brand-wine);margin-bottom:1rem;">O Propósito</h2>
+            <p style="max-width:700px;margin:0 auto 3rem auto;color:var(--text-muted);">Pilares inegociáveis que sustentam cada edição do Retiro Transformados.</p>
             <div class="features-grid">
-                <div class="feature-item">
-                    <i class="fa-solid fa-fire"></i>
-                    <h3>Adoração Intensa</h3>
-                    <p>Dias marcados pela busca profunda, louvor verdadeiro e comunhão entre irmãos.</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fa-solid fa-scroll"></i>
-                    <h3>Palavra Viva</h3>
-                    <p>Mensagens transformadoras baseadas nas Escrituras para confrontar e edificar nossa geração.</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fa-solid fa-users"></i>
-                    <h3>Comunidade</h3>
-                    <p>Um ambiente seguro para conexões reais, discipulado e crescimento espiritual mútuo.</p>
-                </div>
+                <div class="feature-item"><i class="fa-solid fa-fire"></i><h3>Adoração Intensa</h3><p>Dias marcados pela busca profunda, louvor verdadeiro e comunhão entre irmãos.</p></div>
+                <div class="feature-item"><i class="fa-solid fa-scroll"></i><h3>Palavra Viva</h3><p>Mensagens transformadoras baseadas nas Escrituras para confrontar e edificar nossa geração.</p></div>
+                <div class="feature-item"><i class="fa-solid fa-users"></i><h3>Comunidade</h3><p>Um ambiente seguro para conexões reais, discipulado e crescimento espiritual mútuo.</p></div>
             </div>
         </div>
 
-        <div class="nubank-banner" style="margin-top: 5rem;">
+        <div class="nubank-banner" style="margin-top:5rem;">
             <div>
                 <span class="eyebrow">Infraestrutura 2027</span>
-                <h2 class="serif-title" style="margin-top: 0.3rem;">Novo Local TRF 2027</h2>
+                <h2 class="serif-title" style="margin-top:.3rem;">Novo Local TRF 2027</h2>
                 <p>Um espaço amplo, integrado à natureza, pensado em cada detalhe para acomodar nossa geração com conforto, segurança e total liberdade no Espírito.</p>
             </div>
-            <div class="banner-img-box" style="padding: 3rem; min-width: 340px;">
-                <i class="fa-solid fa-tree-city" style="font-size: 4rem; margin-bottom: 1rem; color: var(--brand-gold);"></i>
-                <div style="font-size: 1.2rem; font-family: 'Cinzel', serif;">Fazenda / Sítio TRF 2027</div>
+            <div class="banner-img-box" style="padding:3rem;min-width:340px;">
+                <i class="fa-solid fa-tree-city" style="font-size:4rem;margin-bottom:1rem;color:var(--brand-gold);"></i>
+                <div style="font-size:1.2rem;font-family:'Cinzel',serif;">Fazenda / Sítio TRF 2027</div>
             </div>
         </div>
     </div>
@@ -761,17 +278,13 @@
 <section id="page-experiencia" class="page-section">
     <div class="experiencia-content">
         <span class="eyebrow">Vivência TRF</span>
-        <h2 class="serif-title" style="font-size: 2.5rem; color: var(--brand-wine); margin-top: 0.3rem;">Comunhão e Adoração</h2>
-
+        <h2 class="serif-title" style="font-size:2.5rem;color:var(--brand-wine);margin-top:.3rem;">Comunhão e Adoração</h2>
         <div class="experiencia-destaque-box">
-            <p class="experiencia-texto-visivel">
-                "Cada instante no retiro é desenhado para romper rotinas e criar memórias eternas. Desde as ministrações profundas até as rodas de comunhão ao redor da fogueira, a atmosfera transborda a presença viva de Deus."
-            </p>
-
+            <p class="experiencia-texto-visivel">"Cada instante no retiro é desenhado para romper rotinas e criar memórias eternas. Desde as ministrações profundas até as rodas de comunhão ao redor da fogueira, a atmosfera transborda a presença viva de Deus."</p>
             <div class="foto-experiencia-grande">
-                <i class="fa-solid fa-hands-praying" style="font-size: 4rem; margin-bottom: 1rem; color: var(--brand-gold);"></i>
+                <i class="fa-solid fa-hands-praying" style="font-size:4rem;margin-bottom:1rem;color:var(--brand-gold);"></i>
                 <div>Propósito &amp; Fé</div>
-                <span style="font-size: 0.9rem; font-family: 'Montserrat', sans-serif; opacity: 0.8; margin-top: 0.5rem;">Uma experiência que marca para sempre</span>
+                <span style="font-size:.9rem;font-family:'Montserrat',sans-serif;opacity:.8;margin-top:.5rem;">Uma experiência que marca para sempre</span>
             </div>
         </div>
     </div>
@@ -780,14 +293,11 @@
 <!-- PÁGINA 4: LOJINHA TRF -->
 <section id="page-loja" class="page-section">
     <div class="section-store">
-        <div style="margin-bottom: 2rem;">
+        <div style="margin-bottom:2rem;">
             <span class="eyebrow">Coleção Oficial</span>
-            <h2 class="serif-title" style="margin-top: 0.3rem; font-size: 2.3rem; color: var(--brand-wine);">Lojinha TRF</h2>
+            <h2 class="serif-title" style="margin-top:.3rem;font-size:2.3rem;color:var(--brand-wine);">Lojinha TRF</h2>
         </div>
-
-        <div class="products-grid" id="productsGrid">
-            <!-- Os produtos são montados pelo JavaScript (lista PRODUCTS) -->
-        </div>
+        <div class="products-grid" id="productsGrid"></div>
     </div>
 </section>
 
@@ -797,23 +307,12 @@
         <button class="modal-close" onclick="closeModal('registerModal')" aria-label="Fechar">&times;</button>
         <h2 class="serif-title">Cadastre-se</h2>
         <form onsubmit="handleRegister(event)">
-            <div class="form-group">
-                <label for="regEmail">E-mail</label>
-                <input type="email" id="regEmail" required placeholder="seu@email.com" autocomplete="email">
-            </div>
-            <div class="form-group">
-                <label for="regPassword">Senha do Site (mín. 6 caracteres)</label>
-                <input type="password" id="regPassword" required minlength="6" placeholder="Crie uma senha" autocomplete="new-password">
-            </div>
-            <div class="form-group">
-                <label for="regName">Seu Nome (Como quer ser chamado)</label>
-                <input type="text" id="regName" required maxlength="40" placeholder="Ex: João Silva" autocomplete="name">
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Concluir Cadastro</button>
+            <div class="form-group"><label for="regEmail">E-mail</label><input type="email" id="regEmail" required placeholder="seu@email.com" autocomplete="email"></div>
+            <div class="form-group"><label for="regPassword">Senha do Site (mín. 6 caracteres)</label><input type="password" id="regPassword" required minlength="6" placeholder="Crie uma senha" autocomplete="new-password"></div>
+            <div class="form-group"><label for="regName">Seu Nome (Como quer ser chamado)</label><input type="text" id="regName" required maxlength="40" placeholder="Ex: João Silva" autocomplete="name"></div>
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Concluir Cadastro</button>
         </form>
-        <div style="text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;">
-            Já tem cadastro? <button class="link-btn" onclick="switchToLogin()">Fazer login</button>
-        </div>
+        <div style="text-align:center;font-size:.9rem;color:var(--text-muted);margin-top:1rem;">Já tem cadastro? <button class="link-btn" onclick="switchToLogin()">Fazer login</button></div>
     </div>
 </div>
 
@@ -823,77 +322,73 @@
         <button class="modal-close" onclick="closeModal('loginModal')" aria-label="Fechar">&times;</button>
         <h2 class="serif-title">Já tem cadastro? Faça seu login agora</h2>
         <form onsubmit="handleLogin(event)">
-            <div class="form-group">
-                <label for="loginName">E-mail cadastrado</label>
-                <input type="email" id="loginName" required placeholder="seu@email.com" autocomplete="username">
-            </div>
-            <div class="form-group">
-                <label for="loginPassword">Senha</label>
-                <input type="password" id="loginPassword" required placeholder="Sua senha" autocomplete="current-password">
-            </div>
-            <div style="text-align: right; margin: -0.5rem 0 1rem;">
-                <button type="button" class="link-btn" style="font-size: 0.85rem;" onclick="triggerForgotPassword()">Esqueci minha senha</button>
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-bottom: 1rem;">Entrar</button>
+            <div class="form-group"><label for="loginName">E-mail cadastrado</label><input type="email" id="loginName" required placeholder="seu@email.com" autocomplete="username"></div>
+            <div class="form-group"><label for="loginPassword">Senha</label><input type="password" id="loginPassword" required placeholder="Sua senha" autocomplete="current-password"></div>
+            <div style="text-align:right;margin:-.5rem 0 1rem;"><button type="button" class="link-btn" style="font-size:.85rem;" onclick="openForgot()">Esqueci minha senha</button></div>
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;margin-bottom:1rem;">Entrar</button>
         </form>
-        <div style="text-align: center; font-size: 0.9rem; color: var(--text-muted);">
-            Não tem cadastro? <button class="link-btn" onclick="switchToRegister()">Cadastre-se agora</button>
-        </div>
+        <div style="text-align:center;font-size:.9rem;color:var(--text-muted);">Não tem cadastro? <button class="link-btn" onclick="switchToRegister()">Cadastre-se agora</button></div>
+    </div>
+</div>
+
+<!-- MODAL: ESQUECI MINHA SENHA -->
+<div class="modal-overlay" id="forgotModal" style="z-index:2050;" role="dialog" aria-modal="true" aria-label="Recuperar senha">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal('forgotModal')" aria-label="Fechar">&times;</button>
+        <h2 class="serif-title">Recuperar senha</h2>
+        <p class="modal-text">Digite o e-mail do seu cadastro. Enviaremos um link para você criar uma nova senha.</p>
+        <form onsubmit="handleForgot(event)">
+            <div class="form-group"><label for="forgotEmail">E-mail cadastrado</label><input type="email" id="forgotEmail" required placeholder="seu@email.com" autocomplete="email"></div>
+            <button type="submit" id="forgotSubmit" class="btn-primary" style="width:100%;justify-content:center;margin-bottom:1rem;">Enviar link por e-mail</button>
+        </form>
+        <div style="text-align:center;font-size:.9rem;color:var(--text-muted);"><button class="link-btn" onclick="switchForgotToLogin()">Voltar ao login</button></div>
     </div>
 </div>
 
 <!-- MODAL DO CARRINHO -->
 <div class="modal-overlay" id="cartModal" role="dialog" aria-modal="true" aria-label="Carrinho">
-    <div class="modal-box" style="max-width: 500px;">
+    <div class="modal-box" style="max-width:500px;">
         <button class="modal-close" onclick="closeModal('cartModal')" aria-label="Fechar">&times;</button>
         <h2 class="serif-title">Seu Carrinho TRF</h2>
-
         <div class="cart-items-list" id="cartItemsContainer"></div>
-
-        <div class="cart-footer">
-            <span>Total:</span>
-            <span id="cartTotalPrice">R$ 0,00</span>
-        </div>
-
-        <div style="display: flex; gap: 1rem;">
-            <button class="btn-add-cart" style="flex: 1; padding: 0.8rem;" onclick="clearCartConfirm()">Esvaziar carrinho</button>
-            <button class="btn-primary" style="flex: 1; justify-content: center; padding: 0.8rem;" onclick="checkoutAll()">Comprar Tudo</button>
+        <div class="cart-footer"><span>Total:</span><span id="cartTotalPrice">R$ 0,00</span></div>
+        <div style="display:flex;gap:1rem;">
+            <button class="btn-add-cart" style="flex:1;padding:.8rem;" onclick="clearCartConfirm()">Esvaziar carrinho</button>
+            <button class="btn-primary" style="flex:1;justify-content:center;padding:.8rem;" onclick="checkoutAll()">Comprar Tudo</button>
         </div>
     </div>
 </div>
 
 <!-- MODAL DE AVISOS -->
-<div class="modal-overlay" id="customAlertModal" style="z-index: 2100;" role="alertdialog" aria-modal="true">
-    <div class="modal-box" style="max-width: 400px;">
-        <h2 class="serif-title" style="font-size: 1.4rem; margin-bottom: 1rem;" id="customAlertTitle">Aviso</h2>
-        <p id="customAlertMessage" style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;"></p>
-
-        <button class="btn-primary" style="width: 100%; justify-content: center; margin-bottom: 1rem;" onclick="closeModal('customAlertModal')">OK</button>
-
-        <!-- Botão Esqueci minha senha (aparece nos erros de login) -->
-        <div id="forgotPasswordContainer" style="display: none; text-align: center;">
-            <button class="link-btn" style="font-size: 0.9rem;" onclick="triggerForgotPassword()">Esqueci minha senha</button>
+<div class="modal-overlay" id="customAlertModal" style="z-index:2100;" role="alertdialog" aria-modal="true">
+    <div class="modal-box" style="max-width:400px;">
+        <h2 class="serif-title" style="font-size:1.4rem;margin-bottom:1rem;" id="customAlertTitle">Aviso</h2>
+        <p id="customAlertMessage" style="color:var(--text-muted);margin-bottom:1.5rem;font-size:.95rem;"></p>
+        <button class="btn-primary" style="width:100%;justify-content:center;margin-bottom:1rem;" onclick="closeModal('customAlertModal')">OK</button>
+        <div id="forgotPasswordContainer" style="display:none;text-align:center;">
+            <button class="link-btn" style="font-size:.9rem;" onclick="closeModal('customAlertModal'); openForgot()">Esqueci minha senha</button>
         </div>
     </div>
 </div>
 
 <!-- MODAL DE CONFIRMAÇÃO DE ESVAZIAR CARRINHO -->
-<div class="modal-overlay" id="confirmClearModal" style="z-index: 2100;" role="alertdialog" aria-modal="true">
-    <div class="modal-box" style="max-width: 380px;">
-        <h2 class="serif-title" style="font-size: 1.4rem; margin-bottom: 1rem;">Esvaziar Carrinho</h2>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">Deseja remover todos os produtos do seu carrinho?</p>
-        <div style="display: flex; gap: 1rem;">
-            <button class="btn-add-cart" style="flex: 1; padding: 0.8rem;" onclick="closeModal('confirmClearModal')">Não</button>
-            <button class="btn-buy-now" style="flex: 1; padding: 0.8rem; background-color: #c62828;" onclick="executeClearCart()">Sim, esvaziar</button>
+<div class="modal-overlay" id="confirmClearModal" style="z-index:2100;" role="alertdialog" aria-modal="true">
+    <div class="modal-box" style="max-width:380px;">
+        <h2 class="serif-title" style="font-size:1.4rem;margin-bottom:1rem;">Esvaziar Carrinho</h2>
+        <p style="color:var(--text-muted);margin-bottom:1.5rem;font-size:.95rem;">Deseja remover todos os produtos do seu carrinho?</p>
+        <div style="display:flex;gap:1rem;">
+            <button class="btn-add-cart" style="flex:1;padding:.8rem;" onclick="closeModal('confirmClearModal')">Não</button>
+            <button class="btn-buy-now" style="flex:1;padding:.8rem;background:#c62828;" onclick="executeClearCart()">Sim, esvaziar</button>
         </div>
     </div>
 </div>
 
+<datalist id="qtyList"><option value="1"><option value="2"><option value="3"><option value="4"><option value="5"><option value="6"><option value="7"><option value="8"><option value="9"><option value="10"></datalist>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- Rodapé -->
 <footer>
-    <h3 class="serif-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Retiro Transformados</h3>
+    <h3 class="serif-title" style="font-size:1.5rem;margin-bottom:.5rem;">Retiro Transformados</h3>
     <p>© 2027 Retiro Transformados. Todos os direitos reservados.</p>
 </footer>
 
@@ -901,46 +396,75 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
-<!-- Script Geral -->
 <script>
     // ====== CONFIGURAÇÕES (edite aqui) ======
-    const WHATSAPP_NUMBER = '5577999999999'; // troque pelo número real (código do país + DDD + número)
+    const WHATSAPP_NUMBER = '5571991155903'; // troque pelo número real (código do país + DDD + número)
 
     // Cole aqui os dados do seu projeto Firebase (Configurações do projeto > Seus apps > Config)
     const firebaseConfig = {
-        apiKey: "COLE_AQUI",
-        authDomain: "COLE_AQUI",
-        projectId: "COLE_AQUI",
-        appId: "COLE_AQUI"
+        apiKey: "AIzaSyBv_778K2CNMN8wfk8DrxxvQaZ1MJZrlwo",
+        authDomain: "trf-site.firebaseapp.com",
+        projectId: "trf-site",
+        appId: "1:39897005227:web:a77dd600cea79e472e8bee"
     };
 
+    // Cada produto tem o seu link de pagamento (InfinitePay).
+    // Para adicionar: cole o link entre as aspas de "payLink" do produto (o link deve começar com https://).
+    // Enquanto estiver vazio, o botão "Fazer compra" daquele produto abre o WhatsApp.
     const PRODUCTS = [
-        { name: 'Camiseta Oversized Santidade', title: 'Camiseta Oversized "Santidade"', price: 89.90, label: 'Camiseta Santidade' },
-        { name: 'Camiseta Renúncia',            title: 'Camiseta "Renúncia"',            price: 79.90, label: 'Camiseta Renúncia' },
-        { name: 'Garrafa Térmica Oficial TRF',  title: 'Garrafa Térmica Oficial TRF',    price: 65.00, label: 'Garrafa TRF' },
-        { name: 'Boné Dad Hat TRF',             title: 'Boné Dad Hat TRF',               price: 55.00, label: 'Boné TRF' }
+        {
+            name: 'Camiseta Oversized Santidade', title: 'Camiseta Oversized "Santidade"', price: 89.90, label: 'Camiseta Santidade',
+            // 👇 COLE AQUI o link de pagamento da Camiseta Oversized "Santidade"
+            payLink: ''
+        },
+        {
+            name: 'Camiseta Renúncia', title: 'Camiseta "Renúncia"', price: 79.90, label: 'Camiseta Renúncia',
+            // 👇 COLE AQUI o link de pagamento da Camiseta "Renúncia"
+            payLink: ''
+        },
+        {
+            name: 'Garrafa Térmica Oficial TRF', title: 'Garrafa Térmica Oficial TRF', price: 65.00, label: 'Garrafa TRF',
+            // 👇 COLE AQUI o link de pagamento da Garrafa Térmica Oficial TRF
+            payLink: ''
+        },
+        {
+            name: 'Boné Dad Hat TRF', title: 'Boné Dad Hat TRF', price: 55.00, label: 'Boné TRF',
+            // 👇 COLE AQUI o link de pagamento do Boné Dad Hat TRF
+            payLink: ''
+        }
     ];
 
+    // Devolve o link de pagamento do produto (ou '' se ainda não foi preenchido)
+    function getPayLink(name) {
+        const prod = PRODUCTS.find(x => x.name === name);
+        const link = prod && typeof prod.payLink === 'string' ? prod.payLink.trim() : '';
+        return link.startsWith('https://') ? link : '';
+    }
+
+    // Abre o link de pagamento; se o navegador bloquear a nova aba, abre nesta mesma
+    function openPayment(url) {
+        const w = window.open(url, '_blank', 'noopener');
+        if (!w) window.location.href = url;
+    }
+
+    const MAX_QTY = 99;
+    function clampQty(v) {
+        const n = parseInt(v, 10);
+        return Math.min(MAX_QTY, Math.max(1, isNaN(n) ? 1 : n));
+    }
+
     // ====== UTILITÁRIOS ======
-    function storageGet(key) {
-        try { return localStorage.getItem(key); } catch (e) { return null; }
-    }
-    function storageSet(key, value) {
-        try { localStorage.setItem(key, value); return true; } catch (e) { return false; }
-    }
+    function storageGet(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+    function storageSet(key, value) { try { localStorage.setItem(key, value); return true; } catch (e) { return false; } }
     function parseJSON(str, fallback) {
         try { const v = JSON.parse(str); return v === null || v === undefined ? fallback : v; } catch (e) { return fallback; }
     }
-    function formatBRL(value) {
-        return 'R$ ' + value.toFixed(2).replace('.', ',');
-    }
-    function normalize(str) {
-        return String(str).trim().toLowerCase();
-    }
+    function formatBRL(value) { return 'R$ ' + value.toFixed(2).replace('.', ','); }
+    function normalize(str) { return String(str).trim().toLowerCase(); }
 
     // ====== FIREBASE ======
     let auth = null;
-    const firebaseConfigured = firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('COLE');
+    const firebaseConfigured = !!firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('COLE');
 
     if (typeof firebase !== 'undefined' && firebaseConfigured) {
         try {
@@ -973,7 +497,8 @@
             'auth/too-many-requests': 'Muitas tentativas. Aguarde alguns minutos e tente de novo.',
             'auth/network-request-failed': 'Sem conexão com a internet.',
             'auth/unauthorized-domain': 'Este domínio não está autorizado no Firebase (Authentication > Configurações > Domínios autorizados).',
-            'auth/operation-not-allowed': 'O login por e-mail/senha não está ativado no Firebase.'
+            'auth/operation-not-allowed': 'O login por e-mail/senha não está ativado no Firebase.',
+            'auth/unauthorized-continue-uri': 'Domínio do site não autorizado no Firebase (Authentication > Configurações > Domínios autorizados).'
         };
         return map[err && err.code] || 'Algo deu errado. Tente novamente.';
     }
@@ -1008,11 +533,7 @@
         const dropdown = document.getElementById('userDropdownMenu');
         const container = document.getElementById('userGreetingContainer');
         if (container && !container.contains(e.target)) dropdown.style.display = 'none';
-
-        // fecha modal ao clicar fora da caixa
-        if (e.target.classList && e.target.classList.contains('modal-overlay')) {
-            closeModal(e.target.id);
-        }
+        if (e.target.classList && e.target.classList.contains('modal-overlay')) closeModal(e.target.id);
     });
 
     window.addEventListener('keydown', (e) => {
@@ -1030,20 +551,36 @@
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
-                <div class="product-img"></div>
-                <div class="product-info">
-                    <h3></h3>
-                    <div class="product-price"></div>
-                    <div class="product-buttons">
-                        <button class="btn-add-cart" data-action="add">Adicionar</button>
-                        <button class="btn-buy-now" data-action="buy">Fazer compra</button>
-                    </div>
-                </div>`;
+            <div class="product-img"></div>
+            <div class="product-info">
+                <h3></h3>
+                <div class="product-price"></div>
+                <div class="qty-row">
+                    <label>Unidades</label>
+                    <input class="qty-input" type="text" inputmode="numeric" list="qtyList" value="1" maxlength="2" placeholder="1" aria-label="Unidades" autocomplete="off">
+                </div>
+                <div class="product-buttons">
+                    <button class="btn-add-cart" data-action="add">Adicionar</button>
+                    <button class="btn-buy-now" data-action="buy">Fazer compra</button>
+                </div>
+            </div>`;
             card.querySelector('.product-img').textContent = p.label;
             card.querySelector('h3').textContent = p.title;
             card.querySelector('.product-price').textContent = formatBRL(p.price);
-            card.querySelector('[data-action="add"]').addEventListener('click', () => addToCart(p.name, p.price));
-            card.querySelector('[data-action="buy"]').addEventListener('click', () => buyNow(p.name, p.price));
+            const qtyInput = card.querySelector('.qty-input');
+            let prevQty = '1';
+            // ao tocar, limpa o campo para a lista mostrar todas as opções (1, 2, 3...)
+            qtyInput.addEventListener('focus', () => { prevQty = qtyInput.value || '1'; qtyInput.value = ''; });
+            qtyInput.addEventListener('input', () => { qtyInput.value = qtyInput.value.replace(/\D/g, '').slice(0, 2); });
+            qtyInput.addEventListener('blur', () => { qtyInput.value = qtyInput.value ? clampQty(qtyInput.value) : prevQty; });
+            qtyInput.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') qtyInput.blur(); });
+            const readQty = () => { const q = clampQty(qtyInput.value || prevQty); qtyInput.value = q; return q; };
+            card.querySelector('[data-action="add"]').addEventListener('click', () => {
+                const q = readQty();
+                addToCart(p.name, p.price, q);
+                qtyInput.value = 1;
+            });
+            card.querySelector('[data-action="buy"]').addEventListener('click', () => buyNow(p.name, p.price, readQty()));
             grid.appendChild(card);
         });
     }
@@ -1052,22 +589,18 @@
     function showPage(pageId, scroll = true) {
         document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
         document.querySelectorAll('nav ul li a').forEach(link => link.classList.remove('active'));
-
         const page = document.getElementById('page-' + pageId);
         if (!page) return;
         page.classList.add('active-page');
-
         const activeLink = document.getElementById('nav-' + pageId);
         if (activeLink) activeLink.classList.add('active');
-
         try { history.replaceState(null, '', '#' + pageId); } catch (e) {}
         closeMenu();
         if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function toggleMenu() {
-        const nav = document.getElementById('mainNav');
-        const open = nav.classList.toggle('open');
+        const open = document.getElementById('mainNav').classList.toggle('open');
         document.getElementById('menuToggle').setAttribute('aria-expanded', open ? 'true' : 'false');
     }
     function closeMenu() {
@@ -1080,9 +613,7 @@
         document.getElementById(modalId).style.display = 'flex';
         closeMenu();
     }
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-    }
+    function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
 
     function showCustomAlert(title, message, showForgot = false) {
         document.getElementById('customAlertTitle').textContent = title;
@@ -1097,14 +628,24 @@
         toast.textContent = message;
         toast.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
     }
 
     function switchToRegister() { closeModal('loginModal'); openModal('registerModal'); }
     function switchToLogin() { closeModal('registerModal'); openModal('loginModal'); }
+    function switchForgotToLogin() { closeModal('forgotModal'); openModal('loginModal'); }
 
     function openWhatsApp(message) {
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+    }
+
+    // Botão de WhatsApp do menu: usa o nome de quem está logado
+    function openWhatsAppInfo() {
+        const msg = currentUser
+            ? `Olá, me chamo ${currentUser} e gostaria de saber mais informações sobre o TRF 2027.`
+            : 'Olá, gostaria de saber mais informações sobre o TRF 2027.';
+        openWhatsApp(msg);
+        closeMenu();
     }
 
     // ====== AUTENTICAÇÃO (Firebase) ======
@@ -1129,6 +670,7 @@
         } catch (err) {
             if (err.code === 'auth/email-already-in-use') {
                 closeModal('registerModal');
+                document.getElementById('loginName').value = email;
                 openModal('loginModal');
             }
             showCustomAlert('Aviso', authErrorMsg(err));
@@ -1157,22 +699,35 @@
         }
     }
 
-    // Envia o e-mail de redefinição de senha para o e-mail cadastrado
-    async function triggerForgotPassword() {
-        closeModal('customAlertModal');
-        if (!ensureAuth()) return;
+    // Abre a tela de recuperação já com o e-mail digitado no login (se houver)
+    function openForgot() {
         const typed = normalize(document.getElementById('loginName').value || lastAttemptedName || '');
-        if (!typed.includes('@')) {
-            openModal('loginModal');
-            showCustomAlert('Aviso', 'Digite seu e-mail no campo de login e clique em "Esqueci minha senha" novamente.');
-            return;
-        }
+        closeModal('loginModal');
+        document.getElementById('forgotEmail').value = typed.includes('@') ? typed : '';
+        openModal('forgotModal');
+    }
+
+    // Envia o e-mail de redefinição de senha para o e-mail cadastrado
+    async function handleForgot(e) {
+        e.preventDefault();
+        if (!ensureAuth()) return;
+        const email = normalize(document.getElementById('forgotEmail').value);
+        const btn = document.getElementById('forgotSubmit');
+        btn.disabled = true;
         try {
-            await auth.sendPasswordResetEmail(typed);
-            closeModal('loginModal');
+            await auth.sendPasswordResetEmail(email);
+            closeModal('forgotModal');
             showCustomAlert('E-mail enviado', 'Se esse e-mail tiver cadastro, você receberá um link para criar uma nova senha. Confira também a caixa de spam. Depois de trocar a senha, volte aqui e faça login com a senha nova.');
         } catch (err) {
-            showCustomAlert('Erro', authErrorMsg(err));
+            if (err.code === 'auth/user-not-found') {
+                // mesma resposta de sucesso, para não revelar quais e-mails têm cadastro
+                closeModal('forgotModal');
+                showCustomAlert('E-mail enviado', 'Se esse e-mail tiver cadastro, você receberá um link para criar uma nova senha. Confira também a caixa de spam. Depois de trocar a senha, volte aqui e faça login com a senha nova.');
+            } else {
+                showCustomAlert('Erro', authErrorMsg(err));
+            }
+        } finally {
+            btn.disabled = false;
         }
     }
 
@@ -1219,18 +774,40 @@
     }
 
     // ====== CARRINHO ======
-    function addToCart(name, price) {
-        if (!requireAuth(() => addToCart(name, price))) return;
+    function addToCart(name, price, qty = 1) {
+        qty = clampQty(qty);
+        if (!requireAuth(() => addToCart(name, price, qty))) return;
         const existing = cart.find(i => i.name === name);
-        if (existing) existing.qty += 1;
-        else cart.push({ name, price, qty: 1 });
+        if (existing) existing.qty = Math.min(MAX_QTY, existing.qty + qty);
+        else cart.push({ name, price, qty });
         saveCart();
-        showToast(name + ' adicionado ao carrinho!');
+        showToast((qty > 1 ? qty + 'x ' : '') + name + ' adicionado ao carrinho!');
     }
 
-    function buyNow(name, price) {
-        if (!requireAuth(() => buyNow(name, price))) return;
-        openWhatsApp(`Olá, me chamo ${currentUser} e eu gostaria de comprar ${name} no valor de ${formatBRL(price).replace('R$ ', 'R$')}.`);
+    // Monta a mensagem do WhatsApp: um produto embaixo do outro, com unidades e total
+    function buildOrderMessage(items) {
+        let total = 0;
+        const blocks = items.map((i, n) => {
+            total += i.price * i.qty;
+            return `${n + 1}) ${i.qty}x ${i.name} - ${formatBRL(i.price * i.qty)}`;
+        });
+        return [
+            `Olá, me chamo ${currentUser} e gostaria de comprar:`,
+            '',
+            blocks.join('\n'),
+            '',
+            `Total: ${formatBRL(total)}`
+        ].join('\n');
+    }
+
+    function buyNow(name, price, qty = 1) {
+        qty = clampQty(qty);
+        if (!requireAuth(() => buyNow(name, price, qty))) return;
+        const link = getPayLink(name);
+        // 1 unidade e link cadastrado: vai direto para o pagamento
+        if (link && qty === 1) { openPayment(link); return; }
+        // mais de 1 unidade (o link cobra só 1) ou produto sem link: WhatsApp com a relação
+        openWhatsApp(buildOrderMessage([{ name, price, qty }]));
     }
 
     function openCartModal() {
@@ -1305,20 +882,12 @@
         if (cart[index].qty <= 0) cart.splice(index, 1);
         saveCart();
     }
-
-    function removeItem(index) {
-        cart.splice(index, 1);
-        saveCart();
-    }
+    function removeItem(index) { cart.splice(index, 1); saveCart(); }
 
     function clearCartConfirm() {
-        if (cart.length === 0) {
-            showCustomAlert('Carrinho Vazio', 'Seu carrinho já está vazio.');
-            return;
-        }
+        if (cart.length === 0) { showCustomAlert('Carrinho Vazio', 'Seu carrinho já está vazio.'); return; }
         openModal('confirmClearModal');
     }
-
     function executeClearCart() {
         cart = [];
         saveCart();
@@ -1333,17 +902,37 @@
         }
         if (!currentUser) { requireAuth(checkoutAll); return; }
 
-        let total = 0;
-        const lines = cart.map(i => {
-            total += i.price * i.qty;
-            return `- ${i.qty}x ${i.name} (${formatBRL(i.price * i.qty)})`;
-        }).join('\n');
-
-        const message = `Olá, me chamo ${currentUser} e eu gostaria de comprar:\n${lines}\n\nTotal: ${formatBRL(total)}.`;
-        openWhatsApp(message);
+        openWhatsApp(buildOrderMessage(cart));
     }
 
-    // ====== PWA: registro do Service Worker ======
+    // ====== PWA ======
+    let deferredInstall = null;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredInstall = e;
+        document.getElementById('installBtn').style.display = 'inline-flex';
+        document.getElementById('installItem').style.display = '';
+    });
+
+    window.addEventListener('appinstalled', () => {
+        deferredInstall = null;
+        document.getElementById('installBtn').style.display = 'none';
+        document.getElementById('installItem').style.display = 'none';
+        showToast('App instalado!');
+    });
+
+    async function installApp() {
+        if (!deferredInstall) return;
+        deferredInstall.prompt();
+        try { await deferredInstall.userChoice; } catch (e) {}
+        deferredInstall = null;
+        document.getElementById('installBtn').style.display = 'none';
+        document.getElementById('installItem').style.display = 'none';
+        closeMenu();
+    }
+
+    // Registro do Service Worker (precisa de HTTPS ou localhost)
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW não registrado:', err));
