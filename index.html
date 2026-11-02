@@ -266,6 +266,7 @@
             cursor: pointer;
         }
         .btn-primary:hover { background-color: var(--brand-brown); transform: translateY(-2px); }
+        .btn-primary:disabled { opacity: 0.6; cursor: wait; transform: none; }
 
         .hero-card-preview {
             background: white;
@@ -823,12 +824,15 @@
         <h2 class="serif-title">Já tem cadastro? Faça seu login agora</h2>
         <form onsubmit="handleLogin(event)">
             <div class="form-group">
-                <label for="loginName">Nome ou e-mail cadastrado</label>
-                <input type="text" id="loginName" required placeholder="Seu nome ou e-mail" autocomplete="username">
+                <label for="loginName">E-mail cadastrado</label>
+                <input type="email" id="loginName" required placeholder="seu@email.com" autocomplete="username">
             </div>
             <div class="form-group">
                 <label for="loginPassword">Senha</label>
                 <input type="password" id="loginPassword" required placeholder="Sua senha" autocomplete="current-password">
+            </div>
+            <div style="text-align: right; margin: -0.5rem 0 1rem;">
+                <button type="button" class="link-btn" style="font-size: 0.85rem;" onclick="triggerForgotPassword()">Esqueci minha senha</button>
             </div>
             <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-bottom: 1rem;">Entrar</button>
         </form>
@@ -893,10 +897,22 @@
     <p>© 2027 Retiro Transformados. Todos os direitos reservados.</p>
 </footer>
 
+<!-- Firebase (login na nuvem + e-mail de redefinição de senha) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
 <!-- Script Geral -->
 <script>
     // ====== CONFIGURAÇÕES (edite aqui) ======
     const WHATSAPP_NUMBER = '5577999999999'; // troque pelo número real (código do país + DDD + número)
+
+    // Cole aqui os dados do seu projeto Firebase (Configurações do projeto > Seus apps > Config)
+    const firebaseConfig = {
+        apiKey: "COLE_AQUI",
+        authDomain: "COLE_AQUI",
+        projectId: "COLE_AQUI",
+        appId: "COLE_AQUI"
+    };
 
     const PRODUCTS = [
         { name: 'Camiseta Oversized Santidade', title: 'Camiseta Oversized "Santidade"', price: 89.90, label: 'Camiseta Santidade' },
@@ -912,9 +928,6 @@
     function storageSet(key, value) {
         try { localStorage.setItem(key, value); return true; } catch (e) { return false; }
     }
-    function storageRemove(key) {
-        try { localStorage.removeItem(key); } catch (e) {}
-    }
     function parseJSON(str, fallback) {
         try { const v = JSON.parse(str); return v === null || v === undefined ? fallback : v; } catch (e) { return fallback; }
     }
@@ -925,17 +938,48 @@
         return String(str).trim().toLowerCase();
     }
 
-    async function hashPassword(password, salt) {
-        if (window.crypto && crypto.subtle) {
-            const data = new TextEncoder().encode('trf:' + salt + ':' + password);
-            const buf = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    // ====== FIREBASE ======
+    let auth = null;
+    const firebaseConfigured = firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('COLE');
+
+    if (typeof firebase !== 'undefined' && firebaseConfigured) {
+        try {
+            firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            auth.languageCode = 'pt-BR'; // e-mails do Firebase em português
+        } catch (err) {
+            console.warn('Firebase não iniciou:', err);
         }
-        return 'plain:' + password; // fallback para navegadores sem crypto.subtle (ex.: http sem https)
+    }
+
+    function ensureAuth() {
+        if (auth) return true;
+        const msg = !firebaseConfigured
+            ? 'O login ainda não foi configurado. Cole os dados do Firebase no arquivo index.html (firebaseConfig).'
+            : 'Não foi possível carregar o sistema de login. Verifique sua conexão com a internet e tente novamente.';
+        showCustomAlert('Aviso', msg);
+        return false;
+    }
+
+    function authErrorMsg(err) {
+        const map = {
+            'auth/email-already-in-use': 'Este e-mail já possui cadastro. Faça seu login.',
+            'auth/invalid-email': 'E-mail inválido.',
+            'auth/weak-password': 'A senha precisa ter pelo menos 6 caracteres.',
+            'auth/invalid-credential': 'E-mail ou senha incorretos! Verifique os dados digitados.',
+            'auth/invalid-login-credentials': 'E-mail ou senha incorretos! Verifique os dados digitados.',
+            'auth/wrong-password': 'E-mail ou senha incorretos! Verifique os dados digitados.',
+            'auth/user-not-found': 'E-mail ou senha incorretos! Verifique os dados digitados.',
+            'auth/too-many-requests': 'Muitas tentativas. Aguarde alguns minutos e tente de novo.',
+            'auth/network-request-failed': 'Sem conexão com a internet.',
+            'auth/unauthorized-domain': 'Este domínio não está autorizado no Firebase (Authentication > Configurações > Domínios autorizados).',
+            'auth/operation-not-allowed': 'O login por e-mail/senha não está ativado no Firebase.'
+        };
+        return map[err && err.code] || 'Algo deu errado. Tente novamente.';
     }
 
     // ====== ESTADO ======
-    let currentUser = storageGet('trf_logged_user');
+    let currentUser = null;
     let cart = parseJSON(storageGet('trf_cart'), []);
     if (!Array.isArray(cart)) cart = [];
     cart = cart
@@ -944,6 +988,13 @@
 
     let lastAttemptedName = '';
     let pendingAction = null; // ação a executar depois do login
+
+    if (auth) {
+        auth.onAuthStateChanged(user => {
+            currentUser = user ? (user.displayName || user.email) : null;
+            updateAuthUI();
+        });
+    }
 
     window.addEventListener('DOMContentLoaded', () => {
         renderProducts();
@@ -975,7 +1026,7 @@
     function renderProducts() {
         const grid = document.getElementById('productsGrid');
         grid.innerHTML = '';
-        PRODUCTS.forEach((p, idx) => {
+        PRODUCTS.forEach((p) => {
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
@@ -1056,105 +1107,73 @@
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
     }
 
-    // ====== AUTENTICAÇÃO ======
-    // Observação: este login é apenas local (salvo no navegador do aparelho).
-    // Para segurança real (senhas, recuperação por e-mail), é necessário um servidor/back-end.
-    function findUser(identifier) {
-        const id = normalize(identifier);
-        let nameKey = id;
-        if (id.includes('@')) {
-            const mappedName = storageGet('trf_email_' + id);
-            if (!mappedName) return null;
-            nameKey = normalize(mappedName);
-        }
-        let str = storageGet('trf_user_' + nameKey);
-        if (!str) str = storageGet('trf_user_' + identifier.trim()); // compatibilidade com cadastros antigos
-        return str ? parseJSON(str, null) : null;
-    }
-
+    // ====== AUTENTICAÇÃO (Firebase) ======
     async function handleRegister(e) {
         e.preventDefault();
+        if (!ensureAuth()) return;
+        const form = e.target;
         const name = document.getElementById('regName').value.trim();
         const email = normalize(document.getElementById('regEmail').value);
         const password = document.getElementById('regPassword').value;
+        if (!name) { showCustomAlert('Aviso', 'Informe seu nome.'); return; }
 
-        if (!name || password.length < 6) {
-            showCustomAlert('Aviso', 'Informe um nome e uma senha com pelo menos 6 caracteres.');
-            return;
-        }
-        if (name.includes('@')) {
-            showCustomAlert('Aviso', 'O nome não pode conter o símbolo @.');
-            return;
-        }
-
-        if (storageGet('trf_email_' + email) || findUser(name)) {
+        try {
+            const cred = await auth.createUserWithEmailAndPassword(email, password);
+            await cred.user.updateProfile({ displayName: name });
+            currentUser = name;
+            updateAuthUI();
             closeModal('registerModal');
-            openModal('loginModal');
-            showCustomAlert('Aviso', 'Este e-mail ou nome já possui cadastro. Faça seu login agora.');
-            return;
+            form.reset();
+            showToast('Cadastro realizado! Você já está logado(a).');
+            runPendingAction();
+        } catch (err) {
+            if (err.code === 'auth/email-already-in-use') {
+                closeModal('registerModal');
+                openModal('loginModal');
+            }
+            showCustomAlert('Aviso', authErrorMsg(err));
         }
-
-        const passwordHash = await hashPassword(password, normalize(name));
-        const userData = { name, email, passwordHash };
-        const ok = storageSet('trf_user_' + normalize(name), JSON.stringify(userData)) &&
-            storageSet('trf_email_' + email, name);
-        if (!ok) {
-            showCustomAlert('Erro', 'Não foi possível salvar o cadastro neste navegador (modo privado ou armazenamento cheio).');
-            return;
-        }
-
-        currentUser = name;
-        storageSet('trf_logged_user', currentUser);
-        updateAuthUI();
-        closeModal('registerModal');
-        e.target.reset();
-        showToast('Cadastro realizado! Você já está logado(a).');
-        runPendingAction();
     }
 
     async function handleLogin(e) {
         e.preventDefault();
-        const nameInput = document.getElementById('loginName').value.trim();
-        const passInput = document.getElementById('loginPassword').value;
-        lastAttemptedName = nameInput;
+        if (!ensureAuth()) return;
+        const form = e.target;
+        const email = normalize(document.getElementById('loginName').value);
+        const password = document.getElementById('loginPassword').value;
+        lastAttemptedName = email;
 
-        const userObj = findUser(nameInput);
-        let valid = false;
-
-        if (userObj) {
-            if (userObj.passwordHash) {
-                const hash = await hashPassword(passInput, normalize(userObj.name));
-                valid = hash === userObj.passwordHash;
-            } else if (userObj.password !== undefined) {
-                // cadastro antigo (senha em texto puro): valida e migra para hash
-                valid = userObj.password === passInput;
-                if (valid) {
-                    const newHash = await hashPassword(passInput, normalize(userObj.name));
-                    const migrated = { name: userObj.name, email: userObj.email, passwordHash: newHash };
-                    storageSet('trf_user_' + normalize(userObj.name), JSON.stringify(migrated));
-                }
-            }
-        }
-
-        if (valid) {
-            currentUser = userObj.name;
-            storageSet('trf_logged_user', currentUser);
+        try {
+            const cred = await auth.signInWithEmailAndPassword(email, password);
+            currentUser = cred.user.displayName || cred.user.email;
             updateAuthUI();
             closeModal('loginModal');
-            e.target.reset();
+            form.reset();
             showToast('Bem-vindo(a) de volta, ' + currentUser + '!');
             runPendingAction();
-            return;
+        } catch (err) {
+            const isCredentialError = ['auth/invalid-credential', 'auth/invalid-login-credentials', 'auth/wrong-password', 'auth/user-not-found'].includes(err.code);
+            showCustomAlert('Erro de Login', authErrorMsg(err), isCredentialError);
         }
-        showCustomAlert('Erro de Login', 'Nome/e-mail ou senha incorretos! Verifique os dados digitados.', true);
     }
 
-    // Sem servidor não é possível enviar e-mail de verdade; o pedido de redefinição vai pelo WhatsApp da organização.
-    function triggerForgotPassword() {
+    // Envia o e-mail de redefinição de senha para o e-mail cadastrado
+    async function triggerForgotPassword() {
         closeModal('customAlertModal');
-        closeModal('loginModal');
-        const who = lastAttemptedName || 'não informado';
-        openWhatsApp(`Olá! Esqueci minha senha do site Retiro Transformados. Nome/e-mail cadastrado: ${who}. Podem me ajudar a redefinir?`);
+        if (!ensureAuth()) return;
+        const typed = normalize(document.getElementById('loginName').value || lastAttemptedName || '');
+        if (!typed.includes('@')) {
+            openModal('loginModal');
+            showCustomAlert('Aviso', 'Digite seu e-mail no campo de login e clique em "Esqueci minha senha" novamente.');
+            return;
+        }
+        try {
+            await auth.sendPasswordResetEmail(typed);
+            closeModal('loginModal');
+            showCustomAlert('E-mail enviado', 'Se esse e-mail tiver cadastro, você receberá um link para criar uma nova senha. Confira também a caixa de spam. Depois de trocar a senha, volte aqui e faça login com a senha nova.');
+        } catch (err) {
+            showCustomAlert('Erro', authErrorMsg(err));
+        }
     }
 
     function toggleUserMenu() {
@@ -1162,10 +1181,10 @@
         dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
     }
 
-    function logoutUser() {
-        currentUser = null;
+    async function logoutUser() {
         pendingAction = null;
-        storageRemove('trf_logged_user');
+        try { if (auth) await auth.signOut(); } catch (e) {}
+        currentUser = null;
         updateAuthUI();
         document.getElementById('userDropdownMenu').style.display = 'none';
         showToast('Você saiu da sua conta.');
