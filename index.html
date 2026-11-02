@@ -136,8 +136,12 @@
 
         @media (max-width:768px){
             header{padding-left:4%;padding-right:4%}
-            .logo{font-size:.85rem;letter-spacing:0;margin-right:auto}
-            .menu-toggle{display:inline-flex;align-items:center;justify-content:center;order:-1}
+            .logo{font-size:.78rem;letter-spacing:0;margin-right:auto;line-height:1.15;min-width:0}
+            .logo span{display:block}
+            .menu-toggle{display:inline-flex;align-items:center;justify-content:center;order:-1;width:38px;height:38px;border-radius:8px;flex-shrink:0}
+            .cart-header{display:none}
+            .header-actions{gap:.35rem}
+            .user-greeting-btn{max-width:120px;padding:.4rem .7rem;font-size:.8rem}
             nav{position:absolute;top:100%;left:0;width:100%;background:#fff;border-bottom:1px solid var(--border-color);display:none}
             nav.open{display:block}
             nav ul{flex-direction:column;align-items:stretch;gap:0;padding:.5rem 4% 1rem}
@@ -145,7 +149,7 @@
             .mobile-only{display:list-item}
             .header-actions .btn-social{display:none}
             .hide-mobile{display:none}
-            .btn-auth{padding:.45rem .7rem;font-size:.78rem}
+            .btn-auth{padding:.45rem .6rem;font-size:.74rem}
             .hero{flex-direction:column;text-align:center;gap:2rem;padding:2rem 5%}
             .hero h1{font-size:2.1rem}
             .hero-card-preview{padding:2.2rem 1.5rem}
@@ -158,7 +162,7 @@
             .foto-experiencia-grande{height:260px}
             .modal-box{padding:2rem 1.4rem}
         }
-        @media (max-width:400px){#authButtonsContainer .gold{display:none}}
+        @media (max-width:360px){.logo{font-size:.7rem}.btn-auth{padding:.4rem .5rem;font-size:.7rem}header{gap:.5rem}}
         @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
     </style>
 </head>
@@ -166,20 +170,21 @@
 
 <header>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
-    <div class="logo">Retiro Transformados</div>
+    <div class="logo"><span>Retiro</span> <span>Transformados</span></div>
     <nav id="mainNav">
         <ul>
             <li><a href="#home" onclick="showPage('home'); return false;" class="active" id="nav-home">Início</a></li>
             <li><a href="#sobre" onclick="showPage('sobre'); return false;" id="nav-sobre">O Retiro</a></li>
             <li><a href="#experiencia" onclick="showPage('experiencia'); return false;" id="nav-experiencia">Experiência</a></li>
             <li><a href="#loja" onclick="showPage('loja'); return false;" id="nav-loja">Lojinha TRF</a></li>
+            <li class="mobile-only"><a href="#" onclick="openCartModal(); return false;"><i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="cart-badge" id="cartCountMenu" style="margin-left:.3rem">0</span></a></li>
             <li class="mobile-only"><a href="https://www.instagram.com/retirotransformados" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
             <li class="mobile-only"><a href="#" onclick="openWhatsAppInfo(); return false;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
             <li class="mobile-only" id="installItem" style="display:none"><a href="#" onclick="installApp(); return false;"><i class="fa-solid fa-download"></i> Instalar app</a></li>
         </ul>
     </nav>
     <div class="header-actions">
-        <button class="cart-icon-btn" onclick="openCartModal()" aria-label="Abrir carrinho">
+        <button class="cart-icon-btn cart-header" onclick="openCartModal()" aria-label="Abrir carrinho">
             <i class="fa-solid fa-cart-shopping"></i> <span class="hide-mobile">Carrinho</span> <span class="cart-badge" id="cartCount">0</span>
         </button>
         <a href="https://www.instagram.com/retirotransformados" target="_blank" rel="noopener" class="btn-social" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -824,6 +829,7 @@
     function updateCartUI() {
         const totalQty = cart.reduce((s, i) => s + i.qty, 0);
         document.getElementById('cartCount').textContent = totalQty;
+        document.getElementById('cartCountMenu').textContent = totalQty;
         const container = document.getElementById('cartItemsContainer');
         container.innerHTML = '';
 
