@@ -1,5 +1,6 @@
-const CACHE_NAME = 'trf-cache-v5';
+const CACHE_NAME = 'trf-cache-v7';
 const PRECACHE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
+const EXTERNAL_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com'];
 
 self.addEventListener('install', event => {
     event.waitUntil(
@@ -17,6 +18,10 @@ self.addEventListener('activate', event => {
     );
 });
 
+self.addEventListener('message', event => {
+    if (event.data === 'SKIP_WAITING') self.skipWaiting();
+});
+
 self.addEventListener('fetch', event => {
     const req = event.request;
     if (req.method !== 'GET' || !req.url.startsWith('http')) return;
@@ -24,10 +29,10 @@ self.addEventListener('fetch', event => {
     const url = new URL(req.url);
     const sameOrigin = url.origin === self.location.origin;
     const allowedExternal =
-        ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com'].includes(url.hostname) ||
+        EXTERNAL_HOSTS.includes(url.hostname) ||
         (url.hostname === 'www.gstatic.com' && url.pathname.startsWith('/firebasejs/'));
 
-    // Não mexe nas chamadas de login do Firebase/Google (vão direto para a rede)
+    // Login do Firebase/Google e demais chamadas vão direto para a rede
     if (!sameOrigin && !allowedExternal) return;
 
     // Páginas: rede primeiro, cache se estiver offline
@@ -46,7 +51,7 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // Demais arquivos: cache primeiro e atualiza em segundo plano
+    // Demais arquivos: cache primeiro, atualiza em segundo plano
     event.respondWith(
         caches.match(req).then(cached => {
             const network = fetch(req)
