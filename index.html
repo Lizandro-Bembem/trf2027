@@ -805,14 +805,29 @@
         ].join('\n');
     }
 
-    function buyNow(name, price, qty = 1) {
-        qty = clampQty(qty);
-        if (!requireAuth(() => buyNow(name, price, qty))) return;
-        const link = getPayLink(name);
-        // 1 unidade e link cadastrado: vai direto para o pagamento
-        if (link && qty === 1) { openPayment(link); return; }
-        // mais de 1 unidade (o link cobra só 1) ou produto sem link: WhatsApp com a relação
-        openWhatsApp(buildOrderMessage([{ name, price, qty }]));
+    // ====== PRODUTOS (Agora com link de pagamento individual) ======
+    const PRODUCTS = [
+        { name: 'Camiseta Oversized Santidade', title: 'Camiseta Oversized "Santidade"', price: 89.90, label: 'Camiseta Santidade', link: 'COLE_O_LINK_DE_PAGAMENTO_AQUI' },
+        { name: 'Camiseta Renúncia',            title: 'Camiseta "Renúncia"',            price: 79.90, label: 'Camiseta Renúncia', link: 'COLE_O_LINK_DE_PAGAMENTO_AQUI' },
+        { name: 'Garrafa Térmica Oficial TRF',  title: 'Garrafa Térmica Oficial TRF',    price: 65.00, label: 'Garrafa TRF', link: 'COLE_O_LINK_DE_PAGAMENTO_AQUI' },
+        { name: 'Boné Dad Hat TRF',             title: 'Boné Dad Hat TRF',               price: 55.00, label: 'Boné TRF', link: 'COLE_O_LINK_DE_PAGAMENTO_AQUI' }
+    ];
+
+    // ... (mantenha o restante do código igual até chegar na função buyNow) ...
+
+    // Função de Fazer Compra Direta pelo Link do Produto
+    function buyNow(name, price) {
+        if (!requireAuth(() => buyNow(name, price))) return;
+
+        // Acha o produto correspondente para pegar o link cadastrado
+        const product = PRODUCTS.find(p => p.name === name);
+
+        if (product && product.link && product.link !== 'https://link.infinitepay.io/dayane-bembem/VC0xLTEtSQ-8imQ70WZb3-1,00') {
+            // Abre o link de pagamento em uma nova aba
+            window.open(product.link, '_blank', 'noopener');
+        } else {
+            showCustomAlert('Aviso', 'O link de pagamento deste produto ainda não foi configurado.');
+        }
     }
 
     function openCartModal() {
