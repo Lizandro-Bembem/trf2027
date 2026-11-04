@@ -403,9 +403,9 @@
 
 <script>
     // ====== CONFIGURAÇÕES (edite aqui) ======
-    const WHATSAPP_NUMBER = '5571991155903'; // troque pelo número real (código do país + DDD + número)
+    const WHATSAPP_NUMBER = '5571991155903'; // código do país + DDD + número
 
-    // Cole aqui os dados do seu projeto Firebase (Configurações do projeto > Seus apps > Config)
+    // Dados do projeto Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyBv_778K2CNMN8wfk8DrxxvQaZ1MJZrlwo",
         authDomain: "trf-site.firebaseapp.com",
@@ -414,27 +414,29 @@
     };
 
     // Cada produto tem o seu link de pagamento (InfinitePay).
-    // Para adicionar: cole o link entre as aspas de "payLink" do produto (o link deve começar com https://).
+    // Para adicionar: cole o link entre as aspas de "payLink" do produto (deve começar com https://).
     // Enquanto estiver vazio, o botão "Fazer compra" daquele produto abre o WhatsApp.
+    // ATENÇÃO: esta é a ÚNICA lista de produtos do site. Não crie outra "const PRODUCTS".
     const PRODUCTS = [
         {
             name: 'Camiseta Oversized Santidade', title: 'Camiseta Oversized "Santidade"', price: 89.90, label: 'Camiseta Santidade',
-            // 👇 https://link.infinitepay.io/dayane-bembem/VC0xLTEtSQ-8imQ70WZb3-1,00"
+            // Link de teste da InfinitePay (R$ 1,00): https://link.infinitepay.io/dayane-bembem/VC0xLTEtSQ-8imQ70WZb3-1,00
+            // Cole abaixo o link REAL da Camiseta Santidade:
             payLink: ''
         },
         {
             name: 'Camiseta Renúncia', title: 'Camiseta "Renúncia"', price: 79.90, label: 'Camiseta Renúncia',
-            // 👇 COLE AQUI o link de pagamento da Camiseta "Renúncia"
+            // Cole abaixo o link de pagamento da Camiseta "Renúncia":
             payLink: ''
         },
         {
             name: 'Garrafa Térmica Oficial TRF', title: 'Garrafa Térmica Oficial TRF', price: 65.00, label: 'Garrafa TRF',
-            // 👇 COLE AQUI o link de pagamento da Garrafa Térmica Oficial TRF
+            // Cole abaixo o link de pagamento da Garrafa Térmica Oficial TRF:
             payLink: ''
         },
         {
             name: 'Boné Dad Hat TRF', title: 'Boné Dad Hat TRF', price: 55.00, label: 'Boné TRF',
-            // 👇 COLE AQUI o link de pagamento do Boné Dad Hat TRF
+            // Cole abaixo o link de pagamento do Boné Dad Hat TRF:
             payLink: ''
         }
     ];
@@ -641,7 +643,9 @@
     function switchForgotToLogin() { closeModal('forgotModal'); openModal('loginModal'); }
 
     function openWhatsApp(message) {
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+        const w = window.open(url, '_blank', 'noopener');
+        if (!w) window.location.href = url;
     }
 
     // Botão de WhatsApp do menu: usa o nome de quem está logado
@@ -719,15 +723,16 @@
         const email = normalize(document.getElementById('forgotEmail').value);
         const btn = document.getElementById('forgotSubmit');
         btn.disabled = true;
+        const okMsg = 'Se esse e-mail tiver cadastro, você receberá um link para criar uma nova senha. Confira também a caixa de spam. Depois de trocar a senha, volte aqui e faça login com a senha nova.';
         try {
             await auth.sendPasswordResetEmail(email);
             closeModal('forgotModal');
-            showCustomAlert('E-mail enviado', 'Se esse e-mail tiver cadastro, você receberá um link para criar uma nova senha. Confira também a caixa de spam. Depois de trocar a senha, volte aqui e faça login com a senha nova.');
+            showCustomAlert('E-mail enviado', okMsg);
         } catch (err) {
             if (err.code === 'auth/user-not-found') {
                 // mesma resposta de sucesso, para não revelar quais e-mails têm cadastro
                 closeModal('forgotModal');
-                showCustomAlert('E-mail enviado', 'Se esse e-mail tiver cadastro, você receberá um link para criar uma nova senha. Confira também a caixa de spam. Depois de trocar a senha, volte aqui e faça login com a senha nova.');
+                showCustomAlert('E-mail enviado', okMsg);
             } else {
                 showCustomAlert('Erro', authErrorMsg(err));
             }
@@ -805,28 +810,15 @@
         ].join('\n');
     }
 
-    // ====== PRODUTOS (Agora com link de pagamento individual) ======
-    const PRODUCTS = [
-        { name: 'Camiseta Oversized Santidade', title: 'Camiseta Oversized "Santidade"', price: 89.90, label: 'Camiseta Santidade', link: 'COLE_O_LINK_DE_PAGAMENTO_AQUI' },
-        { name: 'Camiseta Renúncia',            title: 'Camiseta "Renúncia"',            price: 79.90, label: 'Camiseta Renúncia', link: 'COLE_O_LINK_DE_PAGAMENTO_AQUI' },
-        { name: 'Garrafa Térmica Oficial TRF',  title: 'Garrafa Térmica Oficial TRF',    price: 65.00, label: 'Garrafa TRF', link: 'COLE_O_LINK_DE_PAGAMENTO_AQUI' },
-        { name: 'Boné Dad Hat TRF',             title: 'Boné Dad Hat TRF',               price: 55.00, label: 'Boné TRF', link: 'COLE_O_LINK_DE_PAGAMENTO_AQUI' }
-    ];
-
-    // ... (mantenha o restante do código igual até chegar na função buyNow) ...
-
-    // Função de Fazer Compra Direta pelo Link do Produto
-    function buyNow(name, price) {
-        if (!requireAuth(() => buyNow(name, price))) return;
-
-        // Acha o produto correspondente para pegar o link cadastrado
-        const product = PRODUCTS.find(p => p.name === name);
-
-        if (product && product.link && product.link !== 'https://link.infinitepay.io/dayane-bembem/VC0xLTEtSQ-8imQ70WZb3-1,00') {
-            // Abre o link de pagamento em uma nova aba
-            window.open(product.link, '_blank', 'noopener');
+    // "Fazer compra": abre o link de pagamento do produto; se ainda não houver link, abre o WhatsApp
+    function buyNow(name, price, qty = 1) {
+        qty = clampQty(qty);
+        if (!requireAuth(() => buyNow(name, price, qty))) return;
+        const link = getPayLink(name);
+        if (link) {
+            openPayment(link);
         } else {
-            showCustomAlert('Aviso', 'O link de pagamento deste produto ainda não foi configurado.');
+            openWhatsApp(buildOrderMessage([{ name, price, qty }]));
         }
     }
 
@@ -899,7 +891,7 @@
 
     function changeQty(index, delta) {
         if (!cart[index]) return;
-        cart[index].qty += delta;
+        cart[index].qty = Math.min(MAX_QTY, cart[index].qty + delta);
         if (cart[index].qty <= 0) cart.splice(index, 1);
         saveCart();
     }
