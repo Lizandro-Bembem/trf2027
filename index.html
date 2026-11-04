@@ -58,7 +58,18 @@
         .page-section{display:none;min-height:85vh;padding-top:6rem;padding-bottom:4rem}
         .page-section.active-page{display:block;animation:fadeIn .5s ease-out forwards}
 
-        .hero{padding:3rem 5%;background:linear-gradient(135deg,var(--bg-primary) 0%,var(--bg-accent) 100%);display:flex;align-items:center;justify-content:space-between;gap:3rem}
+        .hero{
+            position:relative;
+            padding:5rem 5%;
+            background:linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(244, 236, 225, 0.88) 100%), url('hero-bg.jpg');
+            background-size:cover;
+            background-position:center;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:3rem;
+            min-height:85vh;
+        }
         .hero-content{max-width:600px}
         .hero-badge{display:inline-block;background:var(--brand-gold);color:var(--brand-brown);padding:.4rem 1rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase}
         .hero h1{font-size:3.2rem;color:var(--brand-wine);line-height:1.1;margin-bottom:1.5rem}
