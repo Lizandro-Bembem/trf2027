@@ -6,8 +6,10 @@
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "any",
   "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["religion", "events"],
   "background_color": "#FFFFFF",
   "theme_color": "#4A121A",
   "icons": [

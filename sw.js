@@ -1,5 +1,12 @@
-const CACHE_NAME = 'trf-cache-v9';
-const PRECACHE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
+const CACHE_NAME = 'trf-cache-v10';
+const PRECACHE = [
+    './',
+    './index.html',
+    './manifest.json',
+    './icon-192.png',
+    './icon-512.png',
+    './icon-maskable-512.png'
+];
 const EXTERNAL_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com'];
 
 self.addEventListener('install', event => {
@@ -25,6 +32,8 @@ self.addEventListener('message', event => {
 self.addEventListener('fetch', event => {
     const req = event.request;
     if (req.method !== 'GET' || !req.url.startsWith('http')) return;
+    // Requisições parciais (vídeo/áudio) vão direto para a rede
+    if (req.headers.has('range')) return;
 
     const url = new URL(req.url);
     const sameOrigin = url.origin === self.location.origin;
@@ -40,13 +49,17 @@ self.addEventListener('fetch', event => {
         event.respondWith(
             fetch(req)
                 .then(res => {
-                    if (res && res.status === 200) {
+                    if (res && res.status === 200 && res.type === 'basic') {
                         const copy = res.clone();
                         caches.open(CACHE_NAME).then(c => c.put('./index.html', copy));
                     }
                     return res;
                 })
-                .catch(() => caches.match('./index.html').then(r => r || caches.match('./')))
+                .catch(() =>
+                    caches.match('./index.html')
+                        .then(r => r || caches.match('./'))
+                        .then(r => r || Response.error())
+                )
         );
         return;
     }
@@ -62,8 +75,14 @@ self.addEventListener('fetch', event => {
                     }
                     return res;
                 })
-                .catch(() => cached);
-            return cached || network;
+                .catch(() => cached || Response.error());
+
+            if (cached) {
+                // Mantém o service worker vivo até terminar a atualização em segundo plano
+                event.waitUntil(network.catch(() => null));
+                return cached;
+            }
+            return network;
         })
     );
 });
