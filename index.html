@@ -110,7 +110,13 @@
         .foto-experiencia-grande{background:var(--brand-wine);color:var(--bg-accent);height:350px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.5rem;font-family:'Cinzel',serif;box-shadow:0 15px 35px rgba(74,18,26,.2)}
 
         .section-store{padding:2rem 5%;max-width:1300px;margin:0 auto}
-        .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-top:2rem}
+        .products-grid{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 produtos lado a lado em todas as telas */
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .product-card{background:#fff;border:1px solid var(--border-color);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
         .product-card{background:#fff;border:1px solid var(--border-color);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
         .product-img{background:var(--bg-secondary);height:220px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-weight:600;text-align:center;padding:1rem}
         .product-info{padding:1.5rem;display:flex;flex-direction:column;flex:1}
