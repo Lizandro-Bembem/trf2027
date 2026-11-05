@@ -31,64 +31,50 @@
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
         .animate-fade{animation:fadeIn .6s ease-out forwards}
 
-        /* ================= COMPONENTE DE FOTO =================
-           Todo espaço de foto usa a classe .photo. Se o arquivo da foto
-           não existir, aparece um aviso com o caminho exato do arquivo. */
-        .photo{position:relative;overflow:hidden;background:var(--bg-accent);border-radius:16px}
-        .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-        .photo .ph{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;padding:1rem;text-align:center;color:var(--brand-wine);background:repeating-linear-gradient(45deg,var(--bg-accent),var(--bg-accent) 12px,#efe4d3 12px,#efe4d3 24px);border:2px dashed var(--brand-gold);border-radius:inherit}
-        .photo.missing img{display:none}
-        .photo.missing .ph{display:flex}
-        .ph i{font-size:1.6rem;color:var(--brand-gold)}
-        .ph b{font-size:.8rem;text-transform:uppercase;letter-spacing:.5px}
-        .ph code{font-size:.72rem;background:#fff;padding:.15rem .5rem;border-radius:6px;color:var(--brand-brown);word-break:break-all}
-        .ph small{font-size:.68rem;color:var(--text-muted)}
-        .photo .cap{position:absolute;left:0;right:0;bottom:0;padding:2rem 1rem .8rem;background:linear-gradient(transparent,rgba(45,17,21,.85));color:#fff;font-family:'Cinzel',serif;font-size:1.05rem;text-align:left;pointer-events:none}
-        .photo.missing .cap{display:none}
-        .br-mobile{display:none}
-        .ar-11{aspect-ratio:1/1}
-        .ar-43{aspect-ratio:4/3}
-        .ar-32{aspect-ratio:3/2}
-        .ar-wide{aspect-ratio:16/7}
+        header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-color);z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:.8rem 3%;padding-top:calc(.8rem + env(safe-area-inset-top,0px));gap:.5rem}
 
-        header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-color);z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 4%;padding-top:calc(1rem + env(safe-area-inset-top,0px));gap:.8rem}
-        .logo{display:flex;align-items:center;gap:.6rem;font-size:1.1rem;font-weight:700;color:var(--brand-wine);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
-        .logo .logo-img{width:38px;height:38px;border-radius:50%;flex-shrink:0}
-        .logo .logo-img .ph{display:none!important}
-        .logo .logo-text span{display:inline}
+        /* Logo ajustada para sumir no celular se necessário ou ficar limpa */
+        .logo{font-size:1rem;font-weight:700;color:var(--brand-wine);letter-spacing:1px;text-transform:uppercase;white-space:nowrap;line-height:1.2}
+
         nav ul{display:flex;list-style:none;gap:1.5rem;align-items:center}
         nav ul li a{text-decoration:none;color:var(--text-main);font-weight:500;font-size:.9rem;transition:color .3s}
         nav ul li a:hover,nav ul li a.active{color:var(--brand-wine);font-weight:600}
         .mobile-only{display:none}
-        .menu-toggle{display:none;background:var(--bg-accent);border:1px solid var(--brand-gold);color:var(--brand-wine);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1rem}
-        .header-actions{display:flex;gap:.5rem;align-items:center;position:relative}
-        .btn-social{background:var(--bg-secondary);color:var(--brand-wine);border:1px solid var(--border-color);padding:.5rem .8rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.85rem;display:inline-flex;align-items:center;gap:.4rem;transition:all .3s}
+        .menu-toggle{display:none;background:var(--bg-accent);border:1px solid var(--brand-gold);color:var(--brand-wine);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:.9rem}
+        .header-actions{display:flex;gap:.4rem;align-items:center;position:relative}
+        .btn-social{background:var(--bg-secondary);color:var(--brand-wine);border:1px solid var(--border-color);padding:.4rem .7rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.8rem;display:inline-flex;align-items:center;gap:.3rem;transition:all .3s}
         .btn-social:hover{border-color:var(--brand-wine)}
-        .btn-auth{background:var(--brand-wine);color:#fff;padding:.5rem .9rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.85rem;border:none;cursor:pointer;transition:background .3s;font-family:inherit;white-space:nowrap}
+        .btn-auth{background:var(--brand-wine);color:#fff;padding:.45rem .8rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.8rem;border:none;cursor:pointer;transition:background .3s;font-family:inherit;white-space:nowrap}
         .btn-auth:hover{background:var(--brand-brown)}
         .btn-auth.gold{background:var(--brand-gold);color:var(--brand-brown)}
 
         .user-menu-container{position:relative;display:inline-block}
-        .user-greeting-btn{font-weight:700;color:var(--brand-wine);font-size:.9rem;font-family:inherit;background:var(--bg-accent);border:1px solid var(--brand-gold);padding:.4rem 1rem;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:.5rem;max-width:160px}
+        .user-greeting-btn{font-weight:700;color:var(--brand-wine);font-size:.85rem;font-family:inherit;background:var(--bg-accent);border:1px solid var(--brand-gold);padding:.35rem .8rem;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:.4rem;max-width:140px}
         .user-greeting-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
         .user-dropdown-menu{display:none;position:absolute;right:0;top:110%;background:#fff;min-width:140px;box-shadow:0 10px 25px rgba(0,0,0,.1);border:1px solid var(--border-color);border-radius:12px;z-index:1100;overflow:hidden}
         .user-dropdown-menu button{width:100%;padding:.8rem 1rem;text-align:left;background:none;border:none;font-size:.9rem;font-weight:600;font-family:inherit;color:#c62828;cursor:pointer;transition:background .2s}
         .user-dropdown-menu button:hover{background:#ffebee}
 
-        .cart-icon-btn{position:relative;background:var(--bg-accent);border:1px solid var(--brand-gold);color:var(--brand-wine);padding:.5rem .8rem;border-radius:20px;cursor:pointer;font-weight:600;font-size:.85rem;font-family:inherit;display:inline-flex;align-items:center;gap:.4rem}
-        .cart-badge{background:var(--brand-wine);color:#fff;font-size:.7rem;padding:.1rem .4rem;border-radius:50px;min-width:1.2rem;text-align:center}
+        .cart-icon-btn{position:relative;background:var(--bg-accent);border:1px solid var(--brand-gold);color:var(--brand-wine);padding:.4rem .7rem;border-radius:20px;cursor:pointer;font-weight:600;font-size:.8rem;font-family:inherit;display:inline-flex;align-items:center;gap:.3rem}
+        .cart-badge{background:var(--brand-wine);color:#fff;font-size:.65rem;padding:.1rem .35rem;border-radius:50px;min-width:1.1rem;text-align:center}
 
-        .page-section{display:none;min-height:85vh;padding-top:6rem;padding-bottom:4rem}
+        .page-section{display:none;min-height:85vh;padding-top:7rem;padding-bottom:4rem}
         .page-section.active-page{display:block;animation:fadeIn .5s ease-out forwards}
 
-        /* ===== BANNER (HERO) =====
-           A foto fica numa camada própria (.hero-bg), atrás do texto.
-           A camada .hero-overlay só escurece/clareia o lado do texto. */
-        .hero{position:relative;overflow:hidden;padding:5rem 5%;display:flex;align-items:center;justify-content:space-between;gap:3rem;min-height:85vh;background:var(--bg-accent)}
-        .hero-bg{position:absolute;inset:0;border-radius:0;z-index:0}
-        .hero-bg .ph{align-items:flex-start;justify-content:flex-end;padding:6rem 1rem 1rem;border-radius:0;border:none}
-        .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.55) 45%,rgba(74,18,26,.25) 100%);pointer-events:none}
-        .hero-content,.hero-image{position:relative;z-index:2}
+        /* Hero com espaçamento superior correto para não cortar nada em celulares */
+        .hero {
+            position: relative;
+            padding: 4rem 5%;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(244, 236, 225, 0.88) 100%), url('banner.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            min-height: 85vh;
+        }
         .hero-content{max-width:600px}
         .hero-badge{display:inline-block;background:var(--brand-gold);color:var(--brand-brown);padding:.4rem 1rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase}
         .hero h1{font-size:3.2rem;color:var(--brand-wine);line-height:1.1;margin-bottom:1.5rem}
@@ -102,62 +88,34 @@
         .badge-esgotado{font-size:1rem;color:var(--brand-wine);background:var(--bg-accent);padding:.6rem 1.2rem;border-radius:20px;font-weight:700;text-transform:uppercase;display:inline-block}
 
         .nubank-banner{margin:3rem 5%;background:linear-gradient(135deg,var(--brand-wine) 0%,var(--brand-brown) 100%);border-radius:24px;padding:3.5rem 3rem;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:2rem;box-shadow:0 20px 40px rgba(0,0,0,.1)}
-        .nubank-banner>div:first-child{flex:1}
         .nubank-banner h2{font-size:2.3rem;margin-bottom:1rem;color:var(--bg-accent)}
         .nubank-banner p{color:rgba(255,255,255,.85);font-size:1.05rem;margin-bottom:1.5rem}
-        .banner-photo{width:360px;max-width:100%;flex-shrink:0;border-radius:20px;border:1px solid rgba(255,255,255,.3)}
+        .banner-img-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:2.5rem;border-radius:20px;text-align:center;min-width:300px;font-weight:600;color:var(--bg-accent)}
 
         .section-about{padding:3rem 5%;max-width:1200px;margin:0 auto}
         .section-about .nubank-banner{margin-left:0;margin-right:0}
         .eyebrow{color:var(--brand-gold);font-weight:700;text-transform:uppercase;font-size:.85rem}
         .quem-somos-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:4rem}
         .fotos-espalhadas{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+        .foto-card-mock{background:var(--bg-accent);border:1px solid var(--border-color);height:180px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--brand-wine);font-size:.9rem;text-align:center;padding:1rem}
         .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-top:2rem}
         .feature-item{background:#fff;padding:2.5rem 2rem;border-radius:20px;border:1px solid var(--border-color);transition:transform .3s}
         .feature-item:hover{transform:translateY(-5px)}
         .feature-item i{font-size:2rem;color:var(--brand-gold);margin-bottom:1.2rem}
         .feature-item h3{font-size:1.2rem;color:var(--brand-wine);margin-bottom:.8rem}
 
-        /* ===== ONDE SERÁ (localização) ===== */
-        .local-section{margin-top:5rem}
-        .local-head{text-align:center;margin-bottom:2rem}
-        .local-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1rem}
-        .local-grid .photo:first-child{grid-row:span 2;aspect-ratio:auto;min-height:320px}
-        .local-info{margin-top:1.5rem;background:var(--bg-accent);border:1px solid var(--brand-gold);border-radius:20px;padding:1.8rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
-        .local-info h3{color:var(--brand-wine);font-size:1.3rem;margin-bottom:.3rem}
-        .local-info p{color:var(--text-muted);font-size:.95rem}
-        .local-info i{color:var(--brand-gold);margin-right:.4rem}
-
         .experiencia-content{max-width:1000px;margin:0 auto;padding:3rem 5%;text-align:center}
         .experiencia-destaque-box{background:var(--bg-secondary);border:2px solid var(--brand-gold);border-radius:24px;padding:3rem;margin-top:2rem}
         .experiencia-texto-visivel{font-size:1.2rem;color:var(--text-main);font-weight:600;line-height:1.8;margin-top:1rem;margin-bottom:2rem}
-        .galeria{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem}
+        .foto-experiencia-grande{background:var(--brand-wine);color:var(--bg-accent);height:350px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.5rem;font-family:'Cinzel',serif;box-shadow:0 15px 35px rgba(74,18,26,.2)}
 
-        /* ===== FOTOS (álbuns) ===== */
-        .section-fotos{padding:3rem 5% 1rem;max-width:1100px;margin:0 auto;text-align:center}
-        .albuns-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,440px));gap:2rem;justify-content:center}
-        .album-card{display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--border-color);border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(74,18,26,.08);transition:transform .3s,box-shadow .3s}
-        .album-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(74,18,26,.16)}
-        .album-card .photo{border-radius:0;aspect-ratio:4/3}
-        .album-legenda{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem 1.4rem;border-top:3px solid var(--brand-gold);background:#fff;font-weight:600;color:var(--brand-wine);font-size:.95rem}
-        .album-legenda i{color:var(--brand-gold);font-size:1.1rem;flex-shrink:0}
-
-        /* ===== LOJINHA ===== */
         .section-store{padding:2rem 5%;max-width:1300px;margin:0 auto}
         .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-top:2rem}
         .product-card{background:#fff;border:1px solid var(--border-color);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
-        .product-card .photo{border-radius:0;aspect-ratio:1/1}
+        .product-img{background:var(--bg-secondary);height:220px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-weight:600;text-align:center;padding:1rem}
         .product-info{padding:1.5rem;display:flex;flex-direction:column;flex:1}
         .product-info h3{font-size:1.1rem;color:var(--text-main);margin-bottom:.5rem}
-        .product-price{font-size:1.2rem;font-weight:700;color:var(--brand-wine);margin-bottom:1rem}
-        .color-row{margin-bottom:1rem}
-        .color-label{font-size:.8rem;font-weight:600;color:var(--text-muted);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
-        .color-label b{color:var(--brand-wine)}
-        .color-dot{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--border-color)}
-        .swatches{display:flex;gap:.7rem;flex-wrap:wrap}
-        .swatch{width:32px;height:32px;border-radius:50%;border:2px solid var(--border-color);cursor:pointer;padding:0;transition:transform .2s}
-        .swatch:hover{transform:scale(1.1)}
-        .swatch[aria-pressed="true"]{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--brand-wine)}
+        .product-price{font-size:1.2rem;font-weight:700;color:var(--brand-wine);margin-bottom:1.2rem}
         .qty-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:1rem}
         .qty-row label{font-size:.8rem;font-weight:600;color:var(--text-muted)}
         .qty-input{width:84px;text-align:center;padding:.5rem;border:1px solid var(--brand-wine);border-radius:10px;font-size:16px;font-weight:700;font-family:inherit;color:var(--brand-wine);background:#fff;outline:none}
@@ -181,8 +139,6 @@
 
         .cart-items-list{max-height:250px;overflow-y:auto;margin-bottom:1.5rem;border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color);padding:1rem 0;text-align:left}
         .cart-item-row{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.8rem;font-size:.9rem}
-        .cart-item-thumb{width:48px;height:48px;border-radius:10px;flex-shrink:0}
-        .cart-item-thumb .ph{display:none!important}
         .cart-item-info{flex:1;min-width:0}
         .qty-controls{display:inline-flex;align-items:center;gap:.4rem;margin-top:.2rem}
         .btn-qty{width:26px;height:26px;border-radius:50%;border:1px solid var(--brand-wine);background:#fff;color:var(--brand-wine);font-weight:700;cursor:pointer;line-height:1}
@@ -195,51 +151,39 @@
         footer{background:var(--brand-brown);color:#fff;padding:3rem 5%;padding-bottom:calc(3rem + env(safe-area-inset-bottom,0px));text-align:center;margin-top:4rem}
 
         @media (max-width:768px){
-            header{padding-left:4%;padding-right:4%}
-            .logo{font-size:.78rem;letter-spacing:0;margin-right:auto;line-height:1.15;min-width:0}
-            .logo .logo-img{width:32px;height:32px}
-            .logo .logo-text span{display:block}
-            .menu-toggle{display:inline-flex;align-items:center;justify-content:center;order:-1;width:38px;height:38px;border-radius:8px;flex-shrink:0}
+            header{padding-left:3%;padding-right:3%;padding-top:calc(.6rem + env(safe-area-inset-top,0px));padding-bottom:.6rem}
+            /* Oculta a bolinha da logo no mobile para liberar espaço */
+            .logo img, .logo-img { display: none !important; }
+            .logo{font-size:.75rem;letter-spacing:0;line-height:1.15;min-width:0;font-weight:700}
+            .logo span{display:block}
+            .menu-toggle{display:inline-flex;align-items:center;justify-content:center;order:-1;width:36px;height:36px;border-radius:8px;flex-shrink:0}
             .cart-header{display:none}
-            .header-actions{gap:.35rem}
-            .user-greeting-btn{max-width:120px;padding:.4rem .7rem;font-size:.8rem}
-            .menu-toggle{transition:background .3s,color .3s,border-color .3s}
-            .menu-toggle i{display:inline-block;transition:transform .4s cubic-bezier(.22,1,.36,1)}
-            .menu-toggle.open{background:var(--brand-wine);border-color:var(--brand-wine);color:#fff}
-            .menu-toggle.open i{transform:rotate(90deg)}
-            /* Menu fluido: o painel desliza para baixo e os itens entram um após o outro */
-            nav{position:absolute;top:100%;left:0;width:100%;background:#fff;border-bottom:1px solid var(--border-color);box-shadow:0 18px 30px rgba(74,18,26,.12);
-                visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);clip-path:inset(0 0 100% 0);
-                transition:clip-path .45s cubic-bezier(.22,1,.36,1),opacity .3s ease,transform .45s cubic-bezier(.22,1,.36,1),visibility 0s linear .45s}
-            nav.open{visibility:visible;opacity:1;pointer-events:auto;transform:none;clip-path:inset(0 0 -40px 0);transition-delay:0s}
-            nav ul li{opacity:0;transform:translateY(-10px);transition:opacity .25s ease,transform .3s ease}
-            nav.open ul li{opacity:1;transform:none;transition:opacity .4s ease,transform .45s cubic-bezier(.22,1,.36,1);transition-delay:calc(var(--i,0) * 45ms + 90ms)}
-            nav ul li:nth-child(1){--i:0}nav ul li:nth-child(2){--i:1}nav ul li:nth-child(3){--i:2}nav ul li:nth-child(4){--i:3}nav ul li:nth-child(5){--i:4}
-            nav ul li:nth-child(6){--i:5}nav ul li:nth-child(7){--i:6}nav ul li:nth-child(8){--i:7}nav ul li:nth-child(9){--i:8}
+            .header-actions{gap:.3rem}
+            .user-greeting-btn{max-width:110px;padding:.35rem .6rem;font-size:.75rem}
+            nav{position:absolute;top:100%;left:0;width:100%;background:#fff;border-bottom:1px solid var(--border-color);display:none}
+            nav.open{display:block}
             nav ul{flex-direction:column;align-items:stretch;gap:0;padding:.5rem 4% 1rem}
             nav ul li a{display:block;padding:.9rem 0;font-size:1rem;border-bottom:1px solid var(--bg-accent)}
             .mobile-only{display:list-item}
             .header-actions .btn-social{display:none}
             .hide-mobile{display:none}
-            .btn-auth{padding:.45rem .6rem;font-size:.74rem}
-            .hero{flex-direction:column;text-align:center;gap:2rem;padding:2rem 5%}
-            .hero h1{font-size:2.1rem}
-            .hero-overlay{background:linear-gradient(180deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.6) 60%,rgba(74,18,26,.3) 100%)}
-            .hero-card-preview{padding:2.2rem 1.5rem}
-            .hero-card-preview h3{font-size:1.8rem}
+            .btn-auth{padding:.4rem .55rem;font-size:.7rem}
+
+            /* Ajuste crucial do hero para afastar o conteúdo debaixo do cabeçalho fixo */
+            .hero{flex-direction:column;text-align:center;gap:2rem;padding:2.5rem 4%;margin-top:4.5rem;min-height:auto}
+            .hero h1{font-size:2rem}
+            .hero-card-preview{padding:2rem 1.2rem}
+            .hero-card-preview h3{font-size:1.7rem}
+
             .quem-somos-grid{grid-template-columns:1fr}
             .nubank-banner{flex-direction:column;padding:2rem 1.5rem;text-align:center;margin:2rem 5%}
             .nubank-banner h2{font-size:1.7rem}
-            .banner-photo{width:100%}
-            .local-grid{grid-template-columns:1fr 1fr}
-            .local-grid .photo:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:3/2;min-height:0}
-            .local-info{flex-direction:column;align-items:flex-start}
+            .banner-img-box{min-width:0!important;width:100%;padding:2rem 1rem!important}
             .experiencia-destaque-box{padding:1.5rem}
-            .galeria{grid-template-columns:1fr 1fr}
-            .br-mobile{display:inline}
+            .foto-experiencia-grande{height:260px}
             .modal-box{padding:2rem 1.4rem}
         }
-        @media (max-width:360px){.logo{font-size:.7rem}.btn-auth{padding:.4rem .5rem;font-size:.7rem}header{gap:.5rem}}
+        @media (max-width:360px){.logo{font-size:.68rem}.btn-auth{padding:.35rem .45rem;font-size:.65rem}header{gap:.4rem}}
         @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
     </style>
 </head>
@@ -247,17 +191,12 @@
 
 <header>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
-    <div class="logo">
-        <!-- FOTO: logo -->
-        <div class="logo-img" data-photo="logo" data-round="1"></div>
-        <div class="logo-text"><span>Retiro</span> <span>Transformados</span></div>
-    </div>
+    <div class="logo"><span>Retiro</span> <span>Transformados</span></div>
     <nav id="mainNav">
         <ul>
             <li><a href="#home" onclick="showPage('home'); return false;" class="active" id="nav-home">Início</a></li>
             <li><a href="#sobre" onclick="showPage('sobre'); return false;" id="nav-sobre">O Retiro</a></li>
             <li><a href="#experiencia" onclick="showPage('experiencia'); return false;" id="nav-experiencia">Experiência</a></li>
-            <li><a href="#fotos" onclick="showPage('fotos'); return false;" id="nav-fotos">Fotos</a></li>
             <li><a href="#loja" onclick="showPage('loja'); return false;" id="nav-loja">Lojinha TRF</a></li>
             <li class="mobile-only"><a href="#" onclick="openCartModal(); return false;"><i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="cart-badge" id="cartCountMenu" style="margin-left:.3rem">0</span></a></li>
             <li class="mobile-only"><a href="https://www.instagram.com/retirotransformados" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
@@ -288,1057 +227,3 @@
         </div>
     </div>
 </header>
-
-<!-- ============ PÁGINA 1: INÍCIO ============ -->
-<section id="page-home" class="page-section active-page">
-    <div class="hero">
-        <!-- FOTO: banner principal (fica atrás do texto) -->
-        <div class="hero-bg" data-photo="banner"></div>
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content animate-fade">
-            <span class="hero-badge">TRF 2027</span>
-            <h1 class="serif-title">Santidade em uma Geração Corrompida</h1>
-            <p>Um novo lugar, uma nova experiência, mas com o mesmo propósito. Vivemos em uma geração onde o que deveria ser exceção se tornou normal.</p>
-            <button class="btn-primary" onclick="showPage('loja')">Ver Produtos TRF <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-        <div class="hero-image animate-fade">
-            <div class="hero-card-preview">
-                <h3 class="serif-title">Save The Date</h3>
-                <p>05 a 09 de Fevereiro de 2027</p>
-                <span class="badge-esgotado">Vagas Esgotadas</span>
-            </div>
-        </div>
-    </div>
-    <div class="nubank-banner">
-        <div>
-            <h2 class="serif-title">Uma Nova Experiência</h2>
-            <p>Prepare-se para viver dias inesquecíveis em um novo local estruturado para proporcionar comunhão profunda e renovação espiritual.</p>
-            <button class="btn-primary" style="background:var(--bg-accent);color:var(--brand-wine);" onclick="showPage('sobre')">Saiba Mais</button>
-        </div>
-        <!-- FOTO: novo local (início) -->
-        <div class="banner-photo ar-43" data-photo="localHome"></div>
-    </div>
-</section>
-
-<!-- ============ PÁGINA 2: O RETIRO ============ -->
-<section id="page-sobre" class="page-section">
-    <div class="section-about">
-        <div class="quem-somos-grid">
-            <div>
-                <span class="eyebrow">Nossa História</span>
-                <h2 class="serif-title" style="margin-top:.3rem;margin-bottom:1rem;font-size:2.2rem;">Quem Somos</h2>
-                <p style="color:var(--text-muted);margin-bottom:1rem;">O Retiro Transformados começou com o firme propósito de resgatar princípios eternos na juventude. Somos um movimento focado em viver a palavra sem compromissos com o padrão deste mundo.</p>
-                <p style="color:var(--text-muted);">Ao longo dos anos, reunimos centenas de jovens em um ambiente de avivamento, cura interior, quebramentos e adoração verdadeira.</p>
-            </div>
-            <!-- FOTOS: Quem Somos (4 fotos) -->
-            <div class="fotos-espalhadas">
-                <div class="ar-11" data-photo="quem1"></div>
-                <div class="ar-11" data-photo="quem2"></div>
-                <div class="ar-11" data-photo="quem3"></div>
-                <div class="ar-11" data-photo="quem4"></div>
-            </div>
-        </div>
-
-        <div style="margin-top:5rem;text-align:center;">
-            <h2 class="serif-title" style="font-size:2.3rem;color:var(--brand-wine);margin-bottom:1rem;">O Propósito</h2>
-            <p style="max-width:700px;margin:0 auto 3rem auto;color:var(--text-muted);">Pilares inegociáveis que sustentam cada edição do Retiro Transformados.</p>
-            <div class="features-grid">
-                <div class="feature-item"><i class="fa-solid fa-fire"></i><h3>Adoração Intensa</h3><p>Dias marcados pela busca profunda, louvor verdadeiro e comunhão entre irmãos.</p></div>
-                <div class="feature-item"><i class="fa-solid fa-scroll"></i><h3>Palavra Viva</h3><p>Mensagens transformadoras baseadas nas Escrituras para confrontar e edificar nossa geração.</p></div>
-                <div class="feature-item"><i class="fa-solid fa-users"></i><h3>Comunidade</h3><p>Um ambiente seguro para conexões reais, discipulado e crescimento espiritual mútuo.</p></div>
-            </div>
-        </div>
-
-        <div class="nubank-banner" style="margin-top:5rem;">
-            <div>
-                <span class="eyebrow">Infraestrutura 2027</span>
-                <h2 class="serif-title" style="margin-top:.3rem;">Novo Local TRF 2027</h2>
-                <p>Um espaço amplo, integrado à natureza, pensado em cada detalhe para acomodar nossa geração com conforto, segurança e total liberdade no Espírito.</p>
-            </div>
-            <!-- FOTO: visão geral do local 2027 -->
-            <div class="banner-photo ar-32" data-photo="local2027"></div>
-        </div>
-
-        <!-- ===== ONDE SERÁ (localização + endereço) ===== -->
-        <div class="local-section">
-            <div class="local-head">
-                <span class="eyebrow">Localização</span>
-                <h2 class="serif-title" style="margin-top:.3rem;font-size:2.2rem;color:var(--brand-wine);">Onde Será o TRF 2027</h2>
-            </div>
-            <div class="local-info" style="margin-top:0">
-                <div>
-                    <h3 class="serif-title" id="localNome"></h3>
-                    <p><i class="fa-solid fa-location-dot"></i><span id="localEndereco"></span></p>
-                </div>
-                <a class="btn-primary" id="localMapsBtn" href="#" target="_blank" rel="noopener" style="display:none"><i class="fa-solid fa-map-location-dot"></i> Ver no mapa</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============ PÁGINA 3: EXPERIÊNCIA ============ -->
-<section id="page-experiencia" class="page-section">
-    <div class="experiencia-content">
-        <span class="eyebrow">Vivência TRF</span>
-        <h2 class="serif-title" style="font-size:2.5rem;color:var(--brand-wine);margin-top:.3rem;">Comunhão e Adoração</h2>
-        <div class="experiencia-destaque-box">
-            <p class="experiencia-texto-visivel">"Cada instante no retiro é desenhado para romper rotinas e criar memórias eternas. Desde as ministrações profundas até as rodas de comunhão ao redor da fogueira, a atmosfera transborda a presença viva de Deus."</p>
-            <!-- FOTO: destaque da experiência -->
-            <div class="ar-wide" data-photo="experiencia" data-cap="Propósito & Fé"></div>
-            <!-- FOTOS: galeria (4 fotos) -->
-            <div class="galeria">
-                <div class="ar-43" data-photo="adoracao" data-cap="Adoração"></div>
-                <div class="ar-43" data-photo="palavra" data-cap="Palavra Viva"></div>
-                <div class="ar-43" data-photo="comunhao" data-cap="Comunhão"></div>
-                <div class="ar-43" data-photo="transformados" data-cap="Transfor|mados"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ============ PÁGINA: FOTOS ============ -->
-<section id="page-fotos" class="page-section">
-    <div class="hero">
-        <!-- FOTO: mesmo banner da página Início (fica atrás do texto) -->
-        <div class="hero-bg" data-photo="banner"></div>
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content animate-fade">
-            <span class="hero-badge">Fotos TRF</span>
-            <h1 class="serif-title">Reviva Cada Momento</h1>
-            <p>Os registros da nossa geração em adoração, comunhão e Palavra. Toque na foto do álbum para pegar as suas.</p>
-            <button class="btn-primary" onclick="document.getElementById('albunsGrid').scrollIntoView({behavior:'smooth',block:'center'})">Ver álbuns <i class="fa-solid fa-arrow-down"></i></button>
-        </div>
-    </div>
-    <div class="section-fotos">
-        <div class="albuns-grid" id="albunsGrid"></div>
-    </div>
-</section>
-
-<!-- ============ PÁGINA 4: LOJINHA TRF ============ -->
-<section id="page-loja" class="page-section">
-    <div class="section-store">
-        <div style="margin-bottom:2rem;">
-            <span class="eyebrow">Coleção Oficial</span>
-            <h2 class="serif-title" style="margin-top:.3rem;font-size:2.3rem;color:var(--brand-wine);">Lojinha TRF</h2>
-        </div>
-        <div class="products-grid" id="productsGrid"></div>
-    </div>
-</section>
-
-<!-- MODAL DE CADASTRO -->
-<div class="modal-overlay" id="registerModal" role="dialog" aria-modal="true" aria-label="Cadastro">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('registerModal')" aria-label="Fechar">&times;</button>
-        <h2 class="serif-title">Cadastre-se</h2>
-        <form onsubmit="handleRegister(event)">
-            <div class="form-group"><label for="regEmail">E-mail</label><input type="email" id="regEmail" required placeholder="seu@email.com" autocomplete="email"></div>
-            <div class="form-group"><label for="regPassword">Senha do Site (mín. 6 caracteres)</label><input type="password" id="regPassword" required minlength="6" placeholder="Crie uma senha" autocomplete="new-password"></div>
-            <div class="form-group"><label for="regName">Seu Nome (Como quer ser chamado)</label><input type="text" id="regName" required maxlength="40" placeholder="Ex: João Silva" autocomplete="name"></div>
-            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Concluir Cadastro</button>
-        </form>
-        <div style="text-align:center;font-size:.9rem;color:var(--text-muted);margin-top:1rem;">Já tem cadastro? <button class="link-btn" onclick="switchToLogin()">Fazer login</button></div>
-    </div>
-</div>
-
-<!-- MODAL DE LOGIN -->
-<div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" aria-label="Login">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('loginModal')" aria-label="Fechar">&times;</button>
-        <h2 class="serif-title">Já tem cadastro? Faça seu login agora</h2>
-        <form onsubmit="handleLogin(event)">
-            <div class="form-group"><label for="loginName">E-mail cadastrado</label><input type="email" id="loginName" required placeholder="seu@email.com" autocomplete="username"></div>
-            <div class="form-group"><label for="loginPassword">Senha</label><input type="password" id="loginPassword" required placeholder="Sua senha" autocomplete="current-password"></div>
-            <div style="text-align:right;margin:-.5rem 0 1rem;"><button type="button" class="link-btn" style="font-size:.85rem;" onclick="openForgot()">Esqueci minha senha</button></div>
-            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;margin-bottom:1rem;">Entrar</button>
-        </form>
-        <div style="text-align:center;font-size:.9rem;color:var(--text-muted);">Não tem cadastro? <button class="link-btn" onclick="switchToRegister()">Cadastre-se agora</button></div>
-    </div>
-</div>
-
-<!-- MODAL: ESQUECI MINHA SENHA -->
-<div class="modal-overlay" id="forgotModal" style="z-index:2050;" role="dialog" aria-modal="true" aria-label="Recuperar senha">
-    <div class="modal-box">
-        <button class="modal-close" onclick="closeModal('forgotModal')" aria-label="Fechar">&times;</button>
-        <h2 class="serif-title">Recuperar senha</h2>
-        <p class="modal-text">Digite o e-mail do seu cadastro. Enviaremos um link para você criar uma nova senha.</p>
-        <form onsubmit="handleForgot(event)">
-            <div class="form-group"><label for="forgotEmail">E-mail cadastrado</label><input type="email" id="forgotEmail" required placeholder="seu@email.com" autocomplete="email"></div>
-            <button type="submit" id="forgotSubmit" class="btn-primary" style="width:100%;justify-content:center;margin-bottom:1rem;">Enviar link por e-mail</button>
-        </form>
-        <div style="text-align:center;font-size:.9rem;color:var(--text-muted);"><button class="link-btn" onclick="switchForgotToLogin()">Voltar ao login</button></div>
-    </div>
-</div>
-
-<!-- MODAL DO CARRINHO -->
-<div class="modal-overlay" id="cartModal" role="dialog" aria-modal="true" aria-label="Carrinho">
-    <div class="modal-box" style="max-width:500px;">
-        <button class="modal-close" onclick="closeModal('cartModal')" aria-label="Fechar">&times;</button>
-        <h2 class="serif-title">Seu Carrinho TRF</h2>
-        <div class="cart-items-list" id="cartItemsContainer"></div>
-        <div class="cart-footer"><span>Total:</span><span id="cartTotalPrice">R$ 0,00</span></div>
-        <div style="display:flex;gap:1rem;">
-            <button class="btn-add-cart" style="flex:1;padding:.8rem;" onclick="clearCartConfirm()">Esvaziar carrinho</button>
-            <button class="btn-primary" style="flex:1;justify-content:center;padding:.8rem;" onclick="checkoutAll()">Comprar Tudo</button>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL DE AVISOS -->
-<div class="modal-overlay" id="customAlertModal" style="z-index:2100;" role="alertdialog" aria-modal="true">
-    <div class="modal-box" style="max-width:400px;">
-        <h2 class="serif-title" style="font-size:1.4rem;margin-bottom:1rem;" id="customAlertTitle">Aviso</h2>
-        <p id="customAlertMessage" style="color:var(--text-muted);margin-bottom:1.5rem;font-size:.95rem;"></p>
-        <button class="btn-primary" style="width:100%;justify-content:center;margin-bottom:1rem;" onclick="closeModal('customAlertModal')">OK</button>
-        <div id="forgotPasswordContainer" style="display:none;text-align:center;">
-            <button class="link-btn" style="font-size:.9rem;" onclick="closeModal('customAlertModal'); openForgot()">Esqueci minha senha</button>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL DE CONFIRMAÇÃO DE ESVAZIAR CARRINHO -->
-<div class="modal-overlay" id="confirmClearModal" style="z-index:2100;" role="alertdialog" aria-modal="true">
-    <div class="modal-box" style="max-width:380px;">
-        <h2 class="serif-title" style="font-size:1.4rem;margin-bottom:1rem;">Esvaziar Carrinho</h2>
-        <p style="color:var(--text-muted);margin-bottom:1.5rem;font-size:.95rem;">Deseja remover todos os produtos do seu carrinho?</p>
-        <div style="display:flex;gap:1rem;">
-            <button class="btn-add-cart" style="flex:1;padding:.8rem;" onclick="closeModal('confirmClearModal')">Não</button>
-            <button class="btn-buy-now" style="flex:1;padding:.8rem;background:#c62828;" onclick="executeClearCart()">Sim, esvaziar</button>
-        </div>
-    </div>
-</div>
-
-<datalist id="qtyList"><option value="1"><option value="2"><option value="3"><option value="4"><option value="5"><option value="6"><option value="7"><option value="8"><option value="9"><option value="10"></datalist>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<footer>
-    <h3 class="serif-title" style="font-size:1.5rem;margin-bottom:.5rem;">Retiro Transformados</h3>
-    <p>© 2027 Retiro Transformados. Todos os direitos reservados.</p>
-</footer>
-
-<!-- Firebase (login na nuvem + e-mail de redefinição de senha) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
-<script>
-    /* =====================================================================
-       1) CONFIGURAÇÕES GERAIS
-       ===================================================================== */
-    const WHATSAPP_NUMBER = '5571991155903'; // código do país + DDD + número
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyBv_778K2CNMN8wfk8DrxxvQaZ1MJZrlwo",
-        authDomain: "trf-site.firebaseapp.com",
-        projectId: "trf-site",
-        appId: "1:39897005227:web:a77dd600cea79e472e8bee"
-    };
-
-    /* =====================================================================
-       2) LOCALIZAÇÃO DO RETIRO — edite o nome e o endereço aqui
-       ===================================================================== */
-    const LOCAL = {
-        nome: 'Nome do local (fazenda / sítio)',
-        endereco: 'Rua / Estrada, número — Bairro, Cidade - UF, CEP 00000-000',
-        mapsLink: '' // opcional: cole aqui o link do Google Maps. Se vazio, o botão usa o endereço acima.
-    };
-
-    /* =====================================================================
-       2.1) PÁGINA "FOTOS" — um cartão por edição
-       - foto: imagem de capa (pasta "fotos", 1200x900)
-       - frase: texto que aparece como rodapé da foto
-       - link: endereço do álbum (precisa começar com https://). Vazio = avisa "ainda não liberado".
-       Para adicionar outra edição, copie o bloco { ... } e separe com vírgula.
-       ===================================================================== */
-    const ALBUNS = [
-        { foto: 'fotos/fotos-2k26.jpg', frase: 'Pegue sua foto aqui - Edição 2K26', link: '' }
-    ];
-
-    /* =====================================================================
-       3) TODAS AS FOTOS DO SITE — um único lugar
-       Coloque cada arquivo na pasta "fotos" (ao lado deste index.html),
-       com o nome exatamente igual ao que está em "src".
-       Se mudar uma foto e ela não atualizar, aumente PHOTO_VERSION (1 → 2).
-       ===================================================================== */
-    const PHOTO_VERSION = 1;
-
-    const PHOTOS = {
-        // --- Identidade ---
-        logo:            { src: 'fotos/logo.png',             size: '200x200',   alt: 'Logo Retiro Transformados', label: 'Logo' },
-
-        // --- Página Início ---
-        banner:          { src: 'fotos/banner.png',           size: '1920x1080', alt: 'Banner TRF 2027',           label: 'Banner principal' },
-        localHome:       { src: 'fotos/local-home.jpg',       size: '1200x900',  alt: 'Novo local do TRF 2027',    label: 'Novo local (parte de fora)' },
-
-        // --- Página O Retiro: Quem Somos ---
-        quem1:           { src: 'fotos/quem-1.jpg',           size: '800x800',   alt: 'Momento TRF',               label: 'Quem Somos 1 — Momento TRF' },
-        quem2:           { src: 'fotos/quem-2.jpg',           size: '800x800',   alt: 'Adoração 2025',             label: 'Quem Somos 2 — Adoração 2025' },
-        quem3:           { src: 'fotos/quem-3.jpg',           size: '800x800',   alt: 'Comunhão',                  label: 'Quem Somos 3 — Comunhão' },
-        quem4:           { src: 'fotos/quem-4.jpg',           size: '800x800',   alt: 'Palavra Viva',              label: 'Quem Somos 4 — Palavra Viva' },
-
-        // --- Página O Retiro: Local 2027 ---
-        local2027:       { src: 'fotos/local-2027.jpg',       size: '1500x1000', alt: 'Visão geral do local 2027', label: 'Local 2027 (parte de fora)' },
-
-        // --- Página Experiência ---
-        experiencia:     { src: 'fotos/experiencia.jpg',      size: '1600x700',  alt: 'Propósito e Fé',            label: 'Destaque da Experiência' },
-        adoracao:        { src: 'fotos/adoracao.jpg',         size: '1200x900',  alt: 'Adoração',                  label: 'Galeria — Adoração' },
-        palavra:         { src: 'fotos/palavra.jpg',          size: '1200x900',  alt: 'Palavra Viva',              label: 'Galeria — Palavra Viva' },
-        comunhao:        { src: 'fotos/comunhao.jpg',         size: '1200x900',  alt: 'Comunhão',                  label: 'Galeria — Comunhão' },
-        transformados:   { src: 'fotos/transformados.jpg',    size: '1200x900',  alt: 'Transformados',             label: 'Galeria — Transformados' }
-    };
-
-    /* =====================================================================
-       4) LOJINHA — produtos, preços e cores
-       - Camisas: cada cor é um produto separado (mesmo preço, foto própria).
-       - Garrafa: um produto só, com escolha de cor (a foto muda com a cor).
-       - payLink: link de pagamento (InfinitePay). Vazio = pedido vai por WhatsApp.
-       Fotos dos produtos: quadradas, 1000x1000, na pasta fotos/produtos/
-       ===================================================================== */
-    const SHIRT_COLORS = [
-        { key: 'preta',  label: 'Preta',  hex: '#1C1C1C' },
-        { key: 'branca', label: 'Branca', hex: '#FFFFFF' },
-        { key: 'vinho',  label: 'Vinho',  hex: '#4A121A' }
-    ];
-
-    function shirtLine(fileBase, nameBase, price) {
-        return SHIRT_COLORS.map(c => ({
-            name: nameBase + ' ' + c.label,
-            title: nameBase + ' — ' + c.label,
-            price: price,
-            photo: 'fotos/produtos/' + fileBase + '-' + c.key + '.jpg',
-            payLink: '',
-            tag: c
-        }));
-    }
-
-    const PRODUCTS = [
-        {
-            name: 'Garrafa Térmica Oficial TRF',
-            title: 'Garrafa Térmica Oficial TRF',
-            price: 55.00,
-            // Uma única foto com as 4 cores juntas (a escolha da cor não troca a foto)
-            photo: 'fotos/produtos/garrafa-trf.jpg',
-            options: [
-                { key: 'preta',     label: 'Preta',      hex: '#1C1C1C', payLink: '' },
-                { key: 'branca',    label: 'Branca',     hex: '#FFFFFF', payLink: '' },
-                { key: 'azul-bebe', label: 'Azul bebê',  hex: '#A9D6F5', payLink: '' },
-                { key: 'azul',      label: 'Azul',       hex: '#1E5FBF', payLink: '' }
-            ]
-        },
-        {
-            name: 'Camisa Premium Oversize',
-            title: 'Camisa Premium Oversize',
-            price: 65.00,
-            // Uma única foto (a escolha da cor não troca a foto)
-            photo: 'fotos/produtos/camisa-premium-oversize.jpg',
-            options: [
-                { key: 'preta',  label: 'Preta',  hex: '#1C1C1C', payLink: '' },
-                { key: 'branca', label: 'Branca', hex: '#FFFFFF', payLink: '' },
-                { key: 'vinho',  label: 'Vinho',  hex: '#4A121A', payLink: '' }
-            ]
-        },
-        {
-            name: 'Camisa Normal',
-            title: 'Camisa Normal',
-            price: 50.00,
-            // Uma foto para cada cor (a foto troca quando a pessoa escolhe a cor)
-            options: [
-                { key: 'preta',  label: 'Preta',  hex: '#1C1C1C', photo: 'fotos/produtos/camisa-normal-preta.jpg',  payLink: '' },
-                { key: 'branca', label: 'Branca', hex: '#FFFFFF', photo: 'fotos/produtos/camisa-normal-branca.jpg', payLink: '' },
-                { key: 'vinho',  label: 'Vinho',  hex: '#4A121A', photo: 'fotos/produtos/camisa-normal-vinho.jpg',  payLink: '' }
-            ]
-        },
-        {
-            name: 'Boné TRF', title: 'Boné TRF', price: 45.00,
-            photo: 'fotos/produtos/bone-trf.jpg', payLink: ''
-        },
-        {
-            name: 'Ecobag TRF', title: 'Ecobag TRF', price: 40.00,
-            photo: 'fotos/produtos/ecobag-trf.jpg', payLink: ''
-        }
-    ];
-
-    // Catálogo plano: cada variação (cor) vira um item com nome, preço, foto e link próprios.
-    const CATALOG = new Map();
-    PRODUCTS.forEach(p => {
-        if (p.options) {
-            p.options.forEach(o => {
-                const name = p.name + ' - ' + o.label;
-                CATALOG.set(name, { name: name, price: p.price, photo: o.photo || p.photo, payLink: o.payLink || '' });
-            });
-        } else {
-            CATALOG.set(p.name, { name: p.name, price: p.price, photo: p.photo, payLink: p.payLink || '' });
-        }
-    });
-
-    /* =====================================================================
-       5) MOTOR DE FOTOS (não precisa mexer)
-       ===================================================================== */
-    function photoUrl(src) { return src + '?v=' + PHOTO_VERSION; }
-
-    function buildPhoto(el, cfg, opts) {
-        opts = opts || {};
-        el.classList.add('photo');
-        el.classList.remove('missing');
-        if (opts.round) el.style.borderRadius = '50%';
-        el.innerHTML = '';
-
-        const img = document.createElement('img');
-        img.alt = cfg.alt || '';
-        img.decoding = 'async';
-        if (!opts.eager) img.loading = 'lazy';
-
-        const ph = document.createElement('div');
-        ph.className = 'ph';
-        ph.innerHTML = '<i class="fa-regular fa-image"></i><b></b><code></code><small></small>';
-        ph.querySelector('b').textContent = cfg.label || 'Foto';
-        ph.querySelector('code').textContent = cfg.src;
-        ph.querySelector('small').textContent = cfg.size ? 'Tamanho ideal: ' + cfg.size + ' px' : '';
-
-        img.addEventListener('error', () => el.classList.add('missing'));
-        img.addEventListener('load', () => el.classList.remove('missing'));
-        img.src = photoUrl(cfg.src);
-
-        el.appendChild(img);
-        el.appendChild(ph);
-
-        if (opts.caption) {
-            const cap = document.createElement('div');
-            cap.className = 'cap';
-            opts.caption.split('|').forEach((parte, i) => {
-                if (i > 0) { const br = document.createElement('br'); br.className = 'br-mobile'; cap.appendChild(br); }
-                cap.appendChild(document.createTextNode(parte));
-            });
-            el.appendChild(cap);
-        }
-    }
-
-    function hydratePhotos(root) {
-        (root || document).querySelectorAll('[data-photo]').forEach(el => {
-            const cfg = PHOTOS[el.dataset.photo];
-            if (!cfg) { console.warn('Foto não configurada:', el.dataset.photo); return; }
-            buildPhoto(el, cfg, {
-                caption: el.dataset.cap || '',
-                round: !!el.dataset.round,
-                eager: el.dataset.photo === 'banner' || el.dataset.photo === 'logo'
-            });
-        });
-    }
-
-    /* =====================================================================
-       6) FUNÇÕES DO SITE
-       ===================================================================== */
-    function openPayment(url) {
-        const w = window.open(url, '_blank', 'noopener');
-        if (!w) window.location.href = url;
-    }
-
-    const MAX_QTY = 99;
-    function clampQty(v) {
-        const n = parseInt(v, 10);
-        return Math.min(MAX_QTY, Math.max(1, isNaN(n) ? 1 : n));
-    }
-
-    // ====== UTILITÁRIOS ======
-    function storageGet(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
-    function storageSet(key, value) { try { localStorage.setItem(key, value); return true; } catch (e) { return false; } }
-    function parseJSON(str, fallback) {
-        try { const v = JSON.parse(str); return v === null || v === undefined ? fallback : v; } catch (e) { return fallback; }
-    }
-    function formatBRL(value) { return 'R$ ' + value.toFixed(2).replace('.', ','); }
-    function normalize(str) { return String(str).trim().toLowerCase(); }
-
-    // ====== FIREBASE ======
-    let auth = null;
-    const firebaseConfigured = !!firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('COLE');
-
-    if (typeof firebase !== 'undefined' && firebaseConfigured) {
-        try {
-            firebase.initializeApp(firebaseConfig);
-            auth = firebase.auth();
-            auth.languageCode = 'pt-BR';
-        } catch (err) {
-            console.warn('Firebase não iniciou:', err);
-        }
-    }
-
-    function ensureAuth() {
-        if (auth) return true;
-        const msg = !firebaseConfigured
-            ? 'O login ainda não foi configurado. Cole os dados do Firebase no arquivo index.html (firebaseConfig).'
-            : 'Não foi possível carregar o sistema de login. Verifique sua conexão com a internet e tente novamente.';
-        showCustomAlert('Aviso', msg);
-        return false;
-    }
-
-    function authErrorMsg(err) {
-        const map = {
-            'auth/email-already-in-use': 'Este e-mail já possui cadastro. Faça seu login.',
-            'auth/invalid-email': 'E-mail inválido.',
-            'auth/weak-password': 'A senha precisa ter pelo menos 6 caracteres.',
-            'auth/invalid-credential': 'E-mail ou senha incorretos! Verifique os dados digitados.',
-            'auth/invalid-login-credentials': 'E-mail ou senha incorretos! Verifique os dados digitados.',
-            'auth/wrong-password': 'E-mail ou senha incorretos! Verifique os dados digitados.',
-            'auth/user-not-found': 'E-mail ou senha incorretos! Verifique os dados digitados.',
-            'auth/too-many-requests': 'Muitas tentativas. Aguarde alguns minutos e tente de novo.',
-            'auth/network-request-failed': 'Sem conexão com a internet.',
-            'auth/unauthorized-domain': 'Este domínio não está autorizado no Firebase.',
-            'auth/operation-not-allowed': 'O login por e-mail/senha não está ativado no Firebase.'
-        };
-        return map[err && err.code] || 'Algo deu errado. Tente novamente.';
-    }
-
-    // ====== ESTADO ======
-    let currentUser = null;
-    let cart = parseJSON(storageGet('trf_cart'), []);
-    if (!Array.isArray(cart)) cart = [];
-    // Mantém só itens que ainda existem no catálogo e atualiza o preço para o atual.
-    cart = cart
-        .filter(i => i && typeof i.name === 'string' && CATALOG.has(i.name))
-        .map(i => ({
-            name: i.name,
-            price: CATALOG.get(i.name).price,
-            qty: Math.max(1, parseInt(i.qty, 10) || 1)
-        }));
-
-    let lastAttemptedName = '';
-    let pendingAction = null;
-
-    if (auth) {
-        auth.onAuthStateChanged(user => {
-            currentUser = user ? (user.displayName || user.email) : null;
-            updateAuthUI();
-        });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        hydratePhotos();
-        renderLocal();
-        renderFotos();
-        renderProducts();
-        updateAuthUI();
-        updateCartUI();
-        const initial = location.hash.replace('#', '');
-        if (['home', 'sobre', 'experiencia', 'fotos', 'loja'].includes(initial)) showPage(initial, false);
-    });
-
-    window.addEventListener('click', (e) => {
-        const dropdown = document.getElementById('userDropdownMenu');
-        const container = document.getElementById('userGreetingContainer');
-        if (container && !container.contains(e.target)) dropdown.style.display = 'none';
-        if (e.target.classList && e.target.classList.contains('modal-overlay')) closeModal(e.target.id);
-    });
-
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            document.querySelectorAll('.modal-overlay').forEach(m => { m.style.display = 'none'; });
-            closeMenu();
-        }
-    });
-
-    // ====== LOCALIZAÇÃO ======
-    function renderLocal() {
-        document.getElementById('localNome').textContent = LOCAL.nome;
-        document.getElementById('localEndereco').textContent = LOCAL.endereco;
-        const btn = document.getElementById('localMapsBtn');
-        const link = (LOCAL.mapsLink || '').trim();
-        const url = link.startsWith('https://')
-            ? link
-            : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(LOCAL.endereco);
-        const hasRealAddress = link.startsWith('https://') || !LOCAL.endereco.includes('00000-000');
-        if (hasRealAddress) { btn.href = url; btn.style.display = 'inline-flex'; }
-    }
-
-    // ====== PÁGINA FOTOS ======
-    function renderFotos() {
-        const grid = document.getElementById('albunsGrid');
-        grid.innerHTML = '';
-        ALBUNS.forEach(a => {
-            const link = (a.link || 'https://drive.google.com/drive/folders/1tcMylsly8_tiRXLoLWnzadcJ9a_k8Nic').trim();
-            const ok = link.startsWith('https://');
-
-            const card = document.createElement('a');
-            card.className = 'album-card';
-            card.href = ok ? link : '#';
-            if (ok) { card.target = '_blank'; card.rel = 'noopener'; }
-            else card.addEventListener('click', ev => { ev.preventDefault(); showToast('O link das fotos ainda não foi liberado.'); });
-
-            const photo = document.createElement('div');
-            buildPhoto(photo, { src: a.foto, alt: a.frase, label: 'Foto de capa', size: '1200x900' }, {});
-
-            const legenda = document.createElement('div');
-            legenda.className = 'album-legenda';
-            const texto = document.createElement('span');
-            texto.textContent = a.frase;
-            const icone = document.createElement('i');
-            icone.className = 'fa-solid fa-arrow-up-right-from-square';
-            legenda.append(texto, icone);
-
-            card.append(photo, legenda);
-            grid.appendChild(card);
-        });
-    }
-
-    // ====== PRODUTOS ======
-    function renderProducts() {
-        const grid = document.getElementById('productsGrid');
-        grid.innerHTML = '';
-        PRODUCTS.forEach((p) => {
-            const hasOptions = Array.isArray(p.options) && p.options.length > 0;
-            let selected = hasOptions ? p.options[0] : null; // cor escolhida (garrafa)
-
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-            <div class="product-photo"></div>
-            <div class="product-info">
-                <h3></h3>
-                <div class="product-price"></div>
-                <div class="color-row" style="display:none">
-                    <div class="color-label"><span class="color-dot"></span> Cor: <b></b></div>
-                    <div class="swatches"></div>
-                </div>
-                <div class="qty-row">
-                    <label>Unidades</label>
-                    <input class="qty-input" type="text" inputmode="numeric" list="qtyList" value="1" maxlength="2" placeholder="1" aria-label="Unidades" autocomplete="off">
-                </div>
-                <div class="product-buttons">
-                    <button class="btn-add-cart" data-action="add">Adicionar</button>
-                    <button class="btn-buy-now" data-action="buy">Fazer compra</button>
-                </div>
-            </div>`;
-
-            const photoEl = card.querySelector('.product-photo');
-            const colorRow = card.querySelector('.color-row');
-            const colorDot = card.querySelector('.color-dot');
-            const colorName = card.querySelector('.color-label b');
-            const swatches = card.querySelector('.swatches');
-
-            card.querySelector('h3').textContent = p.title;
-            card.querySelector('.product-price').textContent = formatBRL(p.price);
-
-            function showPhoto(src, label) {
-                buildPhoto(photoEl, { src: src, alt: label, label: 'Produto: ' + label, size: '1000x1000' }, { eager: true });
-            }
-
-            if (hasOptions) {
-                // Garrafa: botões de cor; a foto troca conforme a escolha.
-                colorRow.style.display = 'block';
-                const btns = [];
-                p.options.forEach(o => {
-                    const b = document.createElement('button');
-                    b.type = 'button';
-                    b.className = 'swatch';
-                    b.style.background = o.hex;
-                    b.title = o.label;
-                    b.setAttribute('aria-label', 'Cor ' + o.label);
-                    b.addEventListener('click', () => select(o));
-                    swatches.appendChild(b);
-                    btns.push({ o: o, b: b });
-                });
-                let currentSrc = '';
-                function select(o) {
-                    selected = o;
-                    btns.forEach(x => x.b.setAttribute('aria-pressed', x.o === o ? 'true' : 'false'));
-                    colorDot.style.background = o.hex;
-                    colorName.textContent = o.label;
-                    // Se a cor tem foto própria, troca a foto; senão mantém a foto única do produto.
-                    const src = o.photo || p.photo;
-                    if (src !== currentSrc) {
-                        currentSrc = src;
-                        showPhoto(src, p.title + (o.photo ? ' ' + o.label : ''));
-                    }
-                }
-                select(selected);
-            } else {
-                if (p.tag) {
-                    // Camisas: cor fixa do produto, só informativa.
-                    colorRow.style.display = 'block';
-                    colorDot.style.background = p.tag.hex;
-                    colorName.textContent = p.tag.label;
-                    swatches.style.display = 'none';
-                }
-                showPhoto(p.photo, p.title);
-            }
-
-            // Item que vai para o carrinho / compra (já com a cor escolhida).
-            const currentItem = () => {
-                const name = hasOptions ? p.name + ' - ' + selected.label : p.name;
-                return CATALOG.get(name);
-            };
-
-            const qtyInput = card.querySelector('.qty-input');
-            let prevQty = '1';
-            qtyInput.addEventListener('focus', () => { prevQty = qtyInput.value || '1'; qtyInput.value = ''; });
-            qtyInput.addEventListener('input', () => { qtyInput.value = qtyInput.value.replace(/\D/g, '').slice(0, 2); });
-            qtyInput.addEventListener('blur', () => { qtyInput.value = qtyInput.value ? clampQty(qtyInput.value) : prevQty; });
-            qtyInput.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') qtyInput.blur(); });
-            const readQty = () => { const q = clampQty(qtyInput.value || prevQty); qtyInput.value = q; return q; };
-            card.querySelector('[data-action="add"]').addEventListener('click', () => {
-                const q = readQty();
-                addToCart(currentItem(), q);
-                qtyInput.value = 1;
-            });
-            card.querySelector('[data-action="buy"]').addEventListener('click', () => buyNow(currentItem(), readQty()));
-            grid.appendChild(card);
-        });
-    }
-
-    // ====== NAVEGAÇÃO ======
-    function showPage(pageId, scroll = true) {
-        document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
-        document.querySelectorAll('nav ul li a').forEach(link => link.classList.remove('active'));
-        const page = document.getElementById('page-' + pageId);
-        if (!page) return;
-        page.classList.add('active-page');
-        const activeLink = document.getElementById('nav-' + pageId);
-        if (activeLink) activeLink.classList.add('active');
-        try { history.replaceState(null, '', '#' + pageId); } catch (e) {}
-        closeMenu();
-        if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function setMenuState(open) {
-        const btn = document.getElementById('menuToggle');
-        document.getElementById('mainNav').classList.toggle('open', open);
-        btn.classList.toggle('open', open);
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-        btn.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-    }
-    function toggleMenu() { setMenuState(!document.getElementById('mainNav').classList.contains('open')); }
-    function closeMenu() { setMenuState(false); }
-
-    // ====== MODAIS / AVISOS ======
-    function openModal(modalId) {
-        document.getElementById(modalId).style.display = 'flex';
-        closeMenu();
-    }
-    function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
-
-    function showCustomAlert(title, message, showForgot = false) {
-        document.getElementById('customAlertTitle').textContent = title;
-        document.getElementById('customAlertMessage').textContent = message;
-        document.getElementById('forgotPasswordContainer').style.display = showForgot ? 'block' : 'none';
-        openModal('customAlertModal');
-    }
-
-    let toastTimer = null;
-    function showToast(message) {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.classList.add('show');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
-    }
-
-    function switchToRegister() { closeModal('loginModal'); openModal('registerModal'); }
-    function switchToLogin() { closeModal('registerModal'); openModal('loginModal'); }
-    function switchForgotToLogin() { closeModal('forgotModal'); openModal('loginModal'); }
-
-    function openWhatsApp(message) {
-        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-        const w = window.open(url, '_blank', 'noopener');
-        if (!w) window.location.href = url;
-    }
-
-    function openWhatsAppInfo() {
-        const msg = currentUser
-            ? `Olá, me chamo ${currentUser} e gostaria de saber mais informações sobre o TRF 2027.`
-            : 'Olá, gostaria de saber mais informações sobre o TRF 2027.';
-        openWhatsApp(msg);
-        closeMenu();
-    }
-
-    // ====== AUTENTICAÇÃO (Firebase) ======
-    async function handleRegister(e) {
-        e.preventDefault();
-        if (!ensureAuth()) return;
-        const form = e.target;
-        const name = document.getElementById('regName').value.trim();
-        const email = normalize(document.getElementById('regEmail').value);
-        const password = document.getElementById('regPassword').value;
-        if (!name) { showCustomAlert('Aviso', 'Informe seu nome.'); return; }
-
-        try {
-            const cred = await auth.createUserWithEmailAndPassword(email, password);
-            await cred.user.updateProfile({ displayName: name });
-            currentUser = name;
-            updateAuthUI();
-            closeModal('registerModal');
-            form.reset();
-            showToast('Cadastro realizado! Você já está logado(a).');
-            runPendingAction();
-        } catch (err) {
-            if (err.code === 'auth/email-already-in-use') {
-                closeModal('registerModal');
-                document.getElementById('loginName').value = email;
-                openModal('loginModal');
-            }
-            showCustomAlert('Aviso', authErrorMsg(err));
-        }
-    }
-
-    async function handleLogin(e) {
-        e.preventDefault();
-        if (!ensureAuth()) return;
-        const form = e.target;
-        const email = normalize(document.getElementById('loginName').value);
-        const password = document.getElementById('loginPassword').value;
-        lastAttemptedName = email;
-
-        try {
-            const cred = await auth.signInWithEmailAndPassword(email, password);
-            currentUser = cred.user.displayName || cred.user.email;
-            updateAuthUI();
-            closeModal('loginModal');
-            form.reset();
-            showToast('Bem-vindo(a) de volta, ' + currentUser + '!');
-            runPendingAction();
-        } catch (err) {
-            const isCredentialError = ['auth/invalid-credential', 'auth/invalid-login-credentials', 'auth/wrong-password', 'auth/user-not-found'].includes(err.code);
-            showCustomAlert('Erro de Login', authErrorMsg(err), isCredentialError);
-        }
-    }
-
-    function openForgot() {
-        const typed = normalize(document.getElementById('loginName').value || lastAttemptedName || '');
-        closeModal('loginModal');
-        document.getElementById('forgotEmail').value = typed.includes('@') ? typed : '';
-        openModal('forgotModal');
-    }
-
-    async function handleForgot(e) {
-        e.preventDefault();
-        if (!ensureAuth()) return;
-        const email = normalize(document.getElementById('forgotEmail').value);
-        const btn = document.getElementById('forgotSubmit');
-        btn.disabled = true;
-        const okMsg = 'Se esse e-mail tiver cadastro, você receberá um link para criar uma nova senha. Confira também a caixa de spam.';
-        try {
-            await auth.sendPasswordResetEmail(email);
-            closeModal('forgotModal');
-            showCustomAlert('E-mail enviado', okMsg);
-        } catch (err) {
-            closeModal('forgotModal');
-            showCustomAlert('E-mail enviado', okMsg);
-        } finally {
-            btn.disabled = false;
-        }
-    }
-
-    function toggleUserMenu() {
-        const dropdown = document.getElementById('userDropdownMenu');
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
-
-    async function logoutUser() {
-        pendingAction = null;
-        try { if (auth) await auth.signOut(); } catch (e) {}
-        currentUser = null;
-        updateAuthUI();
-        document.getElementById('userDropdownMenu').style.display = 'none';
-        showToast('Você saiu da sua conta.');
-    }
-
-    function updateAuthUI() {
-        const authContainer = document.getElementById('authButtonsContainer');
-        const greetingContainer = document.getElementById('userGreetingContainer');
-        if (currentUser) {
-            authContainer.style.display = 'none';
-            greetingContainer.style.display = 'inline-block';
-            document.getElementById('userNameDisplay').textContent = currentUser;
-        } else {
-            authContainer.style.display = 'flex';
-            greetingContainer.style.display = 'none';
-        }
-    }
-
-    function requireAuth(action) {
-        if (!currentUser) {
-            pendingAction = action || null;
-            openModal('loginModal');
-            return false;
-        }
-        return true;
-    }
-    function runPendingAction() {
-        const action = pendingAction;
-        pendingAction = null;
-        if (typeof action === 'function') action();
-    }
-
-    // ====== CARRINHO ======
-    // "item" vem do CATALOG: { name, price, photo, payLink }
-    function addToCart(item, qty = 1) {
-        qty = clampQty(qty);
-        if (!requireAuth(() => addToCart(item, qty))) return;
-        const existing = cart.find(i => i.name === item.name);
-        if (existing) existing.qty = Math.min(MAX_QTY, existing.qty + qty);
-        else cart.push({ name: item.name, price: item.price, qty });
-        saveCart();
-        showToast((qty > 1 ? qty + 'x ' : '') + item.name + ' adicionado ao carrinho!');
-    }
-
-    function buildOrderMessage(items) {
-        let total = 0;
-        const blocks = items.map((i, n) => {
-            total += i.price * i.qty;
-            return `${n + 1}) ${i.qty}x ${i.name} - ${formatBRL(i.price * i.qty)}`;
-        });
-        return [
-            `Olá, me chamo ${currentUser} e gostaria de comprar:`,
-            '',
-            blocks.join('\n'),
-            '',
-            `Total: ${formatBRL(total)}`
-        ].join('\n');
-    }
-
-    function buyNow(item, qty = 1) {
-        qty = clampQty(qty);
-        if (!requireAuth(() => buyNow(item, qty))) return;
-        const link = typeof item.payLink === 'string' ? item.payLink.trim() : '';
-        if (link.startsWith('https://')) {
-            openPayment(link);
-        } else {
-            openWhatsApp(buildOrderMessage([{ name: item.name, price: item.price, qty }]));
-        }
-    }
-
-    function openCartModal() {
-        if (!requireAuth(openCartModal)) return;
-        updateCartUI();
-        openModal('cartModal');
-    }
-
-    function saveCart() {
-        storageSet('trf_cart', JSON.stringify(cart));
-        updateCartUI();
-    }
-
-    function updateCartUI() {
-        const totalQty = cart.reduce((s, i) => s + i.qty, 0);
-        document.getElementById('cartCount').textContent = totalQty;
-        document.getElementById('cartCountMenu').textContent = totalQty;
-        const container = document.getElementById('cartItemsContainer');
-        container.innerHTML = '';
-
-        if (cart.length === 0) {
-            const p = document.createElement('p');
-            p.style.cssText = 'text-align:center;color:var(--text-muted);padding:1rem;';
-            p.textContent = 'Seu carrinho está vazio.';
-            container.appendChild(p);
-            document.getElementById('cartTotalPrice').textContent = 'R$ 0,00';
-            return;
-        }
-
-        let total = 0;
-        cart.forEach((item, index) => {
-            total += item.price * item.qty;
-            const cat = CATALOG.get(item.name);
-
-            const row = document.createElement('div');
-            row.className = 'cart-item-row';
-
-            const thumb = document.createElement('div');
-            thumb.className = 'cart-item-thumb';
-            if (cat) buildPhoto(thumb, { src: cat.photo, alt: item.name, label: '', size: '' }, { eager: true });
-
-            const info = document.createElement('div');
-            info.className = 'cart-item-info';
-            const strong = document.createElement('strong');
-            strong.textContent = item.name;
-            const price = document.createElement('div');
-            price.style.color = 'var(--brand-wine)';
-            price.textContent = formatBRL(item.price * item.qty);
-
-            const qty = document.createElement('div');
-            qty.className = 'qty-controls';
-            const minus = document.createElement('button');
-            minus.className = 'btn-qty'; minus.textContent = '−'; minus.setAttribute('aria-label', 'Diminuir quantidade');
-            minus.addEventListener('click', () => changeQty(index, -1));
-            const q = document.createElement('span');
-            q.textContent = item.qty;
-            const plus = document.createElement('button');
-            plus.className = 'btn-qty'; plus.textContent = '+'; plus.setAttribute('aria-label', 'Aumentar quantidade');
-            plus.addEventListener('click', () => changeQty(index, 1));
-            qty.append(minus, q, plus);
-
-            info.append(strong, price, qty);
-
-            const remove = document.createElement('button');
-            remove.className = 'btn-remove-item';
-            remove.textContent = 'Remover';
-            remove.addEventListener('click', () => removeItem(index));
-
-            row.append(thumb, info, remove);
-            container.appendChild(row);
-        });
-        document.getElementById('cartTotalPrice').textContent = formatBRL(total);
-    }
-
-    function changeQty(index, delta) {
-        if (!cart[index]) return;
-        cart[index].qty = Math.min(MAX_QTY, cart[index].qty + delta);
-        if (cart[index].qty <= 0) cart.splice(index, 1);
-        saveCart();
-    }
-    function removeItem(index) { cart.splice(index, 1); saveCart(); }
-
-    function clearCartConfirm() {
-        if (cart.length === 0) { showCustomAlert('Carrinho Vazio', 'Seu carrinho já está vazio.'); return; }
-        openModal('confirmClearModal');
-    }
-    function executeClearCart() {
-        cart = [];
-        saveCart();
-        closeModal('confirmClearModal');
-        showToast('Carrinho esvaziado.');
-    }
-
-    function checkoutAll() {
-        if (cart.length === 0) {
-            showCustomAlert('Carrinho Vazio', 'Adicione ao menos 1 produto ao carrinho para continuar.');
-            return;
-        }
-        if (!currentUser) { requireAuth(checkoutAll); return; }
-
-        openWhatsApp(buildOrderMessage(cart));
-    }
-
-    // ====== PWA: registra o service worker (sw.js precisa estar na raiz, ao lado do index.html) ======
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').catch(err => console.warn('Service worker não registrado:', err));
-        });
-    }
-
-    let deferredInstall = null;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredInstall = e;
-        document.getElementById('installBtn').style.display = 'inline-flex';
-        document.getElementById('installItem').style.display = '';
-    });
-
-    window.addEventListener('appinstalled', () => {
-        deferredInstall = null;
-        document.getElementById('installBtn').style.display = 'none';
-        document.getElementById('installItem').style.display = 'none';
-        showToast('App instalado!');
-    });
-
-    async function installApp() {
-        if (!deferredInstall) return;
-        deferredInstall.prompt();
-        try { await deferredInstall.userChoice; } catch (e) {}
-        deferredInstall = null;
-        document.getElementById('installBtn').style.display = 'none';
-        document.getElementById('installItem').style.display = 'none';
-        closeMenu();
-    }
-</script>
-</body>
-</html>
