@@ -45,6 +45,7 @@
         .ph small{font-size:.68rem;color:var(--text-muted)}
         .photo .cap{position:absolute;left:0;right:0;bottom:0;padding:2rem 1rem .8rem;background:linear-gradient(transparent,rgba(45,17,21,.85));color:#fff;font-family:'Cinzel',serif;font-size:1.05rem;text-align:left;pointer-events:none}
         .photo.missing .cap{display:none}
+        .br-mobile{display:none}
         .ar-11{aspect-ratio:1/1}
         .ar-43{aspect-ratio:4/3}
         .ar-32{aspect-ratio:3/2}
@@ -132,6 +133,15 @@
         .experiencia-texto-visivel{font-size:1.2rem;color:var(--text-main);font-weight:600;line-height:1.8;margin-top:1rem;margin-bottom:2rem}
         .galeria{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem}
 
+        /* ===== FOTOS (álbuns) ===== */
+        .section-fotos{padding:3rem 5% 1rem;max-width:1100px;margin:0 auto;text-align:center}
+        .albuns-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,440px));gap:2rem;justify-content:center}
+        .album-card{display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--border-color);border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(74,18,26,.08);transition:transform .3s,box-shadow .3s}
+        .album-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(74,18,26,.16)}
+        .album-card .photo{border-radius:0;aspect-ratio:4/3}
+        .album-legenda{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem 1.4rem;border-top:3px solid var(--brand-gold);background:#fff;font-weight:600;color:var(--brand-wine);font-size:.95rem}
+        .album-legenda i{color:var(--brand-gold);font-size:1.1rem;flex-shrink:0}
+
         /* ===== LOJINHA ===== */
         .section-store{padding:2rem 5%;max-width:1300px;margin:0 auto}
         .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-top:2rem}
@@ -193,8 +203,19 @@
             .cart-header{display:none}
             .header-actions{gap:.35rem}
             .user-greeting-btn{max-width:120px;padding:.4rem .7rem;font-size:.8rem}
-            nav{position:absolute;top:100%;left:0;width:100%;background:#fff;border-bottom:1px solid var(--border-color);display:none}
-            nav.open{display:block}
+            .menu-toggle{transition:background .3s,color .3s,border-color .3s}
+            .menu-toggle i{display:inline-block;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+            .menu-toggle.open{background:var(--brand-wine);border-color:var(--brand-wine);color:#fff}
+            .menu-toggle.open i{transform:rotate(90deg)}
+            /* Menu fluido: o painel desliza para baixo e os itens entram um após o outro */
+            nav{position:absolute;top:100%;left:0;width:100%;background:#fff;border-bottom:1px solid var(--border-color);box-shadow:0 18px 30px rgba(74,18,26,.12);
+                visibility:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);clip-path:inset(0 0 100% 0);
+                transition:clip-path .45s cubic-bezier(.22,1,.36,1),opacity .3s ease,transform .45s cubic-bezier(.22,1,.36,1),visibility 0s linear .45s}
+            nav.open{visibility:visible;opacity:1;pointer-events:auto;transform:none;clip-path:inset(0 0 -40px 0);transition-delay:0s}
+            nav ul li{opacity:0;transform:translateY(-10px);transition:opacity .25s ease,transform .3s ease}
+            nav.open ul li{opacity:1;transform:none;transition:opacity .4s ease,transform .45s cubic-bezier(.22,1,.36,1);transition-delay:calc(var(--i,0) * 45ms + 90ms)}
+            nav ul li:nth-child(1){--i:0}nav ul li:nth-child(2){--i:1}nav ul li:nth-child(3){--i:2}nav ul li:nth-child(4){--i:3}nav ul li:nth-child(5){--i:4}
+            nav ul li:nth-child(6){--i:5}nav ul li:nth-child(7){--i:6}nav ul li:nth-child(8){--i:7}nav ul li:nth-child(9){--i:8}
             nav ul{flex-direction:column;align-items:stretch;gap:0;padding:.5rem 4% 1rem}
             nav ul li a{display:block;padding:.9rem 0;font-size:1rem;border-bottom:1px solid var(--bg-accent)}
             .mobile-only{display:list-item}
@@ -215,6 +236,7 @@
             .local-info{flex-direction:column;align-items:flex-start}
             .experiencia-destaque-box{padding:1.5rem}
             .galeria{grid-template-columns:1fr 1fr}
+            .br-mobile{display:inline}
             .modal-box{padding:2rem 1.4rem}
         }
         @media (max-width:360px){.logo{font-size:.7rem}.btn-auth{padding:.4rem .5rem;font-size:.7rem}header{gap:.5rem}}
@@ -235,6 +257,7 @@
             <li><a href="#home" onclick="showPage('home'); return false;" class="active" id="nav-home">Início</a></li>
             <li><a href="#sobre" onclick="showPage('sobre'); return false;" id="nav-sobre">O Retiro</a></li>
             <li><a href="#experiencia" onclick="showPage('experiencia'); return false;" id="nav-experiencia">Experiência</a></li>
+            <li><a href="#fotos" onclick="showPage('fotos'); return false;" id="nav-fotos">Fotos</a></li>
             <li><a href="#loja" onclick="showPage('loja'); return false;" id="nav-loja">Lojinha TRF</a></li>
             <li class="mobile-only"><a href="#" onclick="openCartModal(); return false;"><i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="cart-badge" id="cartCountMenu" style="margin-left:.3rem">0</span></a></li>
             <li class="mobile-only"><a href="https://www.instagram.com/retirotransformados" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
@@ -360,7 +383,7 @@
         <span class="eyebrow">Vivência TRF</span>
         <h2 class="serif-title" style="font-size:2.5rem;color:var(--brand-wine);margin-top:.3rem;">Comunhão e Adoração</h2>
         <div class="experiencia-destaque-box">
-            <p class="experiencia-texto-visivel">"Cada instante no retiro é desenhado para romper rotinas e criar memórias eternas. Desde as ministrações profundas até as rodas de comunhão e de oração, a atmosfera transborda a presença viva de Deus."</p>
+            <p class="experiencia-texto-visivel">"Cada instante no retiro é desenhado para romper rotinas e criar memórias eternas. Desde as ministrações profundas até as rodas de comunhão ao redor da fogueira, a atmosfera transborda a presença viva de Deus."</p>
             <!-- FOTO: destaque da experiência -->
             <div class="ar-wide" data-photo="experiencia" data-cap="Propósito & Fé"></div>
             <!-- FOTOS: galeria (4 fotos) -->
@@ -368,9 +391,28 @@
                 <div class="ar-43" data-photo="adoracao" data-cap="Adoração"></div>
                 <div class="ar-43" data-photo="palavra" data-cap="Palavra Viva"></div>
                 <div class="ar-43" data-photo="comunhao" data-cap="Comunhão"></div>
-                <div class="ar-43" data-photo="transformados" data-cap="Transformados"></div>
+                <div class="ar-43" data-photo="transformados" data-cap="Transfor|mados"></div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- ============ PÁGINA: FOTOS ============ -->
+<section id="page-fotos" class="page-section">
+    <div class="hero">
+        <!-- FOTO: mesmo banner da página Início (fica atrás do texto) -->
+        <div class="hero-bg" data-photo="banner"></div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content animate-fade">
+            <span class="hero-badge">Fotos TRF</span>
+            <h1 class="serif-title">Reviva Cada Momento</h1>
+            <p>Os registros da nossa geração em adoração, comunhão e Palavra. Toque na foto do álbum para pegar as suas.</p>
+            <button class="btn-primary" onclick="document.getElementById('albunsGrid').scrollIntoView({behavior:'smooth',block:'center'})">Ver álbuns <i class="fa-solid fa-arrow-down"></i></button>
+        </div>
+    </div>
+    <div class="section-fotos">
+        <div class="albuns-grid" id="albunsGrid"></div>
     </div>
 </section>
 
@@ -503,6 +545,17 @@
     };
 
     /* =====================================================================
+       2.1) PÁGINA "FOTOS" — um cartão por edição
+       - foto: imagem de capa (pasta "fotos", 1200x900)
+       - frase: texto que aparece como rodapé da foto
+       - link: endereço do álbum (precisa começar com https://). Vazio = avisa "ainda não liberado".
+       Para adicionar outra edição, copie o bloco { ... } e separe com vírgula.
+       ===================================================================== */
+    const ALBUNS = [
+        { foto: 'fotos/fotos-2k26.jpg', frase: 'Pegue sua foto aqui - Edição 2K26', link: '' }
+    ];
+
+    /* =====================================================================
        3) TODAS AS FOTOS DO SITE — um único lugar
        Coloque cada arquivo na pasta "fotos" (ao lado deste index.html),
        com o nome exatamente igual ao que está em "src".
@@ -532,7 +585,7 @@
         adoracao:        { src: 'fotos/adoracao.jpg',         size: '1200x900',  alt: 'Adoração',                  label: 'Galeria — Adoração' },
         palavra:         { src: 'fotos/palavra.jpg',          size: '1200x900',  alt: 'Palavra Viva',              label: 'Galeria — Palavra Viva' },
         comunhao:        { src: 'fotos/comunhao.jpg',         size: '1200x900',  alt: 'Comunhão',                  label: 'Galeria — Comunhão' },
-        transformados:   { src: 'fotos/transformados.jpg',    size: '1200x900',  alt: 'Transformados',             label: 'Galeria — Transformados' },
+        transformados:   { src: 'fotos/transformados.jpg',    size: '1200x900',  alt: 'Transformados',             label: 'Galeria — Transformados' }
     };
 
     /* =====================================================================
@@ -653,7 +706,10 @@
         if (opts.caption) {
             const cap = document.createElement('div');
             cap.className = 'cap';
-            cap.textContent = opts.caption;
+            opts.caption.split('|').forEach((parte, i) => {
+                if (i > 0) { const br = document.createElement('br'); br.className = 'br-mobile'; cap.appendChild(br); }
+                cap.appendChild(document.createTextNode(parte));
+            });
             el.appendChild(cap);
         }
     }
@@ -759,11 +815,12 @@
     window.addEventListener('DOMContentLoaded', () => {
         hydratePhotos();
         renderLocal();
+        renderFotos();
         renderProducts();
         updateAuthUI();
         updateCartUI();
         const initial = location.hash.replace('#', '');
-        if (['home', 'sobre', 'experiencia', 'loja'].includes(initial)) showPage(initial, false);
+        if (['home', 'sobre', 'experiencia', 'fotos', 'loja'].includes(initial)) showPage(initial, false);
     });
 
     window.addEventListener('click', (e) => {
@@ -791,6 +848,36 @@
             : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(LOCAL.endereco);
         const hasRealAddress = link.startsWith('https://') || !LOCAL.endereco.includes('00000-000');
         if (hasRealAddress) { btn.href = url; btn.style.display = 'inline-flex'; }
+    }
+
+    // ====== PÁGINA FOTOS ======
+    function renderFotos() {
+        const grid = document.getElementById('albunsGrid');
+        grid.innerHTML = '';
+        ALBUNS.forEach(a => {
+            const link = (a.link || 'https://drive.google.com/drive/folders/1tcMylsly8_tiRXLoLWnzadcJ9a_k8Nic').trim();
+            const ok = link.startsWith('https://');
+
+            const card = document.createElement('a');
+            card.className = 'album-card';
+            card.href = ok ? link : '#';
+            if (ok) { card.target = '_blank'; card.rel = 'noopener'; }
+            else card.addEventListener('click', ev => { ev.preventDefault(); showToast('O link das fotos ainda não foi liberado.'); });
+
+            const photo = document.createElement('div');
+            buildPhoto(photo, { src: a.foto, alt: a.frase, label: 'Foto de capa', size: '1200x900' }, {});
+
+            const legenda = document.createElement('div');
+            legenda.className = 'album-legenda';
+            const texto = document.createElement('span');
+            texto.textContent = a.frase;
+            const icone = document.createElement('i');
+            icone.className = 'fa-solid fa-arrow-up-right-from-square';
+            legenda.append(texto, icone);
+
+            card.append(photo, legenda);
+            grid.appendChild(card);
+        });
     }
 
     // ====== PRODUTOS ======
@@ -912,14 +999,16 @@
         if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function toggleMenu() {
-        const open = document.getElementById('mainNav').classList.toggle('open');
-        document.getElementById('menuToggle').setAttribute('aria-expanded', open ? 'true' : 'false');
+    function setMenuState(open) {
+        const btn = document.getElementById('menuToggle');
+        document.getElementById('mainNav').classList.toggle('open', open);
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+        btn.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
     }
-    function closeMenu() {
-        document.getElementById('mainNav').classList.remove('open');
-        document.getElementById('menuToggle').setAttribute('aria-expanded', 'false');
-    }
+    function toggleMenu() { setMenuState(!document.getElementById('mainNav').classList.contains('open')); }
+    function closeMenu() { setMenuState(false); }
 
     // ====== MODAIS / AVISOS ======
     function openModal(modalId) {

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'trf-cache-v8';
+const CACHE_NAME = 'trf-cache-v9';
 const PRECACHE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 const EXTERNAL_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com', 'cdnjs.cloudflare.com'];
 
