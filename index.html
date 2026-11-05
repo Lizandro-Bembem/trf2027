@@ -31,8 +31,30 @@
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
         .animate-fade{animation:fadeIn .6s ease-out forwards}
 
+        /* ================= COMPONENTE DE FOTO =================
+           Todo espaço de foto usa a classe .photo. Se o arquivo da foto
+           não existir, aparece um aviso com o caminho exato do arquivo. */
+        .photo{position:relative;overflow:hidden;background:var(--bg-accent);border-radius:16px}
+        .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+        .photo .ph{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;padding:1rem;text-align:center;color:var(--brand-wine);background:repeating-linear-gradient(45deg,var(--bg-accent),var(--bg-accent) 12px,#efe4d3 12px,#efe4d3 24px);border:2px dashed var(--brand-gold);border-radius:inherit}
+        .photo.missing img{display:none}
+        .photo.missing .ph{display:flex}
+        .ph i{font-size:1.6rem;color:var(--brand-gold)}
+        .ph b{font-size:.8rem;text-transform:uppercase;letter-spacing:.5px}
+        .ph code{font-size:.72rem;background:#fff;padding:.15rem .5rem;border-radius:6px;color:var(--brand-brown);word-break:break-all}
+        .ph small{font-size:.68rem;color:var(--text-muted)}
+        .photo .cap{position:absolute;left:0;right:0;bottom:0;padding:2rem 1rem .8rem;background:linear-gradient(transparent,rgba(45,17,21,.85));color:#fff;font-family:'Cinzel',serif;font-size:1.05rem;text-align:left;pointer-events:none}
+        .photo.missing .cap{display:none}
+        .ar-11{aspect-ratio:1/1}
+        .ar-43{aspect-ratio:4/3}
+        .ar-32{aspect-ratio:3/2}
+        .ar-wide{aspect-ratio:16/7}
+
         header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-color);z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 4%;padding-top:calc(1rem + env(safe-area-inset-top,0px));gap:.8rem}
-        .logo{font-size:1.1rem;font-weight:700;color:var(--brand-wine);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+        .logo{display:flex;align-items:center;gap:.6rem;font-size:1.1rem;font-weight:700;color:var(--brand-wine);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+        .logo .logo-img{width:38px;height:38px;border-radius:50%;flex-shrink:0}
+        .logo .logo-img .ph{display:none!important}
+        .logo .logo-text span{display:inline}
         nav ul{display:flex;list-style:none;gap:1.5rem;align-items:center}
         nav ul li a{text-decoration:none;color:var(--text-main);font-weight:500;font-size:.9rem;transition:color .3s}
         nav ul li a:hover,nav ul li a.active{color:var(--brand-wine);font-weight:600}
@@ -58,18 +80,14 @@
         .page-section{display:none;min-height:85vh;padding-top:6rem;padding-bottom:4rem}
         .page-section.active-page{display:block;animation:fadeIn .5s ease-out forwards}
 
-        .hero{
-            position:relative;
-            padding:5rem 5%;
-            background:linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(244, 236, 225, 0.88) 100%), url('hero-bg.jpg');
-            background-size:cover;
-            background-position:center;
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:3rem;
-            min-height:85vh;
-        }
+        /* ===== BANNER (HERO) =====
+           A foto fica numa camada própria (.hero-bg), atrás do texto.
+           A camada .hero-overlay só escurece/clareia o lado do texto. */
+        .hero{position:relative;overflow:hidden;padding:5rem 5%;display:flex;align-items:center;justify-content:space-between;gap:3rem;min-height:85vh;background:var(--bg-accent)}
+        .hero-bg{position:absolute;inset:0;border-radius:0;z-index:0}
+        .hero-bg .ph{align-items:flex-start;justify-content:flex-end;padding:6rem 1rem 1rem;border-radius:0;border:none}
+        .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.55) 45%,rgba(74,18,26,.25) 100%);pointer-events:none}
+        .hero-content,.hero-image{position:relative;z-index:2}
         .hero-content{max-width:600px}
         .hero-badge{display:inline-block;background:var(--brand-gold);color:var(--brand-brown);padding:.4rem 1rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase}
         .hero h1{font-size:3.2rem;color:var(--brand-wine);line-height:1.1;margin-bottom:1.5rem}
@@ -83,34 +101,53 @@
         .badge-esgotado{font-size:1rem;color:var(--brand-wine);background:var(--bg-accent);padding:.6rem 1.2rem;border-radius:20px;font-weight:700;text-transform:uppercase;display:inline-block}
 
         .nubank-banner{margin:3rem 5%;background:linear-gradient(135deg,var(--brand-wine) 0%,var(--brand-brown) 100%);border-radius:24px;padding:3.5rem 3rem;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:2rem;box-shadow:0 20px 40px rgba(0,0,0,.1)}
+        .nubank-banner>div:first-child{flex:1}
         .nubank-banner h2{font-size:2.3rem;margin-bottom:1rem;color:var(--bg-accent)}
         .nubank-banner p{color:rgba(255,255,255,.85);font-size:1.05rem;margin-bottom:1.5rem}
-        .banner-img-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:2.5rem;border-radius:20px;text-align:center;min-width:300px;font-weight:600;color:var(--bg-accent)}
+        .banner-photo{width:360px;max-width:100%;flex-shrink:0;border-radius:20px;border:1px solid rgba(255,255,255,.3)}
 
         .section-about{padding:3rem 5%;max-width:1200px;margin:0 auto}
         .section-about .nubank-banner{margin-left:0;margin-right:0}
         .eyebrow{color:var(--brand-gold);font-weight:700;text-transform:uppercase;font-size:.85rem}
         .quem-somos-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:4rem}
         .fotos-espalhadas{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-        .foto-card-mock{background:var(--bg-accent);border:1px solid var(--border-color);height:180px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--brand-wine);font-size:.9rem;text-align:center;padding:1rem}
         .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-top:2rem}
         .feature-item{background:#fff;padding:2.5rem 2rem;border-radius:20px;border:1px solid var(--border-color);transition:transform .3s}
         .feature-item:hover{transform:translateY(-5px)}
         .feature-item i{font-size:2rem;color:var(--brand-gold);margin-bottom:1.2rem}
         .feature-item h3{font-size:1.2rem;color:var(--brand-wine);margin-bottom:.8rem}
 
+        /* ===== ONDE SERÁ (localização) ===== */
+        .local-section{margin-top:5rem}
+        .local-head{text-align:center;margin-bottom:2rem}
+        .local-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1rem}
+        .local-grid .photo:first-child{grid-row:span 2;aspect-ratio:auto;min-height:320px}
+        .local-info{margin-top:1.5rem;background:var(--bg-accent);border:1px solid var(--brand-gold);border-radius:20px;padding:1.8rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+        .local-info h3{color:var(--brand-wine);font-size:1.3rem;margin-bottom:.3rem}
+        .local-info p{color:var(--text-muted);font-size:.95rem}
+        .local-info i{color:var(--brand-gold);margin-right:.4rem}
+
         .experiencia-content{max-width:1000px;margin:0 auto;padding:3rem 5%;text-align:center}
         .experiencia-destaque-box{background:var(--bg-secondary);border:2px solid var(--brand-gold);border-radius:24px;padding:3rem;margin-top:2rem}
         .experiencia-texto-visivel{font-size:1.2rem;color:var(--text-main);font-weight:600;line-height:1.8;margin-top:1rem;margin-bottom:2rem}
-        .foto-experiencia-grande{background:var(--brand-wine);color:var(--bg-accent);height:350px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.5rem;font-family:'Cinzel',serif;box-shadow:0 15px 35px rgba(74,18,26,.2)}
+        .galeria{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.5rem}
 
+        /* ===== LOJINHA ===== */
         .section-store{padding:2rem 5%;max-width:1300px;margin:0 auto}
         .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem;margin-top:2rem}
         .product-card{background:#fff;border:1px solid var(--border-color);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
-        .product-img{background:var(--bg-secondary);height:220px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-weight:600;text-align:center;padding:1rem}
+        .product-card .photo{border-radius:0;aspect-ratio:1/1}
         .product-info{padding:1.5rem;display:flex;flex-direction:column;flex:1}
         .product-info h3{font-size:1.1rem;color:var(--text-main);margin-bottom:.5rem}
-        .product-price{font-size:1.2rem;font-weight:700;color:var(--brand-wine);margin-bottom:1.2rem}
+        .product-price{font-size:1.2rem;font-weight:700;color:var(--brand-wine);margin-bottom:1rem}
+        .color-row{margin-bottom:1rem}
+        .color-label{font-size:.8rem;font-weight:600;color:var(--text-muted);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+        .color-label b{color:var(--brand-wine)}
+        .color-dot{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--border-color)}
+        .swatches{display:flex;gap:.7rem;flex-wrap:wrap}
+        .swatch{width:32px;height:32px;border-radius:50%;border:2px solid var(--border-color);cursor:pointer;padding:0;transition:transform .2s}
+        .swatch:hover{transform:scale(1.1)}
+        .swatch[aria-pressed="true"]{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--brand-wine)}
         .qty-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:1rem}
         .qty-row label{font-size:.8rem;font-weight:600;color:var(--text-muted)}
         .qty-input{width:84px;text-align:center;padding:.5rem;border:1px solid var(--brand-wine);border-radius:10px;font-size:16px;font-weight:700;font-family:inherit;color:var(--brand-wine);background:#fff;outline:none}
@@ -134,6 +171,8 @@
 
         .cart-items-list{max-height:250px;overflow-y:auto;margin-bottom:1.5rem;border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color);padding:1rem 0;text-align:left}
         .cart-item-row{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.8rem;font-size:.9rem}
+        .cart-item-thumb{width:48px;height:48px;border-radius:10px;flex-shrink:0}
+        .cart-item-thumb .ph{display:none!important}
         .cart-item-info{flex:1;min-width:0}
         .qty-controls{display:inline-flex;align-items:center;gap:.4rem;margin-top:.2rem}
         .btn-qty{width:26px;height:26px;border-radius:50%;border:1px solid var(--brand-wine);background:#fff;color:var(--brand-wine);font-weight:700;cursor:pointer;line-height:1}
@@ -148,7 +187,8 @@
         @media (max-width:768px){
             header{padding-left:4%;padding-right:4%}
             .logo{font-size:.78rem;letter-spacing:0;margin-right:auto;line-height:1.15;min-width:0}
-            .logo span{display:block}
+            .logo .logo-img{width:32px;height:32px}
+            .logo .logo-text span{display:block}
             .menu-toggle{display:inline-flex;align-items:center;justify-content:center;order:-1;width:38px;height:38px;border-radius:8px;flex-shrink:0}
             .cart-header{display:none}
             .header-actions{gap:.35rem}
@@ -163,14 +203,18 @@
             .btn-auth{padding:.45rem .6rem;font-size:.74rem}
             .hero{flex-direction:column;text-align:center;gap:2rem;padding:2rem 5%}
             .hero h1{font-size:2.1rem}
+            .hero-overlay{background:linear-gradient(180deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.6) 60%,rgba(74,18,26,.3) 100%)}
             .hero-card-preview{padding:2.2rem 1.5rem}
             .hero-card-preview h3{font-size:1.8rem}
             .quem-somos-grid{grid-template-columns:1fr}
             .nubank-banner{flex-direction:column;padding:2rem 1.5rem;text-align:center;margin:2rem 5%}
             .nubank-banner h2{font-size:1.7rem}
-            .banner-img-box{min-width:0!important;width:100%;padding:2rem 1rem!important}
+            .banner-photo{width:100%}
+            .local-grid{grid-template-columns:1fr 1fr}
+            .local-grid .photo:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:3/2;min-height:0}
+            .local-info{flex-direction:column;align-items:flex-start}
             .experiencia-destaque-box{padding:1.5rem}
-            .foto-experiencia-grande{height:260px}
+            .galeria{grid-template-columns:1fr 1fr}
             .modal-box{padding:2rem 1.4rem}
         }
         @media (max-width:360px){.logo{font-size:.7rem}.btn-auth{padding:.4rem .5rem;font-size:.7rem}header{gap:.5rem}}
@@ -181,7 +225,11 @@
 
 <header>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
-    <div class="logo"><span>Retiro</span> <span>Transformados</span></div>
+    <div class="logo">
+        <!-- FOTO: logo -->
+        <div class="logo-img" data-photo="logo" data-round="1"></div>
+        <div class="logo-text"><span>Retiro</span> <span>Transformados</span></div>
+    </div>
     <nav id="mainNav">
         <ul>
             <li><a href="#home" onclick="showPage('home'); return false;" class="active" id="nav-home">Início</a></li>
@@ -218,9 +266,13 @@
     </div>
 </header>
 
-<!-- PÁGINA 1: INÍCIO -->
+<!-- ============ PÁGINA 1: INÍCIO ============ -->
 <section id="page-home" class="page-section active-page">
     <div class="hero">
+        <!-- FOTO: banner principal (fica atrás do texto) -->
+        <div class="hero-bg" data-photo="banner"></div>
+        <div class="hero-overlay"></div>
+
         <div class="hero-content animate-fade">
             <span class="hero-badge">TRF 2027</span>
             <h1 class="serif-title">Santidade em uma Geração Corrompida</h1>
@@ -241,14 +293,12 @@
             <p>Prepare-se para viver dias inesquecíveis em um novo local estruturado para proporcionar comunhão profunda e renovação espiritual.</p>
             <button class="btn-primary" style="background:var(--bg-accent);color:var(--brand-wine);" onclick="showPage('sobre')">Saiba Mais</button>
         </div>
-        <div class="banner-img-box">
-            <i class="fa-solid fa-mountain-sun" style="font-size:3.5rem;margin-bottom:1rem;color:var(--brand-gold);"></i>
-            <div>Novo Local TRF 2027</div>
-        </div>
+        <!-- FOTO: novo local (início) -->
+        <div class="banner-photo ar-43" data-photo="localHome"></div>
     </div>
 </section>
 
-<!-- PÁGINA 2: O RETIRO -->
+<!-- ============ PÁGINA 2: O RETIRO ============ -->
 <section id="page-sobre" class="page-section">
     <div class="section-about">
         <div class="quem-somos-grid">
@@ -258,11 +308,12 @@
                 <p style="color:var(--text-muted);margin-bottom:1rem;">O Retiro Transformados começou com o firme propósito de resgatar princípios eternos na juventude. Somos um movimento focado em viver a palavra sem compromissos com o padrão deste mundo.</p>
                 <p style="color:var(--text-muted);">Ao longo dos anos, reunimos centenas de jovens em um ambiente de avivamento, cura interior, quebramentos e adoração verdadeira.</p>
             </div>
+            <!-- FOTOS: Quem Somos (4 fotos) -->
             <div class="fotos-espalhadas">
-                <div class="foto-card-mock">Momento TRF</div>
-                <div class="foto-card-mock" style="background:var(--brand-gold);color:#fff;">Adoração 2025</div>
-                <div class="foto-card-mock" style="background:var(--brand-wine);color:#fff;">Comunhão</div>
-                <div class="foto-card-mock">Palavra Viva</div>
+                <div class="ar-11" data-photo="quem1"></div>
+                <div class="ar-11" data-photo="quem2"></div>
+                <div class="ar-11" data-photo="quem3"></div>
+                <div class="ar-11" data-photo="quem4"></div>
             </div>
         </div>
 
@@ -282,31 +333,48 @@
                 <h2 class="serif-title" style="margin-top:.3rem;">Novo Local TRF 2027</h2>
                 <p>Um espaço amplo, integrado à natureza, pensado em cada detalhe para acomodar nossa geração com conforto, segurança e total liberdade no Espírito.</p>
             </div>
-            <div class="banner-img-box" style="padding:3rem;min-width:340px;">
-                <i class="fa-solid fa-tree-city" style="font-size:4rem;margin-bottom:1rem;color:var(--brand-gold);"></i>
-                <div style="font-size:1.2rem;font-family:'Cinzel',serif;">Fazenda / Sítio TRF 2027</div>
+            <!-- FOTO: visão geral do local 2027 -->
+            <div class="banner-photo ar-32" data-photo="local2027"></div>
+        </div>
+
+        <!-- ===== ONDE SERÁ (localização + endereço) ===== -->
+        <div class="local-section">
+            <div class="local-head">
+                <span class="eyebrow">Localização</span>
+                <h2 class="serif-title" style="margin-top:.3rem;font-size:2.2rem;color:var(--brand-wine);">Onde Será o TRF 2027</h2>
+            </div>
+            <div class="local-info" style="margin-top:0">
+                <div>
+                    <h3 class="serif-title" id="localNome"></h3>
+                    <p><i class="fa-solid fa-location-dot"></i><span id="localEndereco"></span></p>
+                </div>
+                <a class="btn-primary" id="localMapsBtn" href="#" target="_blank" rel="noopener" style="display:none"><i class="fa-solid fa-map-location-dot"></i> Ver no mapa</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- PÁGINA 3: EXPERIÊNCIA -->
+<!-- ============ PÁGINA 3: EXPERIÊNCIA ============ -->
 <section id="page-experiencia" class="page-section">
     <div class="experiencia-content">
         <span class="eyebrow">Vivência TRF</span>
         <h2 class="serif-title" style="font-size:2.5rem;color:var(--brand-wine);margin-top:.3rem;">Comunhão e Adoração</h2>
         <div class="experiencia-destaque-box">
-            <p class="experiencia-texto-visivel">"Cada instante no retiro é desenhado para romper rotinas e criar memórias eternas. Desde as ministrações profundas até as rodas de comunhão ao redor da fogueira, a atmosfera transborda a presença viva de Deus."</p>
-            <div class="foto-experiencia-grande">
-                <i class="fa-solid fa-hands-praying" style="font-size:4rem;margin-bottom:1rem;color:var(--brand-gold);"></i>
-                <div>Propósito &amp; Fé</div>
-                <span style="font-size:.9rem;font-family:'Montserrat',sans-serif;opacity:.8;margin-top:.5rem;">Uma experiência que marca para sempre</span>
+            <p class="experiencia-texto-visivel">"Cada instante no retiro é desenhado para romper rotinas e criar memórias eternas. Desde as ministrações profundas até as rodas de comunhão e de oração, a atmosfera transborda a presença viva de Deus."</p>
+            <!-- FOTO: destaque da experiência -->
+            <div class="ar-wide" data-photo="experiencia" data-cap="Propósito & Fé"></div>
+            <!-- FOTOS: galeria (4 fotos) -->
+            <div class="galeria">
+                <div class="ar-43" data-photo="adoracao" data-cap="Adoração"></div>
+                <div class="ar-43" data-photo="palavra" data-cap="Palavra Viva"></div>
+                <div class="ar-43" data-photo="comunhao" data-cap="Comunhão"></div>
+                <div class="ar-43" data-photo="transformados" data-cap="Transformados"></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- PÁGINA 4: LOJINHA TRF -->
+<!-- ============ PÁGINA 4: LOJINHA TRF ============ -->
 <section id="page-loja" class="page-section">
     <div class="section-store">
         <div style="margin-bottom:2rem;">
@@ -413,10 +481,11 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <script>
-    // ====== CONFIGURAÇÕES (edite aqui) ======
+    /* =====================================================================
+       1) CONFIGURAÇÕES GERAIS
+       ===================================================================== */
     const WHATSAPP_NUMBER = '5571991155903'; // código do país + DDD + número
 
-    // Dados do projeto Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyBv_778K2CNMN8wfk8DrxxvQaZ1MJZrlwo",
         authDomain: "trf-site.firebaseapp.com",
@@ -424,42 +493,186 @@
         appId: "1:39897005227:web:a77dd600cea79e472e8bee"
     };
 
-    // Cada produto tem o seu link de pagamento (InfinitePay).
-    // Para adicionar: cole o link entre as aspas de "payLink" do produto (deve começar com https://).
-    // Enquanto estiver vazio, o botão "Fazer compra" daquele produto abre o WhatsApp.
-    // ATENÇÃO: esta é a ÚNICA lista de produtos do site. Não crie outra "const PRODUCTS".
+    /* =====================================================================
+       2) LOCALIZAÇÃO DO RETIRO — edite o nome e o endereço aqui
+       ===================================================================== */
+    const LOCAL = {
+        nome: 'Nome do local (fazenda / sítio)',
+        endereco: 'Rua / Estrada, número — Bairro, Cidade - UF, CEP 00000-000',
+        mapsLink: '' // opcional: cole aqui o link do Google Maps. Se vazio, o botão usa o endereço acima.
+    };
+
+    /* =====================================================================
+       3) TODAS AS FOTOS DO SITE — um único lugar
+       Coloque cada arquivo na pasta "fotos" (ao lado deste index.html),
+       com o nome exatamente igual ao que está em "src".
+       Se mudar uma foto e ela não atualizar, aumente PHOTO_VERSION (1 → 2).
+       ===================================================================== */
+    const PHOTO_VERSION = 1;
+
+    const PHOTOS = {
+        // --- Identidade ---
+        logo:            { src: 'fotos/logo.png',             size: '200x200',   alt: 'Logo Retiro Transformados', label: 'Logo' },
+
+        // --- Página Início ---
+        banner:          { src: 'fotos/banner.png',           size: '1920x1080', alt: 'Banner TRF 2027',           label: 'Banner principal' },
+        localHome:       { src: 'fotos/local-home.jpg',       size: '1200x900',  alt: 'Novo local do TRF 2027',    label: 'Novo local (parte de fora)' },
+
+        // --- Página O Retiro: Quem Somos ---
+        quem1:           { src: 'fotos/quem-1.jpg',           size: '800x800',   alt: 'Momento TRF',               label: 'Quem Somos 1 — Momento TRF' },
+        quem2:           { src: 'fotos/quem-2.jpg',           size: '800x800',   alt: 'Adoração 2025',             label: 'Quem Somos 2 — Adoração 2025' },
+        quem3:           { src: 'fotos/quem-3.jpg',           size: '800x800',   alt: 'Comunhão',                  label: 'Quem Somos 3 — Comunhão' },
+        quem4:           { src: 'fotos/quem-4.jpg',           size: '800x800',   alt: 'Palavra Viva',              label: 'Quem Somos 4 — Palavra Viva' },
+
+        // --- Página O Retiro: Local 2027 ---
+        local2027:       { src: 'fotos/local-2027.jpg',       size: '1500x1000', alt: 'Visão geral do local 2027', label: 'Local 2027 (parte de fora)' },
+
+        // --- Página Experiência ---
+        experiencia:     { src: 'fotos/experiencia.jpg',      size: '1600x700',  alt: 'Propósito e Fé',            label: 'Destaque da Experiência' },
+        adoracao:        { src: 'fotos/adoracao.jpg',         size: '1200x900',  alt: 'Adoração',                  label: 'Galeria — Adoração' },
+        palavra:         { src: 'fotos/palavra.jpg',          size: '1200x900',  alt: 'Palavra Viva',              label: 'Galeria — Palavra Viva' },
+        comunhao:        { src: 'fotos/comunhao.jpg',         size: '1200x900',  alt: 'Comunhão',                  label: 'Galeria — Comunhão' },
+        transformados:   { src: 'fotos/transformados.jpg',    size: '1200x900',  alt: 'Transformados',             label: 'Galeria — Transformados' },
+    };
+
+    /* =====================================================================
+       4) LOJINHA — produtos, preços e cores
+       - Camisas: cada cor é um produto separado (mesmo preço, foto própria).
+       - Garrafa: um produto só, com escolha de cor (a foto muda com a cor).
+       - payLink: link de pagamento (InfinitePay). Vazio = pedido vai por WhatsApp.
+       Fotos dos produtos: quadradas, 1000x1000, na pasta fotos/produtos/
+       ===================================================================== */
+    const SHIRT_COLORS = [
+        { key: 'preta',  label: 'Preta',  hex: '#1C1C1C' },
+        { key: 'branca', label: 'Branca', hex: '#FFFFFF' },
+        { key: 'vinho',  label: 'Vinho',  hex: '#4A121A' }
+    ];
+
+    function shirtLine(fileBase, nameBase, price) {
+        return SHIRT_COLORS.map(c => ({
+            name: nameBase + ' ' + c.label,
+            title: nameBase + ' — ' + c.label,
+            price: price,
+            photo: 'fotos/produtos/' + fileBase + '-' + c.key + '.jpg',
+            payLink: '',
+            tag: c
+        }));
+    }
+
     const PRODUCTS = [
         {
-            name: 'Camiseta Oversized Santidade', title: 'Camiseta Oversized "Santidade"', price: 89.90, label: 'Camiseta Santidade',
-            // Link de teste da InfinitePay (R$ 1,00): https://link.infinitepay.io/dayane-bembem/VC0xLTEtSQ-8imQ70WZb3-1,00
-            // Cole abaixo o link REAL da Camiseta Santidade:
-            payLink: 'https://link.infinitepay.io/dayane-bembem/VC0xLTEtSQ-8imQ70WZb3-1,00'
+            name: 'Garrafa Térmica Oficial TRF',
+            title: 'Garrafa Térmica Oficial TRF',
+            price: 55.00,
+            // Uma única foto com as 4 cores juntas (a escolha da cor não troca a foto)
+            photo: 'fotos/produtos/garrafa-trf.jpg',
+            options: [
+                { key: 'preta',     label: 'Preta',      hex: '#1C1C1C', payLink: '' },
+                { key: 'branca',    label: 'Branca',     hex: '#FFFFFF', payLink: '' },
+                { key: 'azul-bebe', label: 'Azul bebê',  hex: '#A9D6F5', payLink: '' },
+                { key: 'azul',      label: 'Azul',       hex: '#1E5FBF', payLink: '' }
+            ]
         },
         {
-            name: 'Camiseta Renúncia', title: 'Camiseta "Renúncia"', price: 79.90, label: 'Camiseta Renúncia',
-            // Cole abaixo o link de pagamento da Camiseta "Renúncia":
-            payLink: ''
+            name: 'Camisa Premium Oversize',
+            title: 'Camisa Premium Oversize',
+            price: 65.00,
+            // Uma única foto (a escolha da cor não troca a foto)
+            photo: 'fotos/produtos/camisa-premium-oversize.jpg',
+            options: [
+                { key: 'preta',  label: 'Preta',  hex: '#1C1C1C', payLink: '' },
+                { key: 'branca', label: 'Branca', hex: '#FFFFFF', payLink: '' },
+                { key: 'vinho',  label: 'Vinho',  hex: '#4A121A', payLink: '' }
+            ]
         },
         {
-            name: 'Garrafa Térmica Oficial TRF', title: 'Garrafa Térmica Oficial TRF', price: 65.00, label: 'Garrafa TRF',
-            // Cole abaixo o link de pagamento da Garrafa Térmica Oficial TRF:
-            payLink: ''
+            name: 'Camisa Normal',
+            title: 'Camisa Normal',
+            price: 50.00,
+            // Uma foto para cada cor (a foto troca quando a pessoa escolhe a cor)
+            options: [
+                { key: 'preta',  label: 'Preta',  hex: '#1C1C1C', photo: 'fotos/produtos/camisa-normal-preta.jpg',  payLink: '' },
+                { key: 'branca', label: 'Branca', hex: '#FFFFFF', photo: 'fotos/produtos/camisa-normal-branca.jpg', payLink: '' },
+                { key: 'vinho',  label: 'Vinho',  hex: '#4A121A', photo: 'fotos/produtos/camisa-normal-vinho.jpg',  payLink: '' }
+            ]
         },
         {
-            name: 'Boné Dad Hat TRF', title: 'Boné Dad Hat TRF', price: 55.00, label: 'Boné TRF',
-            // Cole abaixo o link de pagamento do Boné Dad Hat TRF:
-            payLink: ''
+            name: 'Boné TRF', title: 'Boné TRF', price: 45.00,
+            photo: 'fotos/produtos/bone-trf.jpg', payLink: ''
+        },
+        {
+            name: 'Ecobag TRF', title: 'Ecobag TRF', price: 40.00,
+            photo: 'fotos/produtos/ecobag-trf.jpg', payLink: ''
         }
     ];
 
-    // Devolve o link de pagamento do produto (ou '' se ainda não foi preenchido)
-    function getPayLink(name) {
-        const prod = PRODUCTS.find(x => x.name === name);
-        const link = prod && typeof prod.payLink === 'string' ? prod.payLink.trim() : '';
-        return link.startsWith('https://') ? link : '';
+    // Catálogo plano: cada variação (cor) vira um item com nome, preço, foto e link próprios.
+    const CATALOG = new Map();
+    PRODUCTS.forEach(p => {
+        if (p.options) {
+            p.options.forEach(o => {
+                const name = p.name + ' - ' + o.label;
+                CATALOG.set(name, { name: name, price: p.price, photo: o.photo || p.photo, payLink: o.payLink || '' });
+            });
+        } else {
+            CATALOG.set(p.name, { name: p.name, price: p.price, photo: p.photo, payLink: p.payLink || '' });
+        }
+    });
+
+    /* =====================================================================
+       5) MOTOR DE FOTOS (não precisa mexer)
+       ===================================================================== */
+    function photoUrl(src) { return src + '?v=' + PHOTO_VERSION; }
+
+    function buildPhoto(el, cfg, opts) {
+        opts = opts || {};
+        el.classList.add('photo');
+        el.classList.remove('missing');
+        if (opts.round) el.style.borderRadius = '50%';
+        el.innerHTML = '';
+
+        const img = document.createElement('img');
+        img.alt = cfg.alt || '';
+        img.decoding = 'async';
+        if (!opts.eager) img.loading = 'lazy';
+
+        const ph = document.createElement('div');
+        ph.className = 'ph';
+        ph.innerHTML = '<i class="fa-regular fa-image"></i><b></b><code></code><small></small>';
+        ph.querySelector('b').textContent = cfg.label || 'Foto';
+        ph.querySelector('code').textContent = cfg.src;
+        ph.querySelector('small').textContent = cfg.size ? 'Tamanho ideal: ' + cfg.size + ' px' : '';
+
+        img.addEventListener('error', () => el.classList.add('missing'));
+        img.addEventListener('load', () => el.classList.remove('missing'));
+        img.src = photoUrl(cfg.src);
+
+        el.appendChild(img);
+        el.appendChild(ph);
+
+        if (opts.caption) {
+            const cap = document.createElement('div');
+            cap.className = 'cap';
+            cap.textContent = opts.caption;
+            el.appendChild(cap);
+        }
     }
 
-    // Abre o link de pagamento; se o navegador bloquear a nova aba, abre nesta mesma
+    function hydratePhotos(root) {
+        (root || document).querySelectorAll('[data-photo]').forEach(el => {
+            const cfg = PHOTOS[el.dataset.photo];
+            if (!cfg) { console.warn('Foto não configurada:', el.dataset.photo); return; }
+            buildPhoto(el, cfg, {
+                caption: el.dataset.cap || '',
+                round: !!el.dataset.round,
+                eager: el.dataset.photo === 'banner' || el.dataset.photo === 'logo'
+            });
+        });
+    }
+
+    /* =====================================================================
+       6) FUNÇÕES DO SITE
+       ===================================================================== */
     function openPayment(url) {
         const w = window.open(url, '_blank', 'noopener');
         if (!w) window.location.href = url;
@@ -488,7 +701,7 @@
         try {
             firebase.initializeApp(firebaseConfig);
             auth = firebase.auth();
-            auth.languageCode = 'pt-BR'; // e-mails do Firebase em português
+            auth.languageCode = 'pt-BR';
         } catch (err) {
             console.warn('Firebase não iniciou:', err);
         }
@@ -514,9 +727,8 @@
             'auth/user-not-found': 'E-mail ou senha incorretos! Verifique os dados digitados.',
             'auth/too-many-requests': 'Muitas tentativas. Aguarde alguns minutos e tente de novo.',
             'auth/network-request-failed': 'Sem conexão com a internet.',
-            'auth/unauthorized-domain': 'Este domínio não está autorizado no Firebase (Authentication > Configurações > Domínios autorizados).',
-            'auth/operation-not-allowed': 'O login por e-mail/senha não está ativado no Firebase.',
-            'auth/unauthorized-continue-uri': 'Domínio do site não autorizado no Firebase (Authentication > Configurações > Domínios autorizados).'
+            'auth/unauthorized-domain': 'Este domínio não está autorizado no Firebase.',
+            'auth/operation-not-allowed': 'O login por e-mail/senha não está ativado no Firebase.'
         };
         return map[err && err.code] || 'Algo deu errado. Tente novamente.';
     }
@@ -525,12 +737,17 @@
     let currentUser = null;
     let cart = parseJSON(storageGet('trf_cart'), []);
     if (!Array.isArray(cart)) cart = [];
+    // Mantém só itens que ainda existem no catálogo e atualiza o preço para o atual.
     cart = cart
-        .filter(i => i && typeof i.name === 'string' && typeof i.price === 'number')
-        .map(i => ({ name: i.name, price: i.price, qty: Math.max(1, parseInt(i.qty, 10) || 1) }));
+        .filter(i => i && typeof i.name === 'string' && CATALOG.has(i.name))
+        .map(i => ({
+            name: i.name,
+            price: CATALOG.get(i.name).price,
+            qty: Math.max(1, parseInt(i.qty, 10) || 1)
+        }));
 
     let lastAttemptedName = '';
-    let pendingAction = null; // ação a executar depois do login
+    let pendingAction = null;
 
     if (auth) {
         auth.onAuthStateChanged(user => {
@@ -540,6 +757,8 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+        hydratePhotos();
+        renderLocal();
         renderProducts();
         updateAuthUI();
         updateCartUI();
@@ -561,18 +780,38 @@
         }
     });
 
+    // ====== LOCALIZAÇÃO ======
+    function renderLocal() {
+        document.getElementById('localNome').textContent = LOCAL.nome;
+        document.getElementById('localEndereco').textContent = LOCAL.endereco;
+        const btn = document.getElementById('localMapsBtn');
+        const link = (LOCAL.mapsLink || '').trim();
+        const url = link.startsWith('https://')
+            ? link
+            : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(LOCAL.endereco);
+        const hasRealAddress = link.startsWith('https://') || !LOCAL.endereco.includes('00000-000');
+        if (hasRealAddress) { btn.href = url; btn.style.display = 'inline-flex'; }
+    }
+
     // ====== PRODUTOS ======
     function renderProducts() {
         const grid = document.getElementById('productsGrid');
         grid.innerHTML = '';
         PRODUCTS.forEach((p) => {
+            const hasOptions = Array.isArray(p.options) && p.options.length > 0;
+            let selected = hasOptions ? p.options[0] : null; // cor escolhida (garrafa)
+
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
-            <div class="product-img"></div>
+            <div class="product-photo"></div>
             <div class="product-info">
                 <h3></h3>
                 <div class="product-price"></div>
+                <div class="color-row" style="display:none">
+                    <div class="color-label"><span class="color-dot"></span> Cor: <b></b></div>
+                    <div class="swatches"></div>
+                </div>
                 <div class="qty-row">
                     <label>Unidades</label>
                     <input class="qty-input" type="text" inputmode="numeric" list="qtyList" value="1" maxlength="2" placeholder="1" aria-label="Unidades" autocomplete="off">
@@ -582,12 +821,68 @@
                     <button class="btn-buy-now" data-action="buy">Fazer compra</button>
                 </div>
             </div>`;
-            card.querySelector('.product-img').textContent = p.label;
+
+            const photoEl = card.querySelector('.product-photo');
+            const colorRow = card.querySelector('.color-row');
+            const colorDot = card.querySelector('.color-dot');
+            const colorName = card.querySelector('.color-label b');
+            const swatches = card.querySelector('.swatches');
+
             card.querySelector('h3').textContent = p.title;
             card.querySelector('.product-price').textContent = formatBRL(p.price);
+
+            function showPhoto(src, label) {
+                buildPhoto(photoEl, { src: src, alt: label, label: 'Produto: ' + label, size: '1000x1000' }, { eager: true });
+            }
+
+            if (hasOptions) {
+                // Garrafa: botões de cor; a foto troca conforme a escolha.
+                colorRow.style.display = 'block';
+                const btns = [];
+                p.options.forEach(o => {
+                    const b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'swatch';
+                    b.style.background = o.hex;
+                    b.title = o.label;
+                    b.setAttribute('aria-label', 'Cor ' + o.label);
+                    b.addEventListener('click', () => select(o));
+                    swatches.appendChild(b);
+                    btns.push({ o: o, b: b });
+                });
+                let currentSrc = '';
+                function select(o) {
+                    selected = o;
+                    btns.forEach(x => x.b.setAttribute('aria-pressed', x.o === o ? 'true' : 'false'));
+                    colorDot.style.background = o.hex;
+                    colorName.textContent = o.label;
+                    // Se a cor tem foto própria, troca a foto; senão mantém a foto única do produto.
+                    const src = o.photo || p.photo;
+                    if (src !== currentSrc) {
+                        currentSrc = src;
+                        showPhoto(src, p.title + (o.photo ? ' ' + o.label : ''));
+                    }
+                }
+                select(selected);
+            } else {
+                if (p.tag) {
+                    // Camisas: cor fixa do produto, só informativa.
+                    colorRow.style.display = 'block';
+                    colorDot.style.background = p.tag.hex;
+                    colorName.textContent = p.tag.label;
+                    swatches.style.display = 'none';
+                }
+                showPhoto(p.photo, p.title);
+            }
+
+            // Item que vai para o carrinho / compra (já com a cor escolhida).
+            const currentItem = () => {
+                const name = hasOptions ? p.name + ' - ' + selected.label : p.name;
+                return CATALOG.get(name);
+            };
+
             const qtyInput = card.querySelector('.qty-input');
             let prevQty = '1';
-            // ao tocar, limpa o campo para a lista mostrar todas as opções (1, 2, 3...)
             qtyInput.addEventListener('focus', () => { prevQty = qtyInput.value || '1'; qtyInput.value = ''; });
             qtyInput.addEventListener('input', () => { qtyInput.value = qtyInput.value.replace(/\D/g, '').slice(0, 2); });
             qtyInput.addEventListener('blur', () => { qtyInput.value = qtyInput.value ? clampQty(qtyInput.value) : prevQty; });
@@ -595,10 +890,10 @@
             const readQty = () => { const q = clampQty(qtyInput.value || prevQty); qtyInput.value = q; return q; };
             card.querySelector('[data-action="add"]').addEventListener('click', () => {
                 const q = readQty();
-                addToCart(p.name, p.price, q);
+                addToCart(currentItem(), q);
                 qtyInput.value = 1;
             });
-            card.querySelector('[data-action="buy"]').addEventListener('click', () => buyNow(p.name, p.price, readQty()));
+            card.querySelector('[data-action="buy"]').addEventListener('click', () => buyNow(currentItem(), readQty()));
             grid.appendChild(card);
         });
     }
@@ -659,7 +954,6 @@
         if (!w) window.location.href = url;
     }
 
-    // Botão de WhatsApp do menu: usa o nome de quem está logado
     function openWhatsAppInfo() {
         const msg = currentUser
             ? `Olá, me chamo ${currentUser} e gostaria de saber mais informações sobre o TRF 2027.`
@@ -719,7 +1013,6 @@
         }
     }
 
-    // Abre a tela de recuperação já com o e-mail digitado no login (se houver)
     function openForgot() {
         const typed = normalize(document.getElementById('loginName').value || lastAttemptedName || '');
         closeModal('loginModal');
@@ -727,26 +1020,20 @@
         openModal('forgotModal');
     }
 
-    // Envia o e-mail de redefinição de senha para o e-mail cadastrado
     async function handleForgot(e) {
         e.preventDefault();
         if (!ensureAuth()) return;
         const email = normalize(document.getElementById('forgotEmail').value);
         const btn = document.getElementById('forgotSubmit');
         btn.disabled = true;
-        const okMsg = 'Se esse e-mail tiver cadastro, você receberá um link para criar uma nova senha. Confira também a caixa de spam. Depois de trocar a senha, volte aqui e faça login com a senha nova.';
+        const okMsg = 'Se esse e-mail tiver cadastro, você receberá um link para criar uma nova senha. Confira também a caixa de spam.';
         try {
             await auth.sendPasswordResetEmail(email);
             closeModal('forgotModal');
             showCustomAlert('E-mail enviado', okMsg);
         } catch (err) {
-            if (err.code === 'auth/user-not-found') {
-                // mesma resposta de sucesso, para não revelar quais e-mails têm cadastro
-                closeModal('forgotModal');
-                showCustomAlert('E-mail enviado', okMsg);
-            } else {
-                showCustomAlert('Erro', authErrorMsg(err));
-            }
+            closeModal('forgotModal');
+            showCustomAlert('E-mail enviado', okMsg);
         } finally {
             btn.disabled = false;
         }
@@ -779,7 +1066,6 @@
         }
     }
 
-    // Se não estiver logado, abre o login e guarda a ação para executar depois
     function requireAuth(action) {
         if (!currentUser) {
             pendingAction = action || null;
@@ -795,17 +1081,17 @@
     }
 
     // ====== CARRINHO ======
-    function addToCart(name, price, qty = 1) {
+    // "item" vem do CATALOG: { name, price, photo, payLink }
+    function addToCart(item, qty = 1) {
         qty = clampQty(qty);
-        if (!requireAuth(() => addToCart(name, price, qty))) return;
-        const existing = cart.find(i => i.name === name);
+        if (!requireAuth(() => addToCart(item, qty))) return;
+        const existing = cart.find(i => i.name === item.name);
         if (existing) existing.qty = Math.min(MAX_QTY, existing.qty + qty);
-        else cart.push({ name, price, qty });
+        else cart.push({ name: item.name, price: item.price, qty });
         saveCart();
-        showToast((qty > 1 ? qty + 'x ' : '') + name + ' adicionado ao carrinho!');
+        showToast((qty > 1 ? qty + 'x ' : '') + item.name + ' adicionado ao carrinho!');
     }
 
-    // Monta a mensagem do WhatsApp: um produto embaixo do outro, com unidades e total
     function buildOrderMessage(items) {
         let total = 0;
         const blocks = items.map((i, n) => {
@@ -821,15 +1107,14 @@
         ].join('\n');
     }
 
-    // "Fazer compra": abre o link de pagamento do produto; se ainda não houver link, abre o WhatsApp
-    function buyNow(name, price, qty = 1) {
+    function buyNow(item, qty = 1) {
         qty = clampQty(qty);
-        if (!requireAuth(() => buyNow(name, price, qty))) return;
-        const link = getPayLink(name);
-        if (link) {
+        if (!requireAuth(() => buyNow(item, qty))) return;
+        const link = typeof item.payLink === 'string' ? item.payLink.trim() : '';
+        if (link.startsWith('https://')) {
             openPayment(link);
         } else {
-            openWhatsApp(buildOrderMessage([{ name, price, qty }]));
+            openWhatsApp(buildOrderMessage([{ name: item.name, price: item.price, qty }]));
         }
     }
 
@@ -863,9 +1148,14 @@
         let total = 0;
         cart.forEach((item, index) => {
             total += item.price * item.qty;
+            const cat = CATALOG.get(item.name);
 
             const row = document.createElement('div');
             row.className = 'cart-item-row';
+
+            const thumb = document.createElement('div');
+            thumb.className = 'cart-item-thumb';
+            if (cat) buildPhoto(thumb, { src: cat.photo, alt: item.name, label: '', size: '' }, { eager: true });
 
             const info = document.createElement('div');
             info.className = 'cart-item-info';
@@ -894,7 +1184,7 @@
             remove.textContent = 'Remover';
             remove.addEventListener('click', () => removeItem(index));
 
-            row.append(info, remove);
+            row.append(thumb, info, remove);
             container.appendChild(row);
         });
         document.getElementById('cartTotalPrice').textContent = formatBRL(total);
@@ -929,9 +1219,14 @@
         openWhatsApp(buildOrderMessage(cart));
     }
 
-    // ====== PWA ======
-    let deferredInstall = null;
+    // ====== PWA: registra o service worker (sw.js precisa estar na raiz, ao lado do index.html) ======
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(err => console.warn('Service worker não registrado:', err));
+        });
+    }
 
+    let deferredInstall = null;
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredInstall = e;
@@ -954,13 +1249,6 @@
         document.getElementById('installBtn').style.display = 'none';
         document.getElementById('installItem').style.display = 'none';
         closeMenu();
-    }
-
-    // Registro do Service Worker (precisa de HTTPS ou localhost)
-    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW não registrado:', err));
-        });
     }
 </script>
 </body>
