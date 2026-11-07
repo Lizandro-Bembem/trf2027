@@ -2,7 +2,7 @@
   "name": "Retiro Transformados",
   "short_name": "TRF 2027",
   "description": "Retiro Transformados - TRF 2027. Santidade em uma geração corrompida.",
-  "id": "./index.html",
+  "id": "retiro-transformados",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
