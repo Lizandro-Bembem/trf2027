@@ -59,11 +59,9 @@
         nav ul{display:flex;list-style:none;gap:1.5rem;align-items:center}
         nav ul li a{text-decoration:none;color:var(--text-main);font-weight:500;font-size:.9rem;transition:color .3s}
         nav ul li a:hover,nav ul li a.active{color:var(--brand-wine);font-weight:600}
-        .mobile-only{display:none}
-        .menu-toggle{display:none}
 
         .header-actions{display:flex;gap:.4rem;align-items:center;position:relative}
-        .btn-social{background:var(--bg-secondary);color:var(--brand-wine);border:1px solid var(--border-color);padding:.4rem .6rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.75rem;display:inline-flex;align-items:center;gap:.3rem;transition:all .3s}
+        .btn-social{background:var(--bg-secondary);color:var(--brand-wine);border:1px solid var(--border-color);padding:.4rem .6rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.75rem;display:inline-flex;align-items:center;gap:.3rem;transition:all .3s;cursor:pointer}
         .btn-social:hover{border-color:var(--brand-wine)}
         .install-btn{display:none;cursor:pointer;font-family:inherit}
         .install-btn.show{display:inline-flex}
@@ -258,7 +256,7 @@
             text-align: center;
         }
 
-        /* ===== RESPONSIVIDADE PARA CELULAR (VIRA APP MODE COM LOGO EMPILHADA) ===== */
+        /* ===== RESPONSIVIDADE PARA CELULAR ===== */
         @media (max-width:768px){
             nav { display: none !important; }
             .mobile-app-bar { display: flex; }
@@ -335,14 +333,12 @@
 <body>
 
 <header>
-    <!-- Logo empilhada em negrito: Retiro em cima, Transformados embaixo no mobile -->
     <div class="logo">
         <span>Retiro</span>
         <span>Transformados</span>
     </div>
 
-    <!-- Menu horizontal visível no computador (Desktop) -->
-    <nav id="mainNav" class="desktop-only">
+    <nav id="mainNav">
         <ul>
             <li><a href="#home" onclick="showPage('home'); return false;" class="active" id="nav-home">Início</a></li>
             <li><a href="#sobre" onclick="showPage('sobre'); return false;" id="nav-sobre">O Retiro</a></li>
@@ -354,10 +350,9 @@
 
     <div class="header-actions">
         <a href="https://www.instagram.com/retirotransformados" target="_blank" rel="noopener" class="btn-social" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://wa.me/5571991155903" target="_blank" rel="noopener" class="btn-social" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <button type="button" class="btn-social" onclick="openWhatsAppInfo()" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
         <button class="btn-social install-btn" id="installBtn" onclick="installApp()" title="Instalar app"><i class="fa-solid fa-download"></i> Instalar</button>
 
-        <!-- Botões de Fazer login / Cadastre-se ou Saudação com o nome da pessoa -->
         <div id="authButtonsContainer" style="display:flex;gap:.4rem;">
             <button class="btn-auth" onclick="openModal('loginModal')">Fazer login</button>
             <button class="btn-auth gold" onclick="openModal('registerModal')">Cadastre-se</button>
@@ -385,7 +380,6 @@
             <h1 class="serif-title">Retiro Transformados</h1>
             <p>Prepare-se para viver dias extraordinários em um novo espaço, pensado e preparado para receber você e proporcionar momentos únicos. Uma nova estrutura, um ambiente preparado e a expectativa de viver tudo o que Deus tem reservado para nós.</p>
 
-            <!-- Contagem Regressiva para 05 de Fevereiro de 2027 -->
             <div class="countdown-container">
                 <div class="countdown-grid">
                     <div class="countdown-box">
@@ -452,7 +446,7 @@
             <p style="max-width:700px;margin:0 auto 3rem auto;color:var(--text-muted);">Pilares inegociáveis que sustentam cada edição do Retiro Transformados.</p>
             <div class="features-grid">
                 <div class="feature-item"><i class="fa-solid fa-fire"></i><h3>Fome Pela Presença</h3><p>Uma geração que não se satisfaz com superficialidade, mas deseja conhecer e experimentar a presença de Deus.</p></div>
-                <div class="feature-item"><i class="fa-solid fa-scroll"></i><h3>Paixão Pela Palavra</h3><p>O compromisso com as Escrituras como fundamento de uma fé sólida e de uma vida que honra a Deus</p></div>
+                <div class="feature-item"><i class="fa-solid fa-scroll"></i><h3>Paixão Pela Palavra</h3><p>O compromisso com as Escrituras como fundamento de uma fé sólida e de uma vida que honra a Deus.</p></div>
                 <div class="feature-item"><i class="fa-solid fa-users"></i><h3>Compromisso Com o Reino</h3><p>Uma juventude que compreende seu chamado e decide viver para algo maior do que si mesma.</p></div>
             </div>
         </div>
@@ -531,23 +525,23 @@
 
 <!-- ================= BARRA DE APLICATIVO INFERIOR (MOBILE) ================= -->
 <div class="mobile-app-bar">
-    <button class="app-bar-item active" id="app-nav-home" onclick="showPage('home'); setActiveAppTab('home');">
+    <button class="app-bar-item active" id="app-nav-home" onclick="showPage('home')">
         <i class="fa-solid fa-house"></i>
         <span>Início</span>
     </button>
-    <button class="app-bar-item" id="app-nav-sobre" onclick="showPage('sobre'); setActiveAppTab('sobre');">
+    <button class="app-bar-item" id="app-nav-sobre" onclick="showPage('sobre')">
         <i class="fa-solid fa-book-open"></i>
         <span>O Retiro</span>
     </button>
-    <button class="app-bar-item" id="app-nav-experiencia" onclick="showPage('experiencia'); setActiveAppTab('experiencia');">
+    <button class="app-bar-item" id="app-nav-experiencia" onclick="showPage('experiencia')">
         <i class="fa-solid fa-fire"></i>
         <span>Experiência</span>
     </button>
-    <button class="app-bar-item" id="app-nav-fotos" onclick="showPage('fotos'); setActiveAppTab('fotos');">
+    <button class="app-bar-item" id="app-nav-fotos" onclick="showPage('fotos')">
         <i class="fa-solid fa-images"></i>
         <span>Fotos</span>
     </button>
-    <button class="app-bar-item" id="app-nav-loja" onclick="showPage('loja'); setActiveAppTab('loja');">
+    <button class="app-bar-item" id="app-nav-loja" onclick="showPage('loja')">
         <i class="fa-solid fa-bag-shopping"></i>
         <span>Loja</span>
     </button>
@@ -798,10 +792,21 @@
         });
     }
 
-    function openPayment(url) {
-        const w = window.open(url, '_blank', 'noopener');
-        if (!w) window.location.href = url;
+    // ====== ABRIR LINK EXTERNO (UMA ÚNICA ABA) ======
+    // CORREÇÃO: antes usava window.open(..., 'noopener'), que SEMPRE retorna null.
+    // Aí o código achava que o popup tinha sido bloqueado e abria o link de novo
+    // na aba atual -> duas abas. Agora só navega na mesma aba se o popup for
+    // realmente bloqueado.
+    function openExternal(url) {
+        const w = window.open(url, '_blank');
+        if (w) {
+            try { w.opener = null; } catch (e) {}
+        } else {
+            window.location.href = url;
+        }
     }
+
+    function openPayment(url) { openExternal(url); }
 
     const MAX_QTY = 99;
     function clampQty(v) {
@@ -840,8 +845,11 @@
             'auth/invalid-email': 'E-mail inválido.',
             'auth/weak-password': 'A senha precisa ter pelo menos 6 caracteres.',
             'auth/invalid-credential': 'E-mail ou senha incorretos!',
+            'auth/invalid-login-credentials': 'E-mail ou senha incorretos!',
             'auth/wrong-password': 'E-mail ou senha incorretos!',
-            'auth/user-not-found': 'E-mail ou senha incorretos!'
+            'auth/user-not-found': 'E-mail ou senha incorretos!',
+            'auth/too-many-requests': 'Muitas tentativas. Aguarde um pouco e tente novamente.',
+            'auth/network-request-failed': 'Sem conexão. Verifique sua internet.'
         };
         return map[err && err.code] || 'Algo deu errado. Tente novamente.';
     }
@@ -879,13 +887,13 @@
         const initial = location.hash.replace('#', '');
         if (['home', 'sobre', 'experiencia', 'fotos', 'loja'].includes(initial)) {
             showPage(initial, false);
-            setActiveAppTab(initial);
         }
     });
 
     // ====== CONTAGEM REGRESSIVA PARA 05/02/2027 ======
     function startCountdown() {
         const targetDate = new Date('2027-02-05T00:00:00').getTime();
+        let timer = null;
 
         function update() {
             const now = new Date().getTime();
@@ -893,6 +901,7 @@
 
             if (distance < 0) {
                 document.getElementById('countdownMessage').textContent = 'O Retiro Transformados 2027 começou!';
+                if (timer) clearInterval(timer);
                 return;
             }
 
@@ -905,11 +914,11 @@
             document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
             document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
             document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
-            document.getElementById('countdownMessage').textContent = `Faltam ${days} dias para o Retiro Transformados 2027`;
+            document.getElementById('countdownMessage').textContent = `Faltam ${days} ${days === 1 ? 'dia' : 'dias'} para o Retiro Transformados 2027`;
         }
 
         update();
-        setInterval(update, 1000);
+        timer = setInterval(update, 1000);
     }
 
     window.addEventListener('click', (e) => {
@@ -1113,16 +1122,24 @@
     function switchForgotToLogin() { closeModal('forgotModal'); openModal('loginModal'); }
 
     function openWhatsApp(message) {
-        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-        const w = window.open(url, '_blank', 'noopener');
-        if (!w) window.location.href = url;
+        openExternal(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`);
     }
 
+    let isOpeningWhatsApp = false;
+
     function openWhatsAppInfo() {
-        const msg = currentUser
-            ? `Olá, me chamo ${currentUser} e gostaria de saber mais informações sobre o TRF 2027.`
-            : 'Olá, gostaria de saber mais informações sobre o TRF 2027.';
-        openWhatsApp(msg);
+        if (isOpeningWhatsApp) return;
+
+        // Se o usuário não estiver logado, abre o login (e continua o WhatsApp depois do login)
+        if (!currentUser) {
+            requireAuth(openWhatsAppInfo);
+            showCustomAlert('Acesso Restrito', 'Você precisa fazer login ou se cadastrar para entrar em contato pelo WhatsApp.');
+            return;
+        }
+
+        isOpeningWhatsApp = true;
+        openWhatsApp(`Olá, me chamo ${currentUser} e gostaria de saber mais informações sobre o retiro TRF 2027.`);
+        setTimeout(() => { isOpeningWhatsApp = false; }, 1500);
     }
 
     async function handleRegister(e) {
