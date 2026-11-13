@@ -210,6 +210,8 @@
         .wrap{max-width:1250px;margin:0 auto;padding:0 5%}
         .bg-sand{background:#e0c9ae url(fotos/bg-sand.jpg) center/cover no-repeat}
         .bg-wine{background:#2a050e url(fotos/bg-wine.jpg) center/cover no-repeat}
+        /* Fundo da tela de início: troque a foto em fotos/bg-inicio.jpg */
+        .bg-inicio{background:#2a050e url(fotos/bg-inicio.jpg) center bottom/cover no-repeat}
 
         /* Cabeçalho */
         header{flex-direction:row;justify-content:center;align-items:center;padding:.4rem 3%;padding-top:calc(.5rem + env(safe-area-inset-top,0px));gap:1rem;min-height:var(--hh)}
@@ -225,7 +227,7 @@
         .btn-auth,.cart-badge{background:var(--wine)}
 
         /* Início */
-        .hero2{position:relative;overflow:hidden;color:#fff;padding:clamp(1.6rem,3.6vw,3.4rem) 6.3% clamp(1.4rem,2.6vw,2.4rem);min-height:clamp(520px,49vw,780px);display:flex;flex-direction:column;background:#2a050e url(fotos/bg-wine.jpg) center/100% 100% no-repeat}
+        .hero2{position:relative;overflow:hidden;color:#fff;padding:clamp(1.6rem,3.6vw,3.4rem) 6.3% clamp(1.4rem,2.6vw,2.4rem);min-height:clamp(520px,49vw,780px);display:flex;flex-direction:column}
         .wm{position:absolute;left:-1.5vw;bottom:-9vw;font-family:var(--fh);font-size:clamp(11rem,30vw,28rem);font-weight:800;letter-spacing:-.09em;color:rgba(255,255,255,.085);line-height:.8;pointer-events:none;user-select:none;z-index:1}
         .hero2>*:not(.wm){position:relative;z-index:2}
         .hero2-top,.hero2-foot{display:flex;align-items:center;gap:clamp(.8rem,2.2vw,2rem);font-family:var(--fb);font-weight:400;font-size:clamp(.72rem,1.35vw,1.2rem);text-transform:uppercase;letter-spacing:0;white-space:nowrap}
@@ -239,10 +241,10 @@
         .glass b strong{display:block;font-weight:700}
         .glass span{display:inline-block;background:#fff;color:var(--wine);font-family:var(--fh);font-weight:700;font-size:clamp(.78rem,1.55vw,1.5rem);letter-spacing:-.07em;padding:clamp(.4rem,.8vw,.7rem) clamp(.9rem,1.9vw,1.9rem);border-radius:clamp(10px,1.1vw,16px);text-transform:uppercase;line-height:1.1}
         .count{text-align:center;padding:1.8rem 5% 1.4rem}
-        .count h2{color:var(--wine);font-size:1.7rem;margin-bottom:.5rem}
+        .count h2{color:var(--wine);font-size:1.7rem;margin-bottom:.5rem;font-weight:500}
         .count-row{display:flex;justify-content:center;gap:clamp(1.2rem,5vw,3.6rem)}
         .count-row div{display:flex;flex-direction:column;align-items:center}
-        .count-row strong{font-family:var(--fh);font-size:clamp(3.2rem,9.5vw,5rem);font-weight:500;letter-spacing:-.07em;color:var(--wine);line-height:.95}
+        .count-row strong{font-family:var(--fh);font-size:clamp(3.2rem,9.5vw,5rem);font-weight:700;letter-spacing:-.07em;color:var(--wine);line-height:.95}
         .count-row small{font-family:var(--fh);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--wine);margin-top:.2rem}
         .promo{margin:1.8rem auto;max-width:1150px;width:90%;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:2rem;border-radius:26px;color:#fff;background:linear-gradient(135deg,var(--wine-2),var(--wine));box-shadow:0 18px 36px rgba(60,10,22,.3)}
         .promo h2{font-size:1.8rem;margin-bottom:.4rem}
@@ -337,10 +339,12 @@
             nav ul li a{font-size:.78rem}
             .header-actions{justify-content:center;flex-wrap:wrap}
             .cart-header{display:inline-flex!important}
-            .hero2{padding:1.4rem 5% 1.2rem;min-height:440px}
+            .hero2{padding:1.4rem 5% 1.2rem;min-height:440px;background-position:left bottom}
             .hero2-main{flex-direction:column;align-items:flex-start;gap:1.4rem;margin-top:1.8rem}
             .hero2 p{max-width:100%}
-            .glass{width:100%;max-width:340px}
+            .glass{width:100%;max-width:200px;align-self:center;margin:0 auto;padding:.7rem .7rem .9rem;border-radius:14px}
+            .glass b{font-size:.85rem;margin-bottom:.6rem}
+            .glass span{font-size:.64rem;padding:.3rem .7rem;border-radius:9px}
             .promo{flex-direction:column;text-align:left;padding:1.4rem}
             .promo .photo{width:100%}
             .about{grid-template-columns:1fr}
@@ -415,8 +419,7 @@
 
 <!-- ============ INÍCIO ============ -->
 <section id="page-home" class="page-section active-page">
-    <div class="hero2">
-        <div class="wm">TRF</div>
+    <div class="hero2 bg-inicio">
         <div class="hero2-top"><span>Renúncia</span><i class="line"></i><span>II Timóteo 2:22-26</span></div>
         <div class="hero2-main">
             <div>
