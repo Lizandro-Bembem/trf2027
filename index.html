@@ -18,7 +18,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -26,10 +26,10 @@
         *{margin:0;padding:0;box-sizing:border-box}
         html{scroll-behavior:smooth}
         body{font-family:'Montserrat',sans-serif;background:var(--bg-primary);color:var(--text-main);line-height:1.6;overflow-x:hidden}
-        h1,h2,h3,.serif-title{font-family:'Poppins',sans-serif}
-        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        h1,h2,h3,.serif-title{font-family:'Cinzel',serif}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-        .animate-fade{animation:fadeIn .4s ease-out forwards}
+        .animate-fade{animation:fadeIn .6s ease-out forwards}
 
         /* ================= COMPONENTE DE FOTO ================= */
         .photo{position:relative;overflow:hidden;background:var(--bg-accent);border-radius:16px}
@@ -41,7 +41,7 @@
         .ph b{font-size:.8rem;text-transform:uppercase;letter-spacing:.5px}
         .ph code{font-size:.72rem;background:#fff;padding:.15rem .5rem;border-radius:6px;color:var(--brand-brown);word-break:break-all}
         .ph small{font-size:.68rem;color:var(--text-muted)}
-        .photo .cap{position:absolute;left:0;right:0;bottom:0;padding:2rem 1rem .8rem;background:linear-gradient(transparent,rgba(45,17,21,.85));color:#fff;font-family:'Poppins',sans-serif;font-size:1.05rem;text-align:left;pointer-events:none}
+        .photo .cap{position:absolute;left:0;right:0;bottom:0;padding:2rem 1rem .8rem;background:linear-gradient(transparent,rgba(45,17,21,.85));color:#fff;font-family:'Cinzel',serif;font-size:1.05rem;text-align:left;pointer-events:none}
         .photo.missing .cap{display:none}
         .br-mobile{display:none}
         .ar-11{aspect-ratio:1/1}
@@ -49,54 +49,51 @@
         .ar-32{aspect-ratio:3/2}
         .ar-wide{aspect-ratio:16/7}
 
-        /* Cabeçalho ajustado */
-        header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,.98);backdrop-filter:blur(10px);z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:.7rem 3%;padding-top:calc(.7rem + env(safe-area-inset-top,0px));gap:.5rem;box-shadow:0 2px 10px rgba(0,0,0,.03)}
-        .logo{font-size:.9rem;font-weight:700;color:var(--brand-wine);letter-spacing:.5px;text-transform:uppercase;line-height:1.2;display:flex;flex-direction:column;}
-        .logo span { font-weight: 700; color: var(--brand-wine); }
+        header{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-color);z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:.8rem 3%;padding-top:calc(.8rem + env(safe-area-inset-top,0px));gap:.5rem}
+        .logo{font-size:1rem;font-weight:700;color:var(--brand-wine);letter-spacing:1px;text-transform:uppercase;white-space:nowrap;line-height:1.2}
 
-        /* Menu padrão Desktop */
-        nav{display:block}
+        /* Menu com animação fluida */
+        nav{position:absolute;top:100%;left:0;width:100%;background:#fff;border-bottom:1px solid var(--border-color);box-shadow:0 18px 30px rgba(74,18,26,.12);opacity:0;visibility:hidden;transform:translateY(-10px);transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1)}
+        nav.open{opacity:1;visibility:visible;transform:translateY(0)}
+
         nav ul{display:flex;list-style:none;gap:1.5rem;align-items:center}
         nav ul li a{text-decoration:none;color:var(--text-main);font-weight:500;font-size:.9rem;transition:color .3s}
         nav ul li a:hover,nav ul li a.active{color:var(--brand-wine);font-weight:600}
+        .mobile-only{display:none}
+        .menu-toggle{display:none;background:var(--bg-accent);border:1px solid var(--brand-gold);color:var(--brand-wine);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:.9rem;transition:all .3s}
+        .menu-toggle.open{background:var(--brand-wine);border-color:var(--brand-wine);color:#fff}
 
         .header-actions{display:flex;gap:.4rem;align-items:center;position:relative}
-        .btn-social{background:var(--bg-secondary);color:var(--brand-wine);border:1px solid var(--border-color);padding:.4rem .6rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.75rem;display:inline-flex;align-items:center;gap:.3rem;transition:all .3s;cursor:pointer}
+        .btn-social{background:var(--bg-secondary);color:var(--brand-wine);border:1px solid var(--border-color);padding:.4rem .7rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.8rem;display:inline-flex;align-items:center;gap:.3rem;transition:all .3s}
         .btn-social:hover{border-color:var(--brand-wine)}
         .install-btn{display:none;cursor:pointer;font-family:inherit}
         .install-btn.show{display:inline-flex}
-        .btn-auth{background:var(--brand-wine);color:#fff;padding:.4rem .7rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.75rem;border:none;cursor:pointer;transition:background .3s;font-family:inherit;white-space:nowrap}
+        .btn-auth{background:var(--brand-wine);color:#fff;padding:.45rem .8rem;border-radius:20px;text-decoration:none;font-weight:600;font-size:.8rem;border:none;cursor:pointer;transition:background .3s;font-family:inherit;white-space:nowrap}
         .btn-auth:hover{background:var(--brand-brown)}
         .btn-auth.gold{background:var(--brand-gold);color:var(--brand-brown)}
 
         .user-menu-container{position:relative;display:inline-block}
-        .user-greeting-btn{font-weight:700;color:var(--brand-wine);font-size:.75rem;font-family:inherit;background:var(--bg-accent);border:1px solid var(--brand-gold);padding:.3rem .6rem;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:.3rem;max-width:130px}
+        .user-greeting-btn{font-weight:700;color:var(--brand-wine);font-size:.85rem;font-family:inherit;background:var(--bg-accent);border:1px solid var(--brand-gold);padding:.35rem .8rem;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:.4rem;max-width:140px}
         .user-greeting-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
         .user-dropdown-menu{display:none;position:absolute;right:0;top:110%;background:#fff;min-width:140px;box-shadow:0 10px 25px rgba(0,0,0,.1);border:1px solid var(--border-color);border-radius:12px;z-index:1100;overflow:hidden}
         .user-dropdown-menu button{width:100%;padding:.8rem 1rem;text-align:left;background:none;border:none;font-size:.9rem;font-weight:600;font-family:inherit;color:#c62828;cursor:pointer;transition:background .2s}
         .user-dropdown-menu button:hover{background:#ffebee}
 
-        .page-section{display:none;min-height:85vh;padding-top:calc(5.5rem + env(safe-area-inset-top,0px));padding-bottom:5rem}
-        .page-section.active-page{display:block;animation:fadeIn .4s ease-out forwards}
+        .cart-icon-btn{position:relative;background:var(--bg-accent);border:1px solid var(--brand-gold);color:var(--brand-wine);padding:.4rem .7rem;border-radius:20px;cursor:pointer;font-weight:600;font-size:.8rem;font-family:inherit;display:inline-flex;align-items:center;gap:.3rem}
+        .cart-badge{background:var(--brand-wine);color:#fff;font-size:.65rem;padding:.1rem .35rem;border-radius:50px;min-width:1.1rem;text-align:center}
+
+        .page-section{display:none;min-height:85vh;padding-top:calc(5.5rem + env(safe-area-inset-top,0px));padding-bottom:4rem}
+        .page-section.active-page{display:block;animation:fadeIn .5s ease-out forwards}
 
         .hero{position:relative;overflow:hidden;padding:4rem 5%;display:flex;align-items:center;justify-content:space-between;gap:3rem;min-height:85vh;background:var(--bg-accent)}
         .hero-bg{position:absolute;inset:0;border-radius:0;z-index:0}
         .hero-bg .ph{align-items:flex-start;justify-content:flex-end;padding:6rem 1rem 1rem;border-radius:0;border:none}
         .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.55) 45%,rgba(74,18,26,.25) 100%);pointer-events:none}
         .hero-content,.hero-image{position:relative;z-index:2}
-        .hero-content{max-width:620px}
+        .hero-content{max-width:600px}
         .hero-badge{display:inline-block;background:var(--brand-gold);color:var(--brand-brown);padding:.4rem 1rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-bottom:1.5rem;letter-spacing:1px;text-transform:uppercase}
         .hero h1{font-size:3.2rem;color:var(--brand-wine);line-height:1.1;margin-bottom:1.5rem}
         .hero p{font-size:1.05rem;color:var(--text-muted);margin-bottom:2rem}
-
-        /* ===== CONTAGEM REGRESSIVA ===== */
-        .countdown-container{margin-bottom:2rem}
-        .countdown-grid{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:.8rem}
-        .countdown-box{background:#fff;border:1px solid var(--brand-gold);border-radius:14px;padding:.6rem 1rem;min-width:70px;text-align:center;box-shadow:0 4px 12px rgba(74,18,26,.06)}
-        .countdown-number{display:block;font-size:1.5rem;font-weight:700;color:var(--brand-wine);font-family:'Poppins',sans-serif}
-        .countdown-label{display:block;font-size:.7rem;text-transform:uppercase;color:var(--text-muted);font-weight:600;letter-spacing:.5px}
-        .countdown-text{font-size:.95rem;font-weight:600;color:var(--brand-wine);font-family:'Montserrat',sans-serif}
-
         .btn-primary{background:var(--brand-wine);color:#fff;padding:.9rem 1.8rem;border-radius:50px;text-decoration:none;font-weight:600;font-family:inherit;font-size:.95rem;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 10px 20px rgba(74,18,26,.15);transition:transform .3s,background .3s;border:none;cursor:pointer}
         .btn-primary:hover{background:var(--brand-brown);transform:translateY(-2px)}
         .btn-primary:disabled{opacity:.6;cursor:wait;transform:none}
@@ -157,6 +154,7 @@
         .product-info h3{font-size:1.1rem;color:var(--text-main);margin-bottom:.5rem}
         .product-price{font-size:1.2rem;font-weight:700;color:var(--brand-wine);margin-bottom:1rem}
 
+        /* O bloco de cores agora só ocupa espaço se existir */
         .color-row{margin-bottom:1rem}
         .color-label{font-size:.8rem;font-weight:600;color:var(--text-muted);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
         .color-label b{color:var(--brand-wine)}
@@ -177,7 +175,7 @@
         .btn-buy-now:hover{background:var(--brand-brown)}
 
         .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);backdrop-filter:blur(5px);display:none;justify-content:center;align-items:center;z-index:2000;padding:1rem;overflow-y:auto}
-        .modal-box{background:#fff;padding:2.5rem;border-radius:24px;max-width:450px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.2);position:relative;animation:fadeIn .3s ease-out;text-align:center}
+        .modal-box{background:#fff;padding:2.5rem;border-radius:24px;max-width:450px;width:100%;max-height:100%;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,.2);position:relative;animation:fadeIn .3s ease-out;text-align:center}
         .modal-box h2{color:var(--brand-wine);margin-bottom:1.5rem;font-size:1.8rem}
         .modal-text{color:var(--text-muted);font-size:.95rem;margin:-.5rem 0 1.2rem}
         .form-group{margin-bottom:1.2rem;text-align:left}
@@ -197,160 +195,202 @@
         .btn-remove-item{background:#ffebee;color:#c62828;border:none;padding:.3rem .6rem;border-radius:8px;font-size:.75rem;font-family:inherit;cursor:pointer;font-weight:600}
         .cart-footer{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;font-weight:700;font-size:1.1rem}
 
-        .toast{position:fixed;left:50%;bottom:calc(5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--brand-brown);color:#fff;padding:.8rem 1.4rem;border-radius:50px;font-size:.9rem;font-weight:600;z-index:3000;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;max-width:90%;text-align:center}
+        .toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--brand-brown);color:#fff;padding:.8rem 1.4rem;border-radius:50px;font-size:.9rem;font-weight:600;z-index:3000;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;max-width:90%;text-align:center}
         .toast.show{opacity:1;transform:translate(-50%,0)}
 
-        footer{background:var(--brand-brown);color:#fff;padding:3rem 5%;padding-bottom:calc(5rem + env(safe-area-inset-bottom,0px));text-align:center;margin-top:4rem}
+        footer{background:var(--brand-brown);color:#fff;padding:3rem 5%;padding-bottom:calc(3rem + env(safe-area-inset-bottom,0px));text-align:center;margin-top:4rem}
 
-        /* ================= APP BAR INFERIOR (MOBILE) ================= */
-        .mobile-app-bar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #FFFFFF;
-            border-top: 1px solid var(--border-color);
-            box-shadow: 0 -4px 20px rgba(0,0,0,.08);
-            z-index: 1500;
-            padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom, 0px)) 0.5rem;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .app-bar-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            font-weight: 500;
-            font-family: 'Montserrat', sans-serif;
-            cursor: pointer;
-            text-decoration: none;
-            padding: 0.3rem;
-            flex: 1;
-            transition: color 0.2s;
-            position: relative;
-        }
-        .app-bar-item i {
-            font-size: 1.25rem;
-            margin-bottom: 0.2rem;
-        }
-        .app-bar-item.active, .app-bar-item:hover {
-            color: var(--brand-wine);
-            font-weight: 700;
-        }
-        .app-bar-badge {
-            position: absolute;
-            top: 2px;
-            right: calc(50% - 14px);
-            background: var(--brand-wine);
-            color: #fff;
-            font-size: 0.6rem;
-            padding: 0.1rem 0.3rem;
-            border-radius: 50px;
-            min-width: 1rem;
-            text-align: center;
-        }
+        @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-        /* ===== RESPONSIVIDADE PARA CELULAR ===== */
+        /* ================= TRF v3 (fiel aos prints) ================= */
+        :root{--wine:#3C0A16;--wine-2:#540F21;--sand:#E4CCB4;--hh:clamp(54px,5.2vw,84px);--fh:'Inter Tight','Inter',Arial,sans-serif;--fb:'Poppins',sans-serif;--brand-wine:#3C0A16;--brand-brown:#3C0A16}
+        body{font-family:var(--fb);padding-top:var(--hh);color:var(--wine)}
+        h1,h2,h3,.serif-title{font-family:var(--fh);letter-spacing:-.07em;line-height:.92;text-transform:uppercase;font-weight:700}
+        .page-section{padding:0;min-height:60vh}
+        .wrap{max-width:1250px;margin:0 auto;padding:0 5%}
+        .bg-sand{background:#e0c9ae url(fotos/bg-sand.jpg) center/cover no-repeat}
+        .bg-wine{background:#2a050e url(fotos/bg-wine.jpg) center/cover no-repeat}
+
+        /* Cabeçalho */
+        header{flex-direction:row;justify-content:center;align-items:center;padding:.4rem 3%;padding-top:calc(.5rem + env(safe-area-inset-top,0px));gap:1rem;min-height:var(--hh)}
+        nav{position:static;flex:1;width:auto;opacity:1;visibility:visible;transform:none;box-shadow:none;border:0;background:none}
+        nav ul{justify-content:center;gap:clamp(1rem,3.8vw,4rem)}
+        nav ul li a{font-family:var(--fh);font-size:clamp(.85rem,1.9vw,1.75rem);font-weight:700;letter-spacing:-.07em;text-transform:uppercase;color:var(--wine);padding:.2rem 0;border-bottom:2px solid transparent}
+        nav ul li a.active,nav ul li a:hover{color:var(--wine);border-bottom-color:var(--wine);font-weight:700}
+        .logo{display:none}
+        .header-actions{gap:.35rem}
+        .btn-social{width:32px;height:32px;padding:0;justify-content:center;border-radius:50%}
+        .btn-social.install-btn{width:auto;padding:0 .7rem;border-radius:20px}
+        .cart-icon-btn{padding:.3rem .65rem;font-size:.75rem}
+        .btn-auth,.cart-badge{background:var(--wine)}
+
+        /* Início */
+        .hero2{position:relative;overflow:hidden;color:#fff;padding:clamp(1.6rem,3.6vw,3.4rem) 6.3% clamp(1.4rem,2.6vw,2.4rem);min-height:clamp(520px,49vw,780px);display:flex;flex-direction:column;background:#2a050e url(fotos/bg-wine.jpg) center/100% 100% no-repeat}
+        .wm{position:absolute;left:-1.5vw;bottom:-9vw;font-family:var(--fh);font-size:clamp(11rem,30vw,28rem);font-weight:800;letter-spacing:-.09em;color:rgba(255,255,255,.085);line-height:.8;pointer-events:none;user-select:none;z-index:1}
+        .hero2>*:not(.wm){position:relative;z-index:2}
+        .hero2-top,.hero2-foot{display:flex;align-items:center;gap:clamp(.8rem,2.2vw,2rem);font-family:var(--fb);font-weight:400;font-size:clamp(.72rem,1.35vw,1.2rem);text-transform:uppercase;letter-spacing:0;white-space:nowrap}
+        .hero2-top .line,.hero2-foot .line{flex:1;height:1.5px;background:rgba(255,255,255,.85)}
+        .hero2-main{display:flex;justify-content:space-between;align-items:flex-start;gap:3vw;margin-top:clamp(2rem,6.2vw,5.6rem)}
+        .hero2 h1{font-size:clamp(2.2rem,4.7vw,4.6rem);margin-bottom:clamp(.8rem,1.8vw,1.6rem);letter-spacing:-.08em;line-height:.95}
+        .hero2 p{font-family:var(--fb);font-size:clamp(.82rem,1.45vw,1.32rem);max-width:min(52vw,780px);color:#fff;line-height:1.1}
+        .hero2-foot{margin-top:auto;padding-top:2rem}
+        .glass{flex-shrink:0;width:clamp(210px,24vw,390px);text-align:center;padding:clamp(1rem,2vw,1.8rem) clamp(.8rem,1.6vw,1.5rem) clamp(1rem,2.1vw,1.9rem);border-radius:clamp(16px,1.7vw,26px);background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.06));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.55);box-shadow:0 14px 34px rgba(0,0,0,.28),inset 0 -2px 0 rgba(255,255,255,.35)}
+        .glass b{display:block;font-family:var(--fh);font-size:clamp(1.05rem,2vw,2rem);letter-spacing:-.08em;text-transform:uppercase;line-height:.95;margin-bottom:clamp(.8rem,1.6vw,1.5rem);font-weight:400}
+        .glass b strong{display:block;font-weight:700}
+        .glass span{display:inline-block;background:#fff;color:var(--wine);font-family:var(--fh);font-weight:700;font-size:clamp(.78rem,1.55vw,1.5rem);letter-spacing:-.07em;padding:clamp(.4rem,.8vw,.7rem) clamp(.9rem,1.9vw,1.9rem);border-radius:clamp(10px,1.1vw,16px);text-transform:uppercase;line-height:1.1}
+        .count{text-align:center;padding:1.8rem 5% 1.4rem}
+        .count h2{color:var(--wine);font-size:1.7rem;margin-bottom:.5rem}
+        .count-row{display:flex;justify-content:center;gap:clamp(1.2rem,5vw,3.6rem)}
+        .count-row div{display:flex;flex-direction:column;align-items:center}
+        .count-row strong{font-family:var(--fh);font-size:clamp(3.2rem,9.5vw,5rem);font-weight:500;letter-spacing:-.07em;color:var(--wine);line-height:.95}
+        .count-row small{font-family:var(--fh);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--wine);margin-top:.2rem}
+        .promo{margin:1.8rem auto;max-width:1150px;width:90%;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:2rem;border-radius:26px;color:#fff;background:linear-gradient(135deg,var(--wine-2),var(--wine));box-shadow:0 18px 36px rgba(60,10,22,.3)}
+        .promo h2{font-size:1.8rem;margin-bottom:.4rem}
+        .promo .eyebrow{display:block;color:var(--sand);letter-spacing:.2em;font-family:var(--fh);font-weight:400;font-size:.66rem;margin-bottom:.9rem}
+        .promo p{font-size:.78rem;color:rgba(255,255,255,.88);max-width:430px;margin-bottom:1.2rem}
+        .btn-soft{background:rgba(255,255,255,.9);color:var(--wine);border:0;border-radius:8px;padding:.5rem 1.5rem;font:600 .66rem var(--fh);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+        .promo .photo{width:min(360px,42%);aspect-ratio:3/2;flex-shrink:0;border-radius:18px}
+
+        /* Quem somos */
+        .about{display:grid;grid-template-columns:1.12fr .88fr;gap:5%;align-items:center;padding:3.2rem 5% 3rem}
+        .about .tag{font-family:var(--fb);font-size:.85rem;letter-spacing:.17em;text-transform:uppercase;font-weight:400}
+        .about h2{font-size:clamp(2.8rem,6.4vw,4.6rem);margin:.1rem 0 1.8rem}
+        .about p{font-size:clamp(.82rem,1.25vw,1.02rem);line-height:1.22;margin-bottom:1.3rem}
+        .about p b{font-weight:600}
+        .collage{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+        .collage .wide{grid-column:1/-1;aspect-ratio:620/228}
+        .collage .sq{aspect-ratio:300/257}
+        .collage .photo{border-radius:30px}
+
+        /* Propósito */
+        .proposito{padding:3.2rem 5% 3.6rem;text-align:center}
+        .proposito h2{font-size:clamp(2.2rem,4.6vw,3.3rem);margin-bottom:2.2rem}
+        .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2.2vw,2.1rem);max-width:1000px;margin:0 auto}
+        .pillar{background:var(--wine);color:#fff;border-radius:38px;padding:1.9rem 1.3rem 1.8rem;box-shadow:0 12px 14px rgba(0,0,0,.28)}
+        .pillar h3{font-size:clamp(1.15rem,2.1vw,1.55rem);margin-bottom:.9rem;letter-spacing:-.075em;line-height:.95}
+        .pillar h3 b{display:block;font-weight:700}
+        .pillar h3 span{display:block;font-weight:300}
+        .pillar p{font-family:var(--fb);font-size:clamp(.62rem,1vw,.8rem);line-height:1.15;color:#fff;max-width:200px;margin:0 auto}
+
+        /* Testemunhos */
+        .page-section .wrap:has(.depo){padding-bottom:2rem}
+        .depo{display:grid;grid-template-columns:clamp(190px,24vw,381px) 1fr;gap:clamp(1.5rem,4.5vw,4.5rem);align-items:center;padding:3rem 0 2.5rem}
+        .phone{aspect-ratio:480/854;background:#000;border-radius:clamp(30px,3.6vw,58px);overflow:hidden}
+        .phone video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+        .depo h2{font-size:clamp(2.1rem,4.9vw,3.6rem);margin-bottom:2.6rem;letter-spacing:-.075em}
+        .quotes{display:grid;grid-template-columns:1fr 1fr;gap:2.8rem 1.6rem}
+        .quote{position:relative;background:#fff;border:1px solid #dcdcdc;border-radius:28px;padding:2.7rem 1rem 1rem;box-shadow:0 5px 0 #d4d4d4,0 9px 14px rgba(0,0,0,.14)}
+        .quote::before{content:"";position:absolute;left:50%;top:0;width:78px;height:78px;border-radius:50%;background:#fff;border:1px solid #dcdcdc;transform:translate(-50%,-50%);clip-path:inset(0 0 50% 0)}
+        .quote i{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:var(--wine);color:#fff;display:flex;align-items:center;justify-content:center;font:800 .95rem var(--fh);font-style:normal;letter-spacing:-.08em}
+        .quote p{font-family:var(--fb);font-size:clamp(.68rem,1.05vw,.88rem);font-weight:600;line-height:1.12;background:#ededed;border-radius:14px;padding:1rem 1rem;text-align:center;min-height:6.4em;display:flex;align-items:center;justify-content:center}
+        .lead{max-width:820px;margin:2.2rem auto 2.4rem;text-align:center;font-family:var(--fb);font-size:clamp(.85rem,1.35vw,1.1rem);text-transform:uppercase;line-height:1.1}
+        .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.7rem,1.8vw,1.6rem);margin-bottom:1.5rem}
+        .gal figure{margin:0;text-align:center}
+        .gal .photo{aspect-ratio:340/375;border-radius:28px;box-shadow:0 10px 14px rgba(0,0,0,.25)}
+        .gal figcaption{font-family:var(--fh);font-size:clamp(.8rem,1.5vw,1.2rem);font-weight:700;letter-spacing:-.06em;text-transform:uppercase;margin-top:.9rem}
+
+        /* Store */
+        .band{min-height:clamp(150px,25vw,400px);padding:0 9%;display:flex;flex-direction:column;justify-content:center;color:#fff}
+        .band small{display:block;font-family:var(--fh);letter-spacing:.22em;font-size:clamp(.75rem,2.3vw,2rem);font-weight:400;margin-bottom:.1rem}
+        .band h2{font-size:clamp(2.6rem,8.2vw,7rem);letter-spacing:-.075em;line-height:.95}
+        .band h2 b{font-weight:800}
+        .band h2 span{font-weight:400;letter-spacing:-.06em}
+        .section-store{padding:3rem 0 3.5rem;width:min(1250px,84%);max-width:none;margin:0 auto}
+        .products-grid{grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2.4vw,2.2rem);margin-top:0}
+        .product-card{background:#fff;border:1.5px solid var(--wine);border-radius:34px;padding:0;overflow:hidden;box-shadow:0 5px 12px rgba(0,0,0,.18)}
+        .product-card .photo{aspect-ratio:180/250;border-radius:0}
+        .product-info{padding:.9rem 1.1rem 1.1rem}
+        .product-info h3{font-family:var(--fh);font-size:clamp(.62rem,1.1vw,.82rem);letter-spacing:-.03em;font-weight:400;line-height:1.05;margin-bottom:.15rem;min-height:2.1em}
+        .product-info h3 strong{font-weight:700}
+        .product-price{font-family:var(--fh);font-size:clamp(1.15rem,2.2vw,1.75rem);letter-spacing:-.06em;font-weight:700;color:var(--wine);margin-bottom:.4rem}
+        .qty-row{flex-direction:column;align-items:stretch;gap:.15rem;margin-bottom:.55rem}
+        .qty-row label{font-family:var(--fh);font-size:.55rem;letter-spacing:0;text-transform:uppercase;color:var(--wine);font-weight:500}
+        .qty-input{width:100%;padding:.3rem;border-radius:14px;border:1px solid var(--wine);font-size:16px;font-weight:400;color:#555}
+        .product-buttons{grid-template-columns:1fr;gap:.45rem}
+        .btn-add-cart,.btn-buy-now{border-radius:14px;font-family:var(--fh);font-size:.6rem;letter-spacing:.02em;text-transform:uppercase;padding:.55rem .4rem;font-weight:500}
+        .btn-add-cart{background:#fff;color:#444;border:1px solid var(--wine)}
+        .btn-buy-now{background:var(--wine);font-weight:700}
+
+        /* Fotos */
+        .fotos-head{min-height:clamp(220px,34vw,560px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 5% 0 28%}
+        .fotos-head span{display:inline-block;background:var(--wine);color:#fff;font-family:var(--fh);font-size:clamp(.6rem,1.3vw,1rem);font-weight:600;letter-spacing:-.03em;padding:.5rem 1.1rem;border-radius:14px;margin-bottom:1rem;text-transform:uppercase}
+        .fotos-head h2{font-size:clamp(2.3rem,7.2vw,6rem);letter-spacing:-.08em;line-height:.9}
+        .fotos-head h2 b{font-weight:800;display:block}
+        .fotos-head h2 span{display:block;background:none;color:var(--wine);padding:0;margin:0;font-size:inherit;font-weight:300;letter-spacing:-.07em;border-radius:0}
+        .section-fotos{padding:3rem 5% 3.5rem}
+        .albuns-grid{grid-template-columns:repeat(2,1fr);gap:clamp(1.2rem,5vw,3.4rem);max-width:1100px;margin:0 auto}
+        .album-card{display:flex;flex-direction:column;border-radius:28px;overflow:hidden;background:var(--wine);box-shadow:0 10px 24px rgba(60,10,22,.2);color:#fff}
+        .album-card .photo{aspect-ratio:508/244;border-radius:0}
+        .album-card .legenda{position:static;display:flex;justify-content:space-between;align-items:center;gap:.6rem;background:var(--wine);border-radius:0;padding:clamp(.7rem,2vw,1.35rem) clamp(.8rem,2.6vw,1.9rem)}
+        .album-card b{display:block;font-family:var(--fh);font-size:clamp(.9rem,2.3vw,1.75rem);font-weight:700;letter-spacing:-.07em;text-transform:uppercase;line-height:1}
+        .album-card small{display:block;font-family:var(--fh);font-size:clamp(.5rem,1.15vw,.95rem);letter-spacing:.13em;text-transform:uppercase;font-weight:400;margin-top:.25rem;opacity:.95}
+        .album-card svg{width:clamp(18px,3vw,36px);height:auto;flex-shrink:0}
+
+        footer{margin-top:0;background:var(--wine)}
+        .modal-box{padding:2.2rem 1.6rem}
+        .btn-primary{background:var(--wine)}
+
         @media (max-width:768px){
-            nav { display: none !important; }
-            .mobile-app-bar { display: flex; }
-
-            header {
-                padding: .5rem 3%;
-                padding-top: calc(.5rem + env(safe-area-inset-top,0px));
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.3rem;
-            }
-            .logo {
-                width: 100%;
-                text-align: center;
-                font-size: 0.8rem;
-                letter-spacing: 0.5px;
-                order: 1;
-            }
-            .header-actions {
-                width: 100%;
-                justify-content: center;
-                order: 2;
-                gap: 0.25rem;
-            }
-
-            .page-section {
-                padding-top: calc(5.8rem + env(safe-area-inset-top,0px));
-                padding-bottom: 6rem;
-            }
-
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                gap: 2rem;
-                padding: 2rem 4%;
-                min-height: auto;
-            }
-            .hero h1 { font-size: 1.9rem; }
-            .hero-overlay { background: linear-gradient(180deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.6) 60%,rgba(74,18,26,.3) 100%); }
-            .hero-card-preview { padding: 2rem 1.2rem; max-width: 100%; }
-            .hero-card-preview h3 { font-size: 1.6rem; }
-
-            .quem-somos-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .nubank-banner { flex-direction: column; padding: 2rem 1.5rem; text-align: center; margin: 2rem 4%; }
-            .nubank-banner h2 { font-size: 1.6rem; }
-            .banner-photo { width: 100%; }
-            .local-info { flex-direction: column; align-items: flex-start; }
-            .experiencia-destaque-box { padding: 1.5rem; }
-            .galeria { grid-template-columns: 1fr 1fr; }
-            .br-mobile { display: inline; }
-
-            .section-store { padding: 1.5rem 4%; }
-            .products-grid { gap: 1rem; }
-            .product-info { padding: 1rem; }
-            .product-info h3 { font-size: .95rem; }
-            .product-price { font-size: 1.05rem; margin-bottom: .8rem; }
-            .swatches { gap: .5rem; }
-            .swatch { width: 28px; height: 28px; }
-            .qty-row { flex-wrap: wrap; gap: .4rem; }
-            .qty-input { width: 100%; }
-            .product-buttons { grid-template-columns: 1fr; }
-
-            .modal-box { padding: 1.8rem 1.2rem; border-radius: 20px; max-width: 92%; }
+            :root{--hh:92px}
+            header{flex-direction:column;align-items:stretch;gap:.3rem;padding:.4rem 3% .45rem;padding-top:calc(.4rem + env(safe-area-inset-top,0px))}
+            nav ul{gap:1rem;justify-content:space-around}
+            nav ul li a{font-size:.78rem}
+            .header-actions{justify-content:center;flex-wrap:wrap}
+            .cart-header{display:inline-flex!important}
+            .hero2{padding:1.4rem 5% 1.2rem;min-height:440px}
+            .hero2-main{flex-direction:column;align-items:flex-start;gap:1.4rem;margin-top:1.8rem}
+            .hero2 p{max-width:100%}
+            .glass{width:100%;max-width:340px}
+            .promo{flex-direction:column;text-align:left;padding:1.4rem}
+            .promo .photo{width:100%}
+            .about{grid-template-columns:1fr}
+            .pillars{grid-template-columns:1fr}
+            .depo{grid-template-columns:1fr;justify-items:center}
+            .phone{width:min(260px,70vw)}
+            .quotes{grid-template-columns:1fr}
+            .gal{grid-template-columns:1fr 1fr}
+            .fotos-head{padding-left:8%}
+            .section-store{width:92%}
         }
-
-        @media (max-width:360px){
-            .logo { font-size: .75rem; }
-            .btn-auth { padding: .3rem .5rem; font-size: .7rem; }
-            .btn-social { padding: .3rem .5rem; font-size: .7rem; }
+        @media (max-width:900px){
+            :root{--hh:92px}
+            header{flex-direction:column;align-items:stretch;gap:.3rem;padding:.4rem 3% .45rem;padding-top:calc(.4rem + env(safe-area-inset-top,0px))}
+            :root{--hh:84px}
+            nav ul{gap:.4rem;justify-content:space-between}
+            nav ul li a{font-size:clamp(.62rem,3.3vw,.85rem);white-space:nowrap}
+            .header-actions{justify-content:center;flex-wrap:nowrap;gap:.3rem}
+            .header-actions{order:-1}
+            nav{order:1}
+            .about{padding:2rem 7% 2.2rem;gap:2rem}
+            .header-actions .btn-social:not(.install-btn){display:none}
+            .cart-header{display:inline-flex!important;white-space:nowrap}
+            .btn-auth{padding:.35rem .6rem;font-size:.68rem}
         }
+        @media (max-width:560px){.products-grid{grid-template-columns:repeat(2,1fr)}.product-card{border-radius:24px}}
         @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">
-        <span>Retiro</span>
-        <span>Transformados</span>
-    </div>
-
+    <button class="menu-toggle" id="menuToggle" hidden aria-label="Abrir menu" aria-expanded="false" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
     <nav id="mainNav">
         <ul>
             <li><a href="#home" onclick="showPage('home'); return false;" class="active" id="nav-home">Início</a></li>
-            <li><a href="#sobre" onclick="showPage('sobre'); return false;" id="nav-sobre">O Retiro</a></li>
-            <li><a href="#experiencia" onclick="showPage('experiencia'); return false;" id="nav-experiencia">Experiência</a></li>
-            <li><a href="#fotos" onclick="showPage('fotos'); return false;" id="nav-fotos">Fotos</a></li>
+            <li><a href="#sobre" onclick="showPage('sobre'); return false;" id="nav-sobre">Quem Somos</a></li>
+            <li><a href="#testemunhos" onclick="showPage('testemunhos'); return false;" id="nav-testemunhos">Testemunhos</a></li>
             <li><a href="#loja" onclick="showPage('loja'); return false;" id="nav-loja">TRF Store</a></li>
+            <li><a href="#fotos" onclick="showPage('fotos'); return false;" id="nav-fotos">Fotos</a></li>
+            <li id="installItem" style="display:none"><a href="#" onclick="installApp(); return false;">Instalar app</a></li>
         </ul>
     </nav>
-
+    <span id="cartCountMenu" hidden>0</span>
     <div class="header-actions">
+        <button class="cart-icon-btn cart-header" onclick="openCartModal()" aria-label="Abrir carrinho">
+            <i class="fa-solid fa-cart-shopping"></i> <span>Carrinho</span> <span class="cart-badge" id="cartCount">0</span>
+        </button>
         <a href="https://www.instagram.com/retirotransformados" target="_blank" rel="noopener" class="btn-social" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <button type="button" class="btn-social" onclick="openWhatsAppInfo()" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+        <a href="#" onclick="openWhatsAppInfo(); return false;" class="btn-social" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
         <button class="btn-social install-btn" id="installBtn" onclick="installApp()" title="Instalar app"><i class="fa-solid fa-download"></i> Instalar</button>
 
         <div id="authButtonsContainer" style="display:flex;gap:.4rem;">
@@ -360,7 +400,7 @@
 
         <div id="userGreetingContainer" style="display:none;" class="user-menu-container">
             <button class="user-greeting-btn" onclick="toggleUserMenu()">
-                <span id="userNameDisplay"></span> <i class="fa-solid fa-chevron-down" style="font-size:.7rem;"></i>
+                <span id="userNameDisplay"></span> <i class="fa-solid fa-chevron-down" style="font-size:.75rem;"></i>
             </button>
             <div class="user-dropdown-menu" id="userDropdownMenu">
                 <button onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
@@ -369,188 +409,112 @@
     </div>
 </header>
 
-<!-- ============ PÁGINA 1: INÍCIO ============ -->
+<!-- ============ INÍCIO ============ -->
 <section id="page-home" class="page-section active-page">
-    <div class="hero">
-        <div class="hero-bg" data-photo="banner"></div>
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content animate-fade">
-            <span class="hero-badge">TRF 2027</span>
-            <h1 class="serif-title">Retiro Transformados</h1>
-            <p>Prepare-se para viver dias extraordinários em um novo espaço, pensado e preparado para receber você e proporcionar momentos únicos. Uma nova estrutura, um ambiente preparado e a expectativa de viver tudo o que Deus tem reservado para nós.</p>
-
-            <div class="countdown-container">
-                <div class="countdown-grid">
-                    <div class="countdown-box">
-                        <span class="countdown-number" id="cd-days">00</span>
-                        <span class="countdown-label">Dias</span>
-                    </div>
-                    <div class="countdown-box">
-                        <span class="countdown-number" id="cd-hours">00</span>
-                        <span class="countdown-label">Horas</span>
-                    </div>
-                    <div class="countdown-box">
-                        <span class="countdown-number" id="cd-mins">00</span>
-                        <span class="countdown-label">Min</span>
-                    </div>
-                    <div class="countdown-box">
-                        <span class="countdown-number" id="cd-secs">00</span>
-                        <span class="countdown-label">Seg</span>
-                    </div>
-                </div>
-                <div class="countdown-text" id="countdownMessage">Faltam 0 dias para o Retiro Transformados 2027</div>
+    <div class="hero2">
+        <div class="wm">TRF</div>
+        <div class="hero2-top"><span>Renúncia</span><i class="line"></i><span>II Timóteo 2:22-26</span></div>
+        <div class="hero2-main">
+            <div>
+                <h1>Retiro Transformados</h1>
+                <p>Prepare-se para viver dias extraordinários em um novo espaço, pensado e preparado para receber você e proporcionar momentos únicos. Uma nova estrutura, um ambiente preparado e a expectativa de viver tudo o que Deus tem reservado para nós.</p>
             </div>
-
-            <button class="btn-primary" onclick="showPage('loja')">Ver Produtos TRF <i class="fa-solid fa-arrow-right"></i></button>
+            <div class="glass"><b>Save the date<strong>05 a 09 fev 2k27</strong></b><span>Vagas esgotadas</span></div>
         </div>
-        <div class="hero-image animate-fade">
-            <div class="hero-card-preview">
-                <h3 class="serif-title">Save The Date</h3>
-                <p>05 a 09 de Fevereiro de 2027</p>
-                <span class="badge-esgotado">Vagas Esgotadas</span>
-            </div>
+        <div class="hero2-foot"><span>Santidade em uma geração</span><i class="line"></i><span>Corrompida</span></div>
+    </div>
+
+    <div class="bg-sand count">
+        <h2>Contagem regressiva</h2>
+        <div class="count-row" aria-live="off">
+            <div><strong id="cdD">00</strong><small>Dias</small></div>
+            <div><strong id="cdH">00</strong><small>Horas</small></div>
+            <div><strong id="cdM">00</strong><small>Minutos</small></div>
+            <div><strong id="cdS">00</strong><small>Segundos</small></div>
         </div>
     </div>
-    <div class="nubank-banner">
+
+    <div class="promo">
         <div>
-            <h2 class="serif-title">Uma Nova Experiência</h2>
+            <h2>Uma nova experiência</h2>
+            <span class="eyebrow">NOVO LOCAL 2027</span>
             <p>Prepare-se para viver dias inesquecíveis em um novo local estruturado para proporcionar comunhão profunda e renovação espiritual.</p>
-            <button class="btn-primary" style="background:var(--bg-accent);color:var(--brand-wine);" onclick="showPage('sobre')">Saiba Mais</button>
+            <button class="btn-soft" onclick="showPage('sobre')">Saiba mais</button>
         </div>
-        <div class="banner-photo ar-43" data-photo="localHome"></div>
+        <div data-photo="localHome"></div>
     </div>
 </section>
 
-<!-- ============ PÁGINA 2: O RETIRO ============ -->
+<!-- ============ QUEM SOMOS ============ -->
 <section id="page-sobre" class="page-section">
-    <div class="section-about">
-        <div class="quem-somos-grid">
+    <div class="wrap about">
+        <div>
+            <span class="tag">Nossa história</span>
+            <h2>Quem somos?</h2>
+            <p>O <b>Retiro Transformados</b> nasceu com um propósito: <b>despertar uma geração para viver os princípios eternos da Palavra de Deus,</b> em uma sociedade que insiste em caminhar na contramão deles.</p>
+            <p>Mais do que um evento, <b>somos um retiro de jovens e adolescentes que desejam viver uma experiência genuína com Deus,</b> aprofundar sua intimidade com Ele e permanecer firmes em uma vida de santidade e compromisso com o Evangelho.</p>
+            <p>Ao longo dessa caminhada, temos testemunhado vidas alcançadas, corações restaurados, jovens despertados para o propósito de Deus e <b>uma geração sendo desafiada a não se conformar com os padrões deste mundo,</b> mas a experimentar a verdadeira transformação pela renovação da mente.</p>
+        </div>
+        <div class="collage">
+            <div class="wide" data-photo="quem1"></div>
+            <div class="sq" data-photo="quem2"></div>
+            <div class="sq" data-photo="quem3"></div>
+        </div>
+    </div>
+
+    <div class="bg-sand proposito">
+        <h2>O propósito</h2>
+        <div class="pillars">
+            <div class="pillar"><h3><b>Fome pela</b><span>Presença</span></h3><p>Uma geração que não se satisfaz com superficialidade, mas deseja conhecer e experimentar a presença de Deus.</p></div>
+            <div class="pillar"><h3><b>Paixão pela</b><span>Palavra</span></h3><p>O compromisso com as Escrituras como fundamento de uma fé sólida e de uma vida que honra a Deus</p></div>
+            <div class="pillar"><h3><b>Compromisso</b><span>com o reino</span></h3><p>Uma juventude que compreende seu chamado e decide viver para algo maior do que si mesma.</p></div>
+        </div>
+    </div>
+
+    <div class="wrap" id="localSection" style="display:none;padding-top:2rem">
+        <div class="local-info">
+            <div><h3 class="serif-title" id="localNome"></h3><p><i class="fa-solid fa-location-dot"></i><span id="localEndereco"></span></p></div>
+            <a class="btn-primary" id="localMapsBtn" href="#" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> Ver no mapa</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ TESTEMUNHOS ============ -->
+<section id="page-testemunhos" class="page-section">
+    <div class="wrap">
+        <div class="depo">
+            <div class="phone"><video src="fotos/depoimento.mp4" poster="fotos/depoimento-poster.jpg" controls playsinline preload="metadata"></video></div>
             <div>
-                <span class="eyebrow">Nossa História</span>
-                <h2 class="serif-title" style="margin-top:.3rem;margin-bottom:1rem;font-size:2.2rem;">Quem Somos</h2>
-                <p style="color:var(--text-muted);margin-bottom:1rem;">O Retiro Transformados nasceu com um propósito: despertar uma geração para viver os princípios eternos da Palavra de Deus, em uma sociedade que insiste em caminhar na contramão deles.</p>
-                <p style="color:var(--text-muted);margin-bottom:1rem;">Mais do que um evento, somos um retiro de jovens e adolescentes que desejam viver uma experiência genuína com Deus, aprofundar sua intimidade com Ele e permanecer firmes em uma vida de santidade e compromisso com o Evangelho.</p>
-                <p style="color:var(--text-muted);">Ao longo dessa caminhada, temos testemunhado vidas alcançadas, corações restaurados, jovens despertados para o propósito de Deus e uma geração sendo desafiada a não se conformar com os padrões deste mundo, mas a experimentar uma verdadeira transformação pela renovação da mente.</p>
-            </div>
-            <div class="fotos-espalhadas">
-                <div class="ar-11" data-photo="quem1"></div>
-                <div class="ar-11" data-photo="quem2"></div>
-                <div class="ar-11" data-photo="quem3"></div>
-                <div class="ar-11" data-photo="quem4"></div>
-            </div>
-        </div>
-
-        <div style="margin-top:5rem;text-align:center;">
-            <h2 class="serif-title" style="font-size:2.3rem;color:var(--brand-wine);margin-bottom:1rem;">O Propósito</h2>
-            <p style="max-width:700px;margin:0 auto 3rem auto;color:var(--text-muted);">Pilares inegociáveis que sustentam cada edição do Retiro Transformados.</p>
-            <div class="features-grid">
-                <div class="feature-item"><i class="fa-solid fa-fire"></i><h3>Fome Pela Presença</h3><p>Uma geração que não se satisfaz com superficialidade, mas deseja conhecer e experimentar a presença de Deus.</p></div>
-                <div class="feature-item"><i class="fa-solid fa-scroll"></i><h3>Paixão Pela Palavra</h3><p>O compromisso com as Escrituras como fundamento de uma fé sólida e de uma vida que honra a Deus.</p></div>
-                <div class="feature-item"><i class="fa-solid fa-users"></i><h3>Compromisso Com o Reino</h3><p>Uma juventude que compreende seu chamado e decide viver para algo maior do que si mesma.</p></div>
-            </div>
-        </div>
-
-        <div class="nubank-banner" style="margin-top:5rem;">
-            <div>
-                <span class="eyebrow">Infraestrutura 2027</span>
-                <h2 class="serif-title" style="margin-top:.3rem;">Novo Local TRF 2027</h2>
-                <p>Um espaço amplo, integrado à natureza, pensado em cada detalhe para acomodar nossa geração com conforto, segurança e total liberdade no Espírito.</p>
-            </div>
-            <div class="banner-photo ar-32" data-photo="local2027"></div>
-        </div>
-
-        <div class="local-section" id="localSection" style="display:none">
-            <div class="local-head">
-                <span class="eyebrow">Localização</span>
-                <h2 class="serif-title" style="margin-top:.3rem;font-size:2.2rem;color:var(--brand-wine);">Onde Será o TRF 2027</h2>
-            </div>
-            <div class="local-info">
-                <div>
-                    <h3 class="serif-title" id="localNome"></h3>
-                    <p><i class="fa-solid fa-location-dot"></i><span id="localEndereco"></span></p>
+                <h2>Testemunhos<br>de participantes</h2>
+                <div class="quotes">
+                    <div class="quote"><i>TRF</i><p>“ Todos os cultos foram marcantes, mas o que o Senhor disse que estava me renovando, foi SURREAL!”</p></div>
+                    <div class="quote"><i>TRF</i><p>“O último culto para mim foi um divisor de águas, fui batizada com o Espírito Santo, mudou a minha vida!”</p></div>
+                    <div class="quote"><i>TRF</i><p>“A forma como o Senhor me renovou, e mais uma vez me surpreendeu em relembrar as suas promessas em minha vida”</p></div>
+                    <div class="quote"><i>TRF</i><p>“ A presença DELE foi sobrenatural, vivi coisas indizíveis, que jamais irei me esquecer, ELE É FIEL”</p></div>
                 </div>
-                <a class="btn-primary" id="localMapsBtn" href="#" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> Ver no mapa</a>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- ============ PÁGINA 3: EXPERIÊNCIA ============ -->
-<section id="page-experiencia" class="page-section">
-    <div class="experiencia-content">
-        <span class="eyebrow">Vivência TRF</span>
-        <h2 class="serif-title" style="font-size:2.5rem;color:var(--brand-wine);margin-top:.3rem;">Comunhão e Adoração</h2>
-        <div class="experiencia-destaque-box">
-            <p class="experiencia-texto-visivel">"Cada instante no retiro é desenhado para romper rotinas e criar memórias eternas. Desde as ministrações profundas até as rodas de comunhão ao redor da fogueira, a atmosfera transborda a presença viva de Deus."</p>
-            <div class="ar-wide" data-photo="experiencia" data-cap="Propósito & Fé"></div>
-            <div class="galeria">
-                <div class="ar-43" data-photo="adoracao" data-cap="Adoração"></div>
-                <div class="ar-43" data-photo="palavra" data-cap="Palavra Viva"></div>
-                <div class="ar-43" data-photo="comunhao" data-cap="Comunhão"></div>
-                <div class="ar-43" data-photo="transformados" data-cap="Transfor|mados"></div>
-            </div>
+        <p class="lead">Cada momento do retiro é uma oportunidade de viver algo novo com Deus. Na adoração, na Palavra e na comunhão, histórias são marcadas, vidas são transformadas e a presença de Deus se torna inesquecível.</p>
+        <div class="gal">
+            <figure><div data-photo="adoracao"></div><figcaption>Adoração</figcaption></figure>
+            <figure><div data-photo="palavra"></div><figcaption>Palavra viva</figcaption></figure>
+            <figure><div data-photo="comunhao"></div><figcaption>Comunhão</figcaption></figure>
+            <figure><div data-photo="transformados"></div><figcaption>Transformação</figcaption></figure>
         </div>
     </div>
 </section>
 
-<!-- ============ PÁGINA: FOTOS ============ -->
-<section id="page-fotos" class="page-section">
-    <div class="hero">
-        <div class="hero-bg" data-photo="banner"></div>
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content animate-fade">
-            <span class="hero-badge">Fotos TRF</span>
-            <h1 class="serif-title">Reviva Cada Momento</h1>
-            <p>Os registros da nossa geração em adoração, comunhão e Palavra. Toque na foto do álbum para pegar as suas.</p>
-            <button class="btn-primary" onclick="document.getElementById('albunsGrid').scrollIntoView({behavior:'smooth',block:'center'})">Ver álbuns <i class="fa-solid fa-arrow-down"></i></button>
-        </div>
-    </div>
-    <div class="section-fotos">
-        <div class="albuns-grid" id="albunsGrid"></div>
-    </div>
-</section>
-
-<!-- ============ PÁGINA 4: TRF STORE ============ -->
+<!-- ============ TRF STORE ============ -->
 <section id="page-loja" class="page-section">
-    <div class="section-store">
-        <div style="margin-bottom:2rem;">
-            <span class="eyebrow">Coleção 2027</span>
-            <h2 class="serif-title" style="margin-top:.3rem;font-size:2.3rem;color:var(--brand-wine);">TRF Store</h2>
-        </div>
-        <div class="products-grid" id="productsGrid"></div>
-    </div>
+    <div class="band bg-wine"><small>COLEÇÃO 2K27</small><h2><b>TRF</b> <span>Store</span></h2></div>
+    <div class="section-store"><div class="products-grid" id="productsGrid"></div></div>
 </section>
 
-<!-- ================= BARRA DE APLICATIVO INFERIOR (MOBILE) ================= -->
-<div class="mobile-app-bar">
-    <button class="app-bar-item active" id="app-nav-home" onclick="showPage('home')">
-        <i class="fa-solid fa-house"></i>
-        <span>Início</span>
-    </button>
-    <button class="app-bar-item" id="app-nav-sobre" onclick="showPage('sobre')">
-        <i class="fa-solid fa-book-open"></i>
-        <span>O Retiro</span>
-    </button>
-    <button class="app-bar-item" id="app-nav-experiencia" onclick="showPage('experiencia')">
-        <i class="fa-solid fa-fire"></i>
-        <span>Experiência</span>
-    </button>
-    <button class="app-bar-item" id="app-nav-fotos" onclick="showPage('fotos')">
-        <i class="fa-solid fa-images"></i>
-        <span>Fotos</span>
-    </button>
-    <button class="app-bar-item" id="app-nav-loja" onclick="showPage('loja')">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span>Loja</span>
-    </button>
-    <button class="app-bar-item" onclick="openCartModal()">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span>Carrinho</span>
-        <span class="app-bar-badge" id="cartCountMobile">0</span>
-    </button>
-</div>
+<!-- ============ FOTOS ============ -->
+<section id="page-fotos" class="page-section">
+    <div class="bg-sand fotos-head"><span>Fotos TRF</span><h2><span>Reviva cada</span><b>Momento</b></h2></div>
+    <div class="section-fotos"><div class="albuns-grid" id="albunsGrid"></div></div>
+</section>
 
 <!-- MODAL DE CADASTRO -->
 <div class="modal-overlay" id="registerModal" role="dialog" aria-modal="true" aria-label="Cadastro">
@@ -664,65 +628,34 @@
     };
 
     const ALBUNS = [
-        {
-            foto: 'fotos/fotos-2k26.jpg',
-            frase: 'Pegue sua foto aqui - Edição 2K26',
-            link: 'https://drive.google.com/drive/folders/1tcMylsly8_tiRXLoLWnzadcJ9a_k8Nic'
-        }
+        { foto: 'fotos/fotos-2k25.jpg', titulo: 'Link de fotos', sub: 'Retiro TRF 2025', link: 'https://drive.google.com/drive/folders/12Kzpu3aSa7FZIAbi3-fAZG-xRf28zecY?usp=drive_link' },
+        { foto: 'fotos/fotos-2k26.jpg', titulo: 'Link de fotos', sub: 'Retiro TRF 2026', link: 'https://drive.google.com/drive/folders/1tcMylsly8_tiRXLoLWnzadcJ9a_k8Nic' },
+        { foto: 'fotos/pos-retiro-2026.jpg', titulo: 'Link de fotos', sub: 'Pós retiro 2026', link: 'https://drive.google.com/drive/folders/1v2ylaBb_FEX_ia2fq322FGYS0QydkeCK?usp=drive_link' }
     ];
 
-    const PHOTO_VERSION = 1;
+    const PHOTO_VERSION = 3;
     const PHOTOS = {
-        banner:          { src: 'fotos/banner.png',           fallbacks: ['fotos/banner.jpg', 'banner.jpg', 'banner.png'], size: '1920x1080', alt: 'Banner TRF 2027', label: 'Banner principal' },
-        localHome:       { src: 'fotos/local-home.jpg',       size: '1200x900',  alt: 'Novo local do TRF 2027',    label: 'Novo local (parte de fora)' },
-        quem1:           { src: 'fotos/quem-1.jpg',           size: '800x800',   alt: 'Momento TRF',               label: 'Quem Somos 1 — Momento TRF' },
-        quem2:           { src: 'fotos/quem-2.jpg',           size: '800x800',   alt: 'Adoração 2025',             label: 'Quem Somos 2 — Adoração 2025' },
-        quem3:           { src: 'fotos/quem-3.jpg',           size: '800x800',   alt: 'Comunhão',                  label: 'Quem Somos 3 — Comunhão' },
-        quem4:           { src: 'fotos/quem-4.jpg',           size: '800x800',   alt: 'Palavra Viva',              label: 'Quem Somos 4 — Palavra Viva' },
-        local2027:       { src: 'fotos/local-2027.jpg',       size: '1500x1000', alt: 'Visão geral do local 2027', label: 'Local 2027 (parte de fora)' },
-        experiencia:     { src: 'fotos/experiencia.jpg',      size: '1600x700',  alt: 'Propósito e Fé',            label: 'Destaque da Experiência' },
-        adoracao:        { src: 'fotos/adoracao.jpg',         size: '1200x900',  alt: 'Adoração',                  label: 'Galeria — Adoração' },
-        palavra:         { src: 'fotos/palavra.jpg',          size: '1200x900',  alt: 'Palavra Viva',              label: 'Galeria — Palavra Viva' },
-        comunhao:        { src: 'fotos/comunhao.jpg',         size: '1200x900',  alt: 'Comunhão',                  label: 'Galeria — Comunhão' },
-        transformados:   { src: 'fotos/transformados.jpg',    size: '1200x900',  alt: 'Transformados',             label: 'Galeria — Transformados' }
+        localHome:     { src: 'fotos/local-home.jpg',   size: '1200x800', alt: 'Novo local do TRF 2027', label: 'Novo local' },
+        quem1:         { src: 'fotos/quem-1.jpg',       size: '1600x800', alt: 'Retiro Transformados',   label: 'Quem Somos (larga)' },
+        quem2:         { src: 'fotos/quem-2.jpg',       size: '800x800',  alt: 'Adoração',               label: 'Quem Somos 2' },
+        quem3:         { src: 'fotos/quem-3.jpg',       size: '800x800',  alt: 'Comunhão',               label: 'Quem Somos 3' },
+        adoracao:      { src: 'fotos/adoracao.jpg',     size: '900x1200', alt: 'Adoração',               label: 'Adoração' },
+        palavra:       { src: 'fotos/palavra.jpg',      size: '900x1200', alt: 'Palavra viva',           label: 'Palavra viva' },
+        comunhao:      { src: 'fotos/comunhao.jpg',     size: '900x1200', alt: 'Comunhão',               label: 'Comunhão' },
+        transformados: { src: 'fotos/transformados.jpg',size: '900x1200', alt: 'Transformação',          label: 'Transformação' }
     };
 
+    const P = (name, title, price, file) => ({ name, title, price, photo: 'fotos/produtos/' + file, payLink: '' });
     const PRODUCTS = [
-        {
-            name: 'Garrafa Térmica Oficial TRF',
-            title: 'Garrafa Térmica Oficial TRF',
-            price: 55.00,
-            photo: 'fotos/produtos/garrafa-trf.jpg',
-            options: [
-                { key: 'preta',     label: 'Preta',      hex: '#1C1C1C', payLink: '' },
-                { key: 'branca',    label: 'Branca',     hex: '#FFFFFF', payLink: '' },
-                { key: 'azul-bebe', label: 'Azul bebê',  hex: '#A9D6F5', payLink: '' },
-                { key: 'azul',      label: 'Azul',       hex: '#1E5FBF', payLink: '' }
-            ]
-        },
-        {
-            name: 'Camisa Premium Oversize',
-            title: 'Camisa Premium Oversize',
-            price: 65.00,
-            photo: 'fotos/produtos/camisa-premium-oversize.jpg'
-        },
-        {
-            name: 'Camisa Normal',
-            title: 'Camisa Normal',
-            price: 50.00,
-            options: [
-                { key: 'off-white', label: 'Off White',  hex: '#FDFBF7', photo: 'fotos/produtos/camisa-normal-branca.jpg', payLink: '' },
-                { key: 'bordo',     label: 'Bordô',      hex: '#6B1D2F', photo: 'fotos/produtos/camisa-normal-vinho.jpg',  payLink: '' }
-            ]
-        },
-        {
-            name: 'Boné TRF', title: 'Boné TRF', price: 45.00,
-            photo: 'fotos/produtos/bone-trf.jpg', payLink: ''
-        },
-        {
-            name: 'Ecobag TRF', title: 'Ecobag TRF', price: 40.00,
-            photo: 'fotos/produtos/ecobag-trf.jpg', payLink: ''
-        }
+        P('Camisa Básica Bordô',        'Camisa Básica | Bordô',            50, 'camisa-basica-bordo.jpg'),
+        P('Camisa Básica Off White',    'Camisa Básica | Off White',        50, 'camisa-basica-offwhite.jpg'),
+        P('Camisa Premium Oversized',   'Camisa Premium Oversized | Preta', 65, 'camisa-premium-preta.jpg'),
+        P('Moletom Preto com Capuz',    'Moletom Preto com Capuz',         110, 'moletom-preto.jpg'),
+        P('Moletom Cinza com Bordado',  'Moletom Cinza com Bordado',        95, 'moletom-cinza.jpg'),
+        P('Moletom Azul Marinho',       'Moletom Azul Marinho',             95, 'moletom-azul.jpg'),
+        P('Garrafa Térmica TRF',        'Garrafa Térmica | TRF',            55, 'garrafa-trf.jpg'),
+        P('Ecobag TRF',                 'Ecobag TRF',                       40, 'ecobag-trf.jpg'),
+        P('Boné Bordado TRF',           'Boné Bordado',                     45, 'bone-trf.jpg')
     ];
 
     const CATALOG = new Map();
@@ -792,21 +725,10 @@
         });
     }
 
-    // ====== ABRIR LINK EXTERNO (UMA ÚNICA ABA) ======
-    // CORREÇÃO: antes usava window.open(..., 'noopener'), que SEMPRE retorna null.
-    // Aí o código achava que o popup tinha sido bloqueado e abria o link de novo
-    // na aba atual -> duas abas. Agora só navega na mesma aba se o popup for
-    // realmente bloqueado.
-    function openExternal(url) {
-        const w = window.open(url, '_blank');
-        if (w) {
-            try { w.opener = null; } catch (e) {}
-        } else {
-            window.location.href = url;
-        }
+    function openPayment(url) {
+        const w = window.open(url, '_blank', 'noopener');
+        if (!w) window.location.href = url;
     }
-
-    function openPayment(url) { openExternal(url); }
 
     const MAX_QTY = 99;
     function clampQty(v) {
@@ -845,11 +767,8 @@
             'auth/invalid-email': 'E-mail inválido.',
             'auth/weak-password': 'A senha precisa ter pelo menos 6 caracteres.',
             'auth/invalid-credential': 'E-mail ou senha incorretos!',
-            'auth/invalid-login-credentials': 'E-mail ou senha incorretos!',
             'auth/wrong-password': 'E-mail ou senha incorretos!',
-            'auth/user-not-found': 'E-mail ou senha incorretos!',
-            'auth/too-many-requests': 'Muitas tentativas. Aguarde um pouco e tente novamente.',
-            'auth/network-request-failed': 'Sem conexão. Verifique sua internet.'
+            'auth/user-not-found': 'E-mail ou senha incorretos!'
         };
         return map[err && err.code] || 'Algo deu errado. Tente novamente.';
     }
@@ -879,47 +798,14 @@
     window.addEventListener('DOMContentLoaded', () => {
         hydratePhotos();
         renderLocal();
+        startCountdown();
         renderFotos();
         renderProducts();
         updateAuthUI();
         updateCartUI();
-        startCountdown();
         const initial = location.hash.replace('#', '');
-        if (['home', 'sobre', 'experiencia', 'fotos', 'loja'].includes(initial)) {
-            showPage(initial, false);
-        }
+        if (['home', 'sobre', 'testemunhos', 'fotos', 'loja'].includes(initial)) showPage(initial, false);
     });
-
-    // ====== CONTAGEM REGRESSIVA PARA 05/02/2027 ======
-    function startCountdown() {
-        const targetDate = new Date('2027-02-05T00:00:00').getTime();
-        let timer = null;
-
-        function update() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance < 0) {
-                document.getElementById('countdownMessage').textContent = 'O Retiro Transformados 2027 começou!';
-                if (timer) clearInterval(timer);
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
-            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('cd-mins').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('cd-secs').textContent = String(seconds).padStart(2, '0');
-            document.getElementById('countdownMessage').textContent = `Faltam ${days} ${days === 1 ? 'dia' : 'dias'} para o Retiro Transformados 2027`;
-        }
-
-        update();
-        timer = setInterval(update, 1000);
-    }
 
     window.addEventListener('click', (e) => {
         const dropdown = document.getElementById('userDropdownMenu');
@@ -932,17 +818,22 @@
         if (e.key === 'Escape') {
             pendingAction = null;
             document.querySelectorAll('.modal-overlay').forEach(m => { m.style.display = 'none'; });
+            closeMenu();
         }
     });
 
-    function setActiveAppTab(tabId) {
-        document.querySelectorAll('.app-bar-item').forEach(item => item.classList.remove('active'));
-        const activeTab = document.getElementById('app-nav-' + tabId);
-        if (activeTab) activeTab.classList.add('active');
-
-        document.querySelectorAll('nav ul li a').forEach(link => link.classList.remove('active'));
-        const desktopLink = document.getElementById('nav-' + tabId);
-        if (desktopLink) desktopLink.classList.add('active');
+    const EVENT_DATE = new Date('2027-02-05T00:00:00-03:00');
+    function startCountdown() {
+        const ids = ['cdD', 'cdH', 'cdM', 'cdS'];
+        const els = ids.map(id => document.getElementById(id));
+        const pad = n => String(n).padStart(2, '0');
+        const tick = () => {
+            let s = Math.max(0, Math.floor((EVENT_DATE - Date.now()) / 1000));
+            const v = [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60];
+            els.forEach((el, i) => { if (el) el.textContent = pad(v[i]); });
+        };
+        tick();
+        setInterval(tick, 1000);
     }
 
     function renderLocal() {
@@ -967,7 +858,6 @@
         ALBUNS.forEach(a => {
             const link = (a.link || '').trim();
             const ok = link.startsWith('https://');
-
             const card = document.createElement('a');
             card.className = 'album-card';
             card.href = ok ? link : '#';
@@ -975,15 +865,17 @@
             else card.addEventListener('click', ev => { ev.preventDefault(); showToast('O link das fotos ainda não foi liberado.'); });
 
             const photo = document.createElement('div');
-            buildPhoto(photo, { src: a.foto, alt: a.frase, label: 'Foto de capa', size: '1200x900' }, {});
+            buildPhoto(photo, { src: a.foto, alt: a.sub, label: a.sub, size: '1200x580' }, {});
 
             const legenda = document.createElement('div');
-            legenda.className = 'album-legenda';
-            const texto = document.createElement('span');
-            texto.textContent = a.frase;
-            const icone = document.createElement('i');
-            icone.className = 'fa-solid fa-arrow-up-right-from-square';
-            legenda.append(texto, icone);
+            legenda.className = 'legenda';
+            const txt = document.createElement('div');
+            const b = document.createElement('b'); b.textContent = a.titulo;
+            const sm = document.createElement('small'); sm.textContent = a.sub;
+            txt.append(b, sm);
+            const icone = document.createElement('span');
+            icone.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>';
+            legenda.append(txt, icone);
 
             card.append(photo, legenda);
             grid.appendChild(card);
@@ -1024,15 +916,15 @@
             const colorName = card.querySelector('.color-label b');
             const swatches = card.querySelector('.swatches');
 
-            card.querySelector('h3').textContent = p.title;
-            card.querySelector('.product-price').textContent = formatBRL(p.price);
+            { const h = card.querySelector('h3'); const parts = p.title.split(' | '); const st = document.createElement('strong'); st.textContent = parts[0]; h.appendChild(st); if (parts.length > 1) h.appendChild(document.createTextNode(' | ' + parts.slice(1).join(' | '))); }
+            card.querySelector('.product-price').textContent = formatBRL(p.price).replace(/\s/g, '');
 
             function showPhoto(src, label) {
                 buildPhoto(photoEl, { src: src, alt: label, label: 'Produto: ' + label, size: '1000x1000' }, { eager: true });
             }
 
             if (hasOptions) {
-                colorRow.style.display = 'block';
+                colorRow.style.display = 'block'; // Só exibe se houver opções de cores (remove o espaço do boné/ecobag)
                 const btns = [];
                 let currentSrc = '';
                 const select = (o) => {
@@ -1086,14 +978,29 @@
         const page = document.getElementById('page-' + pageId);
         if (!page) return;
         document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
+        document.querySelectorAll('nav ul li a').forEach(link => link.classList.remove('active'));
         page.classList.add('active-page');
+        const activeLink = document.getElementById('nav-' + pageId);
+        if (activeLink) activeLink.classList.add('active');
         try { history.replaceState(null, '', '#' + pageId); } catch (e) {}
-        setActiveAppTab(pageId);
+        closeMenu();
         if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    function setMenuState(open) {
+        const btn = document.getElementById('menuToggle');
+        document.getElementById('mainNav').classList.toggle('open', open);
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+        btn.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    }
+    function toggleMenu() { setMenuState(!document.getElementById('mainNav').classList.contains('open')); }
+    function closeMenu() { setMenuState(false); }
+
     function openModal(modalId) {
         document.getElementById(modalId).style.display = 'flex';
+        closeMenu();
     }
     function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
     function dismissModal(modalId) {
@@ -1122,24 +1029,17 @@
     function switchForgotToLogin() { closeModal('forgotModal'); openModal('loginModal'); }
 
     function openWhatsApp(message) {
-        openExternal(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`);
+        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+        const w = window.open(url, '_blank', 'noopener');
+        if (!w) window.location.href = url;
     }
 
-    let isOpeningWhatsApp = false;
-
     function openWhatsAppInfo() {
-        if (isOpeningWhatsApp) return;
-
-        // Se o usuário não estiver logado, abre o login (e continua o WhatsApp depois do login)
-        if (!currentUser) {
-            requireAuth(openWhatsAppInfo);
-            showCustomAlert('Acesso Restrito', 'Você precisa fazer login ou se cadastrar para entrar em contato pelo WhatsApp.');
-            return;
-        }
-
-        isOpeningWhatsApp = true;
-        openWhatsApp(`Olá, me chamo ${currentUser} e gostaria de saber mais informações sobre o retiro TRF 2027.`);
-        setTimeout(() => { isOpeningWhatsApp = false; }, 1500);
+        const msg = currentUser
+            ? `Olá, me chamo ${currentUser} e gostaria de saber mais informações sobre o TRF 2027.`
+            : 'Olá, gostaria de saber mais informações sobre o TRF 2027.';
+        openWhatsApp(msg);
+        closeMenu();
     }
 
     async function handleRegister(e) {
@@ -1305,7 +1205,8 @@
 
     function updateCartUI() {
         const totalQty = cart.reduce((s, i) => s + i.qty, 0);
-        document.getElementById('cartCountMobile').textContent = totalQty;
+        document.getElementById('cartCount').textContent = totalQty;
+        document.getElementById('cartCountMenu').textContent = totalQty;
         const container = document.getElementById('cartItemsContainer');
         container.innerHTML = '';
 
@@ -1401,6 +1302,7 @@
     let deferredInstall = null;
     function setInstallVisible(visible) {
         document.getElementById('installBtn').classList.toggle('show', visible);
+        document.getElementById('installItem').style.display = visible ? '' : 'none';
     }
 
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -1421,6 +1323,7 @@
         try { await deferredInstall.userChoice; } catch (e) {}
         deferredInstall = null;
         setInstallVisible(false);
+        closeMenu();
     }
 </script>
 </body>

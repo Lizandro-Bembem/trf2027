@@ -1,4 +1,4 @@
-const CACHE_NAME = 'trf-cache-v10';
+const CACHE_NAME = 'trf-cache-v12';
 const PRECACHE = [
     './',
     './index.html',
